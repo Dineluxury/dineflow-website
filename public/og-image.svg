@@ -1,0 +1,20 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#0a0a0a"/>
+  <rect width="1200" height="630" fill="url(#grad)"/>
+  <defs>
+    <radialGradient id="grad" cx="30%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#f97316" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#0a0a0a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect x="80" y="100" width="80" height="80" rx="20" fill="#f97316"/>
+  <text x="120" y="160" font-family="Arial Black" font-size="56" font-weight="900" fill="white" text-anchor="middle">D</text>
+  <text x="200" y="165" font-family="Arial Black" font-size="52" font-weight="900" fill="white">ineflow</text>
+  <text x="80" y="280" font-family="Arial" font-size="52" font-weight="900" fill="white">Order food before</text>
+  <text x="80" y="350" font-family="Arial" font-size="52" font-weight="900" fill="white">you arrive.</text>
+  <text x="80" y="440" font-family="Arial" font-size="28" fill="#9ca3af">Ethiopia's smartest food ordering platform</text>
+  <text x="80" y="490" font-family="Arial" font-size="24" fill="#6b7280">Telebirr · CBE Birr · Bank Cards · Amole</text>
+  <rect x="80" y="540" width="200" height="50" rx="12" fill="#f97316"/>
+  <text x="180" y="572" font-family="Arial" font-size="20" font-weight="700" fill="white" text-anchor="middle">Get the App</text>
+  <text x="1120" y="590" font-family="Arial" font-size="18" fill="#374151" text-anchor="end">🇪🇹 Built in Ethiopia</text>
+</svg>
