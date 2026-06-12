@@ -8,19 +8,37 @@ export default function DashboardLayout({ children, type, activeTab, setActiveTa
   const [code, setCode] = useState('')
 
   useEffect(() => {
-    const token = localStorage.getItem('partner_token')
-    if (!token) { window.location.href = '/partners/login'; return }
-    setName(localStorage.getItem('partner_name') || '')
-    setStatus(localStorage.getItem('partner_status') || '')
-    setCode(localStorage.getItem('partner_code') || '')
+    let active = true
+
+    const loadProfile = async () => {
+      try {
+        const res = await fetch('/api/partners/me')
+
+        if (res.status === 401 || res.status === 403) {
+          window.location.href = '/partners/login'
+          return
+        }
+
+        const data = await res.json()
+        if (!active) return
+
+        setName(data.name || '')
+        setStatus(data.status || '')
+        setCode(data.uniqueCode || '')
+      } catch {
+        window.location.href = '/partners/login'
+      }
+    }
+
+    loadProfile()
+
+    return () => {
+      active = false
+    }
   }, [])
 
-  const logout = () => {
-    localStorage.removeItem('partner_token')
-    localStorage.removeItem('partner_type')
-    localStorage.removeItem('partner_name')
-    localStorage.removeItem('partner_status')
-    localStorage.removeItem('partner_code')
+  const logout = async () => {
+    await fetch('/api/partners/logout', { method: 'POST' })
     window.location.href = '/partners/login'
   }
 

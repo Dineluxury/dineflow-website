@@ -12,24 +12,45 @@ const steps = [
 const platforms = ['TikTok', 'YouTube', 'Instagram', 'Telegram Channel', 'Facebook', 'Other']
 
 export default function CreatorSection() {
-  const [form, setForm] = useState({ name: '', email: '', phone: '', platform: '', handle: '', followers: '', niche: '' })
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    password: '',
+    confirmPassword: '',
+    platform: '',
+    handle: '',
+    followers: '',
+    niche: '',
+  })
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e) => {
   e.preventDefault()
+
+  if (form.password.length < 8) {
+    alert('Password must be at least 8 characters long.')
+    return
+  }
+
+  if (form.password !== form.confirmPassword) {
+    alert('Password and confirm password do not match.')
+    return
+  }
+
   setLoading(true)
 
   try {
     const res = await fetch(
-      'https://backend-production-aa34.up.railway.app/api/partners/register',
+      '/api/partners/register',
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: form.name,
           email: form.email,
-          password: form.phone,
+          password: form.password,
           phone: form.phone,
           type: 'creator',
           platform: form.platform,
@@ -180,12 +201,15 @@ export default function CreatorSection() {
                       { key: 'name', label: 'Full Name', placeholder: 'Mekdes Haile', type: 'text' },
                       { key: 'email', label: 'Email Address', placeholder: 'you@email.com', type: 'email' },
                       { key: 'phone', label: 'Phone Number', placeholder: '0911 234 567', type: 'tel' },
+                      { key: 'password', label: 'Password', placeholder: 'At least 8 characters', type: 'password' },
+                      { key: 'confirmPassword', label: 'Confirm Password', placeholder: 'Repeat your password', type: 'password' },
                       { key: 'handle', label: 'Social Media Handle', placeholder: '@foodie_ethiopia', type: 'text' },
                     ].map(f => (
                       <div key={f.key}>
                         <label style={{ color: '#6b7280', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', display: 'block', marginBottom: '8px' }}>{f.label}</label>
                         <input
                           type={f.type} required
+                          minLength={f.key.includes('password') ? 8 : undefined}
                           value={form[f.key]}
                           onChange={e => setForm({ ...form, [f.key]: e.target.value })}
                           placeholder={f.placeholder}

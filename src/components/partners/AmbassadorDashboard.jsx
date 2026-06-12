@@ -2,8 +2,6 @@
 import { useState, useEffect } from 'react'
 import DashboardLayout from './DashboardLayout'
 
-const API = 'https://backend-production-aa34.up.railway.app/api'
-
 const tabs = [
   { id: 'overview', emoji: '📊', label: 'Overview' },
   { id: 'referrals', emoji: '🏪', label: 'My Referrals' },
@@ -20,15 +18,10 @@ export default function AmbassadorDashboard() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const token = localStorage.getItem('partner_token')
-    if (!token) return
-
-    const headers = { Authorization: `Bearer ${token}` }
-
     Promise.all([
-      fetch(`${API}/partners/me`, { headers }).then(r => r.json()),
-      fetch(`${API}/partners/ambassador/referrals`, { headers }).then(r => r.json()),
-      fetch(`${API}/partners/earnings`, { headers }).then(r => r.json()),
+      fetch('/api/partners/me').then(r => r.json()),
+      fetch('/api/partners/ambassador/referrals').then(r => r.json()),
+      fetch('/api/partners/earnings').then(r => r.json()),
     ]).then(([prof, refs, earn]) => {
       setProfile(prof)
       setReferrals(Array.isArray(refs) ? refs : [])

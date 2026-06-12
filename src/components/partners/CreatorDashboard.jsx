@@ -2,8 +2,6 @@
 import { useState, useEffect } from 'react'
 import DashboardLayout from './DashboardLayout'
 
-const API = 'https://backend-production-aa34.up.railway.app/api'
-
 const tabs = [
   { id: 'overview', emoji: '📊', label: 'Overview' },
   { id: 'links', emoji: '🔗', label: 'My Links' },
@@ -20,15 +18,10 @@ export default function CreatorDashboard() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const token = localStorage.getItem('partner_token')
-    if (!token) return
-
-    const headers = { Authorization: `Bearer ${token}` }
-
     Promise.all([
-      fetch(`${API}/partners/me`, { headers }).then(r => r.json()),
-      fetch(`${API}/partners/creator/links`, { headers }).then(r => r.json()),
-      fetch(`${API}/partners/earnings`, { headers }).then(r => r.json()),
+      fetch('/api/partners/me').then(r => r.json()),
+      fetch('/api/partners/creator/links').then(r => r.json()),
+      fetch('/api/partners/earnings').then(r => r.json()),
     ]).then(([prof, lnks, earn]) => {
       setProfile(prof)
       setLinks(Array.isArray(lnks) ? lnks : [])
@@ -38,8 +31,7 @@ export default function CreatorDashboard() {
   }, [])
 
   const refreshLinks = async () => {
-    const token = localStorage.getItem('partner_token')
-    const res = await fetch(`${API}/partners/creator/links`, { headers: { Authorization: `Bearer ${token}` } })
+    const res = await fetch('/api/partners/creator/links')
     const data = await res.json()
     setLinks(Array.isArray(data) ? data : [])
   }
@@ -221,7 +213,7 @@ function GenerateLink({ profile, onGenerated }) {
   const [result, setResult] = useState(null)
   const [error, setError] = useState('')
 
-  const isApproved = localStorage.getItem('partner_status') === 'approved'
+  const isApproved = profile?.status === 'approved'
 
   const handleGenerate = async () => {
     if (!menuItemId.trim()) { setError('Please enter a Menu Item ID'); return }
@@ -230,10 +222,9 @@ function GenerateLink({ profile, onGenerated }) {
     setResult(null)
 
     try {
-      const token = localStorage.getItem('partner_token')
-      const res = await fetch(`${API}/partners/creator/links`, {
+      const res = await fetch('/api/partners/creator/links', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ menuItemId }),
       })
       const data = await res.json()

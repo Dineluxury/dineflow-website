@@ -83,23 +83,24 @@ export default function AmbassadorSection() {
     setLoading(true)
 
     try {
-      const res = await fetch(
-        'https://backend-production-aa34.up.railway.app/api/partners/register',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name: form.name,
-            email: form.email,
-            password: form.password,
-            phone: form.phone,
-            type: 'ambassador',
-            university: selectedUniversity?.name || form.universityCode,
-            universityCode: selectedUniversity?.code || form.universityCode,
-            studentIdUrl: form.idCard ? form.idCard.name : null,
-          }),
-        }
-      )
+      const payload = new FormData()
+      payload.append('name', form.name)
+      payload.append('email', form.email)
+      payload.append('password', form.password)
+      payload.append('phone', form.phone)
+      payload.append('type', 'ambassador')
+      payload.append('university', selectedUniversity?.name || form.universityCode)
+      payload.append('universityCode', selectedUniversity?.code || form.universityCode)
+
+      if (form.idCard) {
+        payload.append('studentIdFile', form.idCard)
+        payload.append('studentIdFileName', form.idCard.name)
+      }
+
+      const res = await fetch('/api/partners/register', {
+        method: 'POST',
+        body: payload,
+      })
 
       const data = await res.json()
       if (!res.ok) {

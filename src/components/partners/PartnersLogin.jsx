@@ -2,8 +2,6 @@
 import { useState } from 'react'
 import Link from 'next/link'
 
-const API = 'https://backend-production-aa34.up.railway.app/api'
-
 export default function PartnersLogin() {
   const [form, setForm] = useState({ email: '', password: '' })
   const [loading, setLoading] = useState(false)
@@ -15,7 +13,7 @@ export default function PartnersLogin() {
     setError('')
 
     try {
-      const res = await fetch(`${API}/partners/login`, {
+      const res = await fetch('/api/partners/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
@@ -27,12 +25,6 @@ export default function PartnersLogin() {
         setError(data.error || 'Invalid email or password')
         return
       }
-
-      localStorage.setItem('partner_token', data.token)
-      localStorage.setItem('partner_type', data.type)
-      localStorage.setItem('partner_name', data.name)
-      localStorage.setItem('partner_status', data.status)
-      localStorage.setItem('partner_code', data.uniqueCode || '')
 
       // Redirect based on type
       if (data.type === 'creator') {
