@@ -3,8 +3,8 @@
 const stats = [
   'Free to Download',
   '4.9 App Rating',
-  '40+ Venues on Waitlist',
-  '129+ Users on Waitlist',
+  '40 Venues on Waitlist',
+  '130 Users on Waitlist',
   'Chapa Payments',
   'Real-time Order Tracking',
   'Built in Ethiopia',

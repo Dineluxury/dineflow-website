@@ -21,7 +21,7 @@ const EMAILJS_SERVICE_ID = 'service_paczsiv'
 const EMAILJS_TEMPLATE_ID = 'template_5ybzx4q'
 const EMAILJS_PUBLIC_KEY = 'AEb0huD-y3PKEsQd0'
 const SUPPORT_EMAIL = 'support@dineflow.et'
-const WAITLIST_DEFAULTS = { venues: 40, users: 129 }
+const WAITLIST_DEFAULTS = { venues: 40, users: 130 }
 
 const audienceOptions = [
   {
@@ -187,14 +187,14 @@ export default function WaitlistPage() {
   const updateForm = (key, value) => setForm((current) => ({ ...current, [key]: value }))
 
   useEffect(() => {
-    const venues = Number(window.localStorage.getItem('dineflowWaitlistVenues')) || WAITLIST_DEFAULTS.venues
-    const users = Number(window.localStorage.getItem('dineflowWaitlistUsers')) || WAITLIST_DEFAULTS.users
+    const venues = Math.max(Number(window.localStorage.getItem('dineflowWaitlistVenues')) || WAITLIST_DEFAULTS.venues, WAITLIST_DEFAULTS.venues)
+    const users = Math.max(Number(window.localStorage.getItem('dineflowWaitlistUsers')) || WAITLIST_DEFAULTS.users, WAITLIST_DEFAULTS.users)
     setWaitlistStats({ venues, users })
   }, [])
 
   const syncWaitlistStats = (nextAudience = null) => {
-    const currentVenues = Number(window.localStorage.getItem('dineflowWaitlistVenues')) || WAITLIST_DEFAULTS.venues
-    const currentUsers = Number(window.localStorage.getItem('dineflowWaitlistUsers')) || WAITLIST_DEFAULTS.users
+    const currentVenues = Math.max(Number(window.localStorage.getItem('dineflowWaitlistVenues')) || WAITLIST_DEFAULTS.venues, WAITLIST_DEFAULTS.venues)
+    const currentUsers = Math.max(Number(window.localStorage.getItem('dineflowWaitlistUsers')) || WAITLIST_DEFAULTS.users, WAITLIST_DEFAULTS.users)
     const nextStats = {
       venues: nextAudience === 'Venue Waitlist' ? currentVenues + 1 : currentVenues,
       users: nextAudience === 'Customer Waitlist' ? currentUsers + 1 : currentUsers,
@@ -286,11 +286,11 @@ export default function WaitlistPage() {
 
             <div className="waitlistNumberStrip">
               <div>
-                <strong>{waitlistStats.venues}+</strong>
+                <strong>{waitlistStats.venues}</strong>
                 <span>restaurants, hotels & cafes waiting</span>
               </div>
               <div>
-                <strong>{waitlistStats.users}+</strong>
+                <strong>{waitlistStats.users}</strong>
                 <span>users on the waitlist</span>
               </div>
             </div>

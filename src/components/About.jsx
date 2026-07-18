@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import { Store, SmilePlus, Star, Timer, Zap, Handshake, Globe, Lock } from 'lucide-react'
 
-const WAITLIST_DEFAULTS = { venues: 40, users: 129 }
+const WAITLIST_DEFAULTS = { venues: 40, users: 130 }
 
 const values = [
   { icon: Zap, title: 'Built for Speed', desc: 'From order to table in minutes. No phone calls, no waiting, no stress.' },
@@ -16,8 +16,8 @@ export default function About() {
 
   useEffect(() => {
     const readStats = () => {
-      const venues = Number(window.localStorage.getItem('dineflowWaitlistVenues')) || WAITLIST_DEFAULTS.venues
-      const users = Number(window.localStorage.getItem('dineflowWaitlistUsers')) || WAITLIST_DEFAULTS.users
+      const venues = Math.max(Number(window.localStorage.getItem('dineflowWaitlistVenues')) || WAITLIST_DEFAULTS.venues, WAITLIST_DEFAULTS.venues)
+      const users = Math.max(Number(window.localStorage.getItem('dineflowWaitlistUsers')) || WAITLIST_DEFAULTS.users, WAITLIST_DEFAULTS.users)
       setWaitlistStats({ venues, users })
     }
 
@@ -31,8 +31,8 @@ export default function About() {
   }, [])
 
   const stats = [
-    { value: `${waitlistStats.venues}+`, label: 'Restaurants, Hotels & Cafes Waiting', icon: Store },
-    { value: `${waitlistStats.users}+`, label: 'Users on the Waitlist', icon: SmilePlus },
+    { value: `${waitlistStats.venues}`, label: 'Restaurants, Hotels & Cafes Waiting', icon: Store },
+    { value: `${waitlistStats.users}`, label: 'Users on the Waitlist', icon: SmilePlus },
     { value: '4.9', label: 'Preview Tester Rating', icon: Star },
     { value: '15min', label: 'Avg Wait Saved', icon: Timer },
   ]
