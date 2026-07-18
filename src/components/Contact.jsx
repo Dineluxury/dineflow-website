@@ -7,14 +7,14 @@ const EMAILJS_TEMPLATE_ID = 'template_5ybzx4q'
 const EMAILJS_PUBLIC_KEY = 'AEb0huD-y3PKEsQd0'
 
 const types = [
-  { id: 'Venue Partner', icon: Store, label: 'Venue Owner' },
+  { id: 'Restaurant Partner', icon: Store, label: 'Restaurant Owner' },
   { id: 'Customer', icon: User, label: 'Customer' },
   { id: 'Idea', icon: Lightbulb, label: 'Idea / Feedback' },
   { id: 'Investor', icon: TrendingUp, label: 'Investor' },
 ]
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', type: 'Venue Partner', message: '' })
+  const [form, setForm] = useState({ name: '', email: '', type: 'Restaurant Partner', message: '' })
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -29,12 +29,12 @@ export default function Contact() {
       await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
         from_name: form.name, from_email: form.email,
         type: form.type, message: form.message,
-        to_email: 'support@dineflow.et',
+        to_email: 'ahmedrediwan591@gmail.com',
       }, EMAILJS_PUBLIC_KEY)
-      setForm({ name: '', email: '', type: 'Venue Partner', message: '' })
+      setForm({ name: '', email: '', type: 'Restaurant Partner', message: '' })
       setSent(true)
     } catch (err) {
-      setError('Failed to send. Please email us directly at support@dineflow.et')
+      setError('Failed to send. Please email us directly at ahmedrediwan591@gmail.com')
     } finally {
       setLoading(false)
     }
@@ -68,7 +68,7 @@ export default function Contact() {
             <span style={{ backgroundImage: 'linear-gradient(135deg, #f97316, #ea6c0a)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>to say?</span>
           </h2>
           <p style={{ color: '#6B7280', fontSize: '15px', maxWidth: '440px', margin: '1.5rem auto 0', lineHeight: 1.7 }}>
-            Restaurant, hotel, cafe owner, food lover, or investor — we'd love to hear from you.
+            Restaurant owner, food lover, or investor — we'd love to hear from you.
           </p>
         </div>
 
@@ -79,7 +79,7 @@ export default function Contact() {
             </div>
             <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", color: '#111827', fontSize: '1.75rem', fontWeight: 800, marginBottom: '10px' }}>Message sent!</h3>
             <p style={{ color: '#6B7280', marginBottom: '8px', fontSize: '14px' }}>We'll reply within 24 hours.</p>
-            <p style={{ color: '#f97316', fontWeight: 600, fontSize: '13px', fontFamily: 'Geist Mono, monospace' }}>support@dineflow.et</p>
+            <p style={{ color: '#f97316', fontWeight: 600, fontSize: '13px', fontFamily: 'Geist Mono, monospace' }}>ahmedrediwan591@gmail.com</p>
             <button onClick={() => setSent(false)} style={{ marginTop: '2rem', padding: '10px 22px', border: '1.5px solid #E5E7EB', background: '#fff', color: '#374151', borderRadius: '10px', cursor: 'pointer', fontSize: '13px', fontFamily: 'inherit', fontWeight: 600, transition: 'all 0.2s' }}
               onMouseEnter={e => { e.currentTarget.style.borderColor = '#f97316'; e.currentTarget.style.color = '#f97316' }}
               onMouseLeave={e => { e.currentTarget.style.borderColor = '#E5E7EB'; e.currentTarget.style.color = '#374151' }}
@@ -137,8 +137,8 @@ export default function Contact() {
             </form>
 
             <div style={{ marginTop: '24px', paddingTop: '24px', borderTop: '1px solid #F0F0F0', display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap' }}>
-              <a href="mailto:support@dineflow.et" style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#6B7280', textDecoration: 'none', fontSize: '13px', fontWeight: 500, transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = '#f97316'} onMouseLeave={e => e.currentTarget.style.color = '#6B7280'}>
-                <Mail size={14} /> support@dineflow.et
+              <a href="mailto:ahmedrediwan591@gmail.com" style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#6B7280', textDecoration: 'none', fontSize: '13px', fontWeight: 500, transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = '#f97316'} onMouseLeave={e => e.currentTarget.style.color = '#6B7280'}>
+                <Mail size={14} /> ahmedrediwan591@gmail.com
               </a>
               <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#9CA3AF', fontSize: '13px' }}>
                 <MessageSquare size={14} /> We reply in 24h

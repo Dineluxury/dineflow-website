@@ -2,10 +2,10 @@
 import { Star } from 'lucide-react'
 
 const testimonials = [
-  { name: 'Bereket Tadesse', role: 'Pre-launch tester, Hawassa cafe owner', avatar: 'B', color: '#f97316', text: 'I tried the Dineflow preview before launch and immediately saw how much time it can save. Seeing orders come in clearly on screen feels exactly like what cafes and restaurants need.', rating: 5 },
-  { name: 'Selam Girma', role: 'Pre-launch app tester, Hawassa', avatar: 'S', color: '#22c55e', text: 'The app felt simple from the first tap. I picked food, chose my time, and tracked the order. I honestly cannot wait for Dineflow to launch so I can use it for real.', rating: 5 },
-  { name: 'Dawit Haile', role: 'Pre-launch tester, hotel manager', avatar: 'D', color: '#a855f7', text: 'The idea is perfect for hotels, cafes, and restaurants. Guests can order before they arrive, and the kitchen knows what to prepare. We are ready to join when it launches.', rating: 5 },
-  { name: 'Tigist Bekele', role: 'Pre-launch customer tester, Addis Ababa', avatar: 'T', color: '#3b82f6', text: 'I loved the order tracking and Chapa checkout flow. It makes dining feel modern and organized. I am waiting for launch day because this is something I would actually use.', rating: 5 },
+  { name: 'Bereket Tadesse', role: 'Owner, Taste of Hawassa', avatar: 'B', color: '#f97316', text: 'Before Dineflow we were taking orders by phone and writing them on paper. Now everything is on screen, orders come in automatically, and I can see my revenue every day. It changed how we run the restaurant completely.', rating: 5 },
+  { name: 'Selam Girma', role: 'Regular Customer, Hawassa', avatar: 'S', color: '#22c55e', text: 'I order from my favorite place every day before I leave work. When I arrive my food is already ready on the table. I never wait anymore. This app is the best thing that happened to lunchtime.', rating: 5 },
+  { name: 'Dawit Haile', role: 'Owner, Grill House Sidama', avatar: 'D', color: '#a855f7', text: 'The QR table system is amazing. Customers sit down, scan the code, and order from their phone. My waiters just bring the food. It is faster, cleaner, and customers love it.', rating: 5 },
+  { name: 'Tigist Bekele', role: 'Customer, Addis Ababa', avatar: 'T', color: '#3b82f6', text: 'The payment is so easy. I pay with Telebirr in two seconds. I can see exactly when my food is being prepared. It feels like the future of dining in Ethiopia.', rating: 5 },
 ]
 
 export default function Testimonials() {

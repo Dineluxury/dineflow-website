@@ -6,8 +6,8 @@ export const metadata = {
     default: 'Dineflow — Order food before you arrive. Your table is waiting.',
     template: '%s | Dineflow'
   },
-  description: "Ethiopia's smartest food ordering platform. Order ahead, pay with Chapa, track in real time. Built for restaurants, hotels, cafes, and food lovers across Ethiopia.",
-  keywords: ['food ordering Ethiopia', 'restaurant app Ethiopia', 'hotel food app Ethiopia', 'cafe app Ethiopia', 'Dineflow', 'Hawassa food', 'Addis Ababa restaurant', 'Chapa payment', 'order food online Ethiopia'],
+  description: "Ethiopia's smartest food ordering platform. Order ahead, pay with Telebirr, track in real time. Built for restaurants and food lovers across Ethiopia.",
+  keywords: ['food ordering Ethiopia', 'restaurant app Ethiopia', 'Dineflow', 'Hawassa food', 'Addis Ababa restaurant', 'Telebirr payment', 'order food online Ethiopia'],
   authors: [{ name: 'Dineflow', url: 'https://dineflow-website.vercel.app' }],
   creator: 'Dineflow',
   openGraph: {
@@ -16,7 +16,7 @@ export const metadata = {
     url: 'https://dineflow-website.vercel.app',
     siteName: 'Dineflow',
     title: 'Dineflow — Order food before you arrive.',
-    description: "Ethiopia's smartest food ordering platform. Browse restaurants, hotels, and cafes, order ahead, pay with Chapa.",
+    description: "Ethiopia's smartest food ordering platform. Browse restaurants, order ahead, pay with Telebirr.",
     images: [{
       url: '/og-image.png',
       width: 1200,

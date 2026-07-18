@@ -171,7 +171,7 @@ function FloatingButtons() {
     }}>
       {/* WhatsApp */}
       <a
-        href="https://wa.me/25191977974?text=Hi%2C%20I%27m%20interested%20in%20Dineflow"
+        href="https://wa.me/251911234567?text=Hi%2C%20I%27m%20interested%20in%20Dineflow"
         target="_blank"
         rel="noreferrer"
         title="Chat on WhatsApp"
