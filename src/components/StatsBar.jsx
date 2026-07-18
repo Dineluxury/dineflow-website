@@ -3,8 +3,9 @@
 const stats = [
   'Free to Download',
   '4.9 App Rating',
-  '50+ Restaurant Partners',
-  'Telebirr Payments',
+  '40 Venues on Waitlist',
+  '130 Users on Waitlist',
+  'Chapa Payments',
   'Real-time Order Tracking',
   'Built in Ethiopia',
   'Zero Wait Time',

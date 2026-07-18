@@ -4,10 +4,10 @@ import { Zap, MapPin, CreditCard, Bell, Star, Store, CalendarCheck, Gift } from 
 const features = [
   { icon: Zap, title: 'Zero Wait Time', desc: 'Walk in to food already on the table. Dineflow syncs your arrival with kitchen prep.', color: '#f97316' },
   { icon: MapPin, title: 'Real-time Tracking', desc: 'Live status updates from order confirmed → kitchen prep → ready to serve.', color: '#22c55e' },
-  { icon: CreditCard, title: 'Telebirr Native Pay', desc: 'Ethiopia\'s most trusted payment, built right in. Pay and confirm in one tap.', color: '#3b82f6' },
+  { icon: CreditCard, title: 'Chapa Payments', desc: 'Secure checkout through Chapa. Pay and confirm in one smooth flow.', color: '#3b82f6' },
   { icon: Bell, title: 'Smart Notifications', desc: 'Get pinged when your table is ready, when food is being prepared, and when it\'s done.', color: '#a855f7' },
-  { icon: Star, title: 'Review & Rating', desc: 'Rate your experience after every meal and help others discover the best restaurants.', color: '#f59e0b' },
-  { icon: Store, title: 'Restaurant Discovery', desc: 'Browse curated restaurants by cuisine, rating, or neighborhood across Ethiopia.', color: '#ef4444' },
+  { icon: Star, title: 'Review & Rating', desc: 'Rate your experience after every meal and help others discover the best restaurants, hotels, and cafes.', color: '#f59e0b' },
+  { icon: Store, title: 'Venue Discovery', desc: 'Browse curated restaurants, hotels, and cafes by cuisine, rating, or neighborhood across Ethiopia.', color: '#ef4444' },
   { icon: CalendarCheck, title: 'Table Reservations', desc: 'Reserve your table when you pre-order. Your spot is guaranteed, no calls needed.', color: '#14b8a6' },
   { icon: Gift, title: 'Rewards & Loyalty', desc: 'Earn points every time you order. Redeem for free meals and exclusive deals.', color: '#f97316' },
 ]
