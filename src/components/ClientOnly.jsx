@@ -1,6 +1,8 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
 
+import { MessageSquare, ArrowUp } from 'lucide-react'
+
 function PageLoader() {
   const [visible, setVisible] = useState(true)
   const [fading, setFading] = useState(false)
@@ -16,7 +18,7 @@ function PageLoader() {
   return (
     <div style={{
       position: 'fixed', inset: 0, zIndex: 9999,
-      background: '#0a0a0a',
+      background: '#FFFFFF',
       display: 'flex', flexDirection: 'column',
       alignItems: 'center', justifyContent: 'center',
       opacity: fading ? 0 : 1,
@@ -37,7 +39,7 @@ function PageLoader() {
           borderRadius: '18px',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           color: '#fff', fontWeight: 900, fontSize: '28px',
-          fontFamily: 'Syne, sans-serif',
+          fontFamily: "'Plus Jakarta Sans', sans-serif",
           boxShadow: '0 0 40px rgba(249,115,22,0.5)',
         }}>
           D
@@ -45,13 +47,13 @@ function PageLoader() {
       </div>
 
       <p style={{
-        fontFamily: 'Syne, sans-serif',
-        color: '#fff', fontWeight: 900,
+        fontFamily: "'Plus Jakarta Sans', sans-serif",
+        color: '#111827', fontWeight: 900,
         fontSize: '24px', marginBottom: '8px',
       }}>
         Dineflow
       </p>
-      <p style={{ color: '#6b7280', fontSize: '14px' }}>
+      <p style={{ color: '#6B7280', fontSize: '14px' }}>
         Order food before you arrive.
       </p>
 
@@ -178,7 +180,6 @@ function FloatingButtons() {
           background: '#25d366',
           borderRadius: '50%',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: '22px',
           boxShadow: '0 4px 20px rgba(37,211,102,0.3)',
           textDecoration: 'none',
           transition: 'all 0.2s ease',
@@ -186,7 +187,7 @@ function FloatingButtons() {
         onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.1)'; e.currentTarget.style.background = '#20ba5a' }}
         onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.background = '#25d366' }}
       >
-        💬
+        <MessageSquare size={22} color="#fff" />
       </a>
 
       {/* Back to top */}
@@ -195,19 +196,18 @@ function FloatingButtons() {
         title="Back to top"
         style={{
           width: '48px', height: '48px',
-          background: '#1a1a1a',
-          border: '1px solid rgba(255,255,255,0.1)',
+          background: '#ffffff',
+          border: '1px solid #E5E7EB',
           borderRadius: '50%',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: '18px', color: '#f97316',
           cursor: 'pointer',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
+          boxShadow: '0 4px 16px rgba(0,0,0,0.06)',
           transition: 'all 0.2s ease',
         }}
-        onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.1)'; e.currentTarget.style.borderColor = 'rgba(249,115,22,0.4)' }}
-        onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)' }}
+        onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.1)'; e.currentTarget.style.borderColor = '#f97316' }}
+        onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.borderColor = '#E5E7EB' }}
       >
-        ↑
+        <ArrowUp size={18} color="#f97316" />
       </button>
     </div>
   )

@@ -13,7 +13,7 @@ export const metadata = {
 
 export default function PartnersPage() {
   return (
-    <main style={{ background: '#0a0a0a', minHeight: '100vh', color: '#fff' }}>
+    <main style={{ background: '#0F0500', minHeight: '100vh', color: '#fff' }}>
       <PartnersHero />
       <PartnerChoices />
       <AmbassadorSection />

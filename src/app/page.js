@@ -13,7 +13,7 @@ import ClientOnly from '@/components/ClientOnly'
 
 export default function Home() {
   return (
-    <main className="bg-[#0a0a0a] min-h-screen">
+    <main className="bg-white min-h-screen">
       <ClientOnly />
       <Navbar />
       <Hero />

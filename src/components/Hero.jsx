@@ -1,348 +1,112 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+
+import { useEffect, useState } from 'react'
+import { Bell, CheckCircle2, ChefHat, CreditCard, Smartphone, Star, Utensils, Zap } from 'lucide-react'
+
+const trustItems = [
+  { icon: Smartphone, label: 'Android & iOS Soon' },
+  { icon: CreditCard, label: 'Chapa Pay' },
+  { icon: Zap, label: 'Real-time Track' },
+  { icon: Star, label: '4.9 Rating' },
+]
 
 export default function Hero() {
-  const canvasRef = useRef(null)
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    let animId
-    const particles = []
-
-    const resize = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
-    }
-    resize()
-    window.addEventListener('resize', resize)
-
-    for (let i = 0; i < 80; i++) {
-      particles.push({
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        r: Math.random() * 1.5 + 0.3,
-        dx: (Math.random() - 0.5) * 0.3,
-        dy: (Math.random() - 0.5) * 0.3,
-        o: Math.random() * 0.4 + 0.1,
-      })
-    }
-
-    let mx = window.innerWidth / 2
-    let my = window.innerHeight / 2
-    const onMouse = (e) => { mx = e.clientX; my = e.clientY }
-    window.addEventListener('mousemove', onMouse)
-
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-      const g1 = ctx.createRadialGradient(mx, my, 0, mx, my, 600)
-      g1.addColorStop(0, 'rgba(249,115,22,0.06)')
-      g1.addColorStop(1, 'transparent')
-      ctx.fillStyle = g1
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-      const g2 = ctx.createRadialGradient(
-        canvas.width * 0.15, canvas.height * 0.2, 0,
-        canvas.width * 0.15, canvas.height * 0.2, 500
-      )
-      g2.addColorStop(0, 'rgba(249,115,22,0.07)')
-      g2.addColorStop(1, 'transparent')
-      ctx.fillStyle = g2
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-      particles.forEach(p => {
-        ctx.beginPath()
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(249,115,22,${p.o})`
-        ctx.fill()
-        p.x += p.dx
-        p.y += p.dy
-        if (p.x < 0 || p.x > canvas.width) p.dx *= -1
-        if (p.y < 0 || p.y > canvas.height) p.dy *= -1
-      })
-
-      animId = requestAnimationFrame(draw)
-    }
-    draw()
-
-    return () => {
-      cancelAnimationFrame(animId)
-      window.removeEventListener('resize', resize)
-      window.removeEventListener('mousemove', onMouse)
-    }
   }, [])
 
   return (
-    <section
-      style={{
-        position: 'relative',
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflow: 'hidden',
-        background: '#0a0a0a',
-      }}
-    >
-      <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, zIndex: 0 }} />
+    <section className="homeHero">
+      <div className="homeHeroGrid" />
+      <div className={mounted ? 'homeGlow homeGlowOne pulseGlow' : 'homeGlow homeGlowOne'} />
+      <div className="homeGlow homeGlowTwo" />
 
-      {/* Grid */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          zIndex: 0,
-          backgroundImage:
-            'linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)',
-          backgroundSize: '80px 80px',
-        }}
-      />
-
-      {/* Vignette */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          zIndex: 0,
-          background: 'radial-gradient(ellipse at center, transparent 40%, #0a0a0a 100%)',
-        }}
-      />
-
-      <div
-        style={{
-          position: 'relative',
-          zIndex: 10,
-          maxWidth: '1280px',
-          margin: '0 auto',
-          padding: '7rem 1.5rem 5rem',
-          width: '100%',
-          opacity: mounted ? 1 : 0,
-          transform: mounted ? 'translateY(0)' : 'translateY(20px)',
-          transition: 'opacity 0.8s ease, transform 0.8s ease',
-        }}
-      >
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5rem', alignItems: 'center' }}>
-
-          {/* Left */}
-          <div>
-            {/* Badge */}
-            <div style={{
-              display: 'inline-flex', alignItems: 'center', gap: '10px',
-              padding: '8px 16px', borderRadius: '999px',
-              border: '1px solid rgba(249,115,22,0.3)',
-              background: 'rgba(249,115,22,0.08)',
-              marginBottom: '2.5rem',
-            }}>
-              <span style={{
-                width: '8px', height: '8px', borderRadius: '50%',
-                background: '#f97316', display: 'inline-block',
-                animation: 'ping-orange 2s ease-out infinite',
-              }} />
-              <span style={{ color: '#fb923c', fontSize: '0.875rem', fontWeight: 500 }}>
-                Now live in Ethiopia 🇪🇹
+      <div className="homeHeroInner">
+        <div className="hero-grid homeHeroGridLayout">
+          <div className="homeCopy">
+            <div className="homeLiveBadge">
+              <span className="liveDotWrap">
+                <span className="liveDot" />
+                <span className="livePing" />
               </span>
+              <span>Ethiopia's #1 Pre-Order Food App</span>
             </div>
 
-            {/* Headline */}
-            <h1 style={{
-              fontSize: 'clamp(3rem, 6vw, 5rem)',
-              fontWeight: 900,
-              lineHeight: 0.95,
-              marginBottom: '2rem',
-              fontFamily: 'Syne, sans-serif',
-              letterSpacing: '-0.02em',
-            }}>
-              <span style={{ display: 'block', color: '#fff' }}>Order</span>
-              <span style={{ display: 'block', color: '#fff' }}>food</span>
-              <span style={{
-                display: 'block',
-                background: 'linear-gradient(135deg, #f97316, #fb923c, #fbbf24)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}>
-                before you
-              </span>
-              <span style={{ display: 'block', color: '#fff' }}>arrive.</span>
+            <h1>
+              Order Food<br />
+              <span>Before</span>
+              <br />You Arrive.
             </h1>
 
-            <p style={{ color: '#9ca3af', fontSize: '1.1rem', marginBottom: '1rem', fontWeight: 500 }}>
-              Your table is waiting.
-            </p>
-            <p style={{ color: '#6b7280', lineHeight: 1.7, marginBottom: '3rem', maxWidth: '440px' }}>
-              Ethiopia's smartest food ordering platform. Browse, order, pay, and track — all before you walk through the door.
+            <p>
+              Skip the wait. Pre-order from your favorite restaurants, hotels, and cafes, pay with <strong>Chapa</strong>, and walk in to your meal already on the table.
             </p>
 
-            {/* CTAs */}
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '3.5rem' }}>
-              <a href="#customers" style={{
-                display: 'inline-flex', alignItems: 'center', gap: '8px',
-                padding: '1rem 2rem',
-                background: '#f97316',
-                color: '#fff',
-                fontWeight: 700,
-                borderRadius: '14px',
-                textDecoration: 'none',
-                fontSize: '1rem',
-                boxShadow: '0 8px 30px rgba(249,115,22,0.35)',
-                transition: 'all 0.2s ease',
-              }}>
-                Get the App →
-              </a>
-              <a href="#restaurants" style={{
-                display: 'inline-flex', alignItems: 'center', gap: '8px',
-                padding: '1rem 2rem',
-                border: '1px solid rgba(255,255,255,0.15)',
-                color: '#fff',
-                fontWeight: 600,
-                borderRadius: '14px',
-                textDecoration: 'none',
-                fontSize: '1rem',
-                transition: 'all 0.2s ease',
-              }}>
-                For Restaurants
-              </a>
+            <div className="homeCtas">
+              <a className="primaryCta" href="/waitlist">Join App Waitlist</a>
+              <a className="secondaryCta" href="#restaurants">For Restaurants, Hotels & Cafes -&gt;</a>
             </div>
 
-            {/* Stats */}
-            <div style={{
-              display: 'flex', gap: '2.5rem',
-              paddingTop: '2rem',
-              borderTop: '1px solid rgba(255,255,255,0.06)',
-            }}>
-              {[
-                { value: '500+', label: 'Restaurants' },
-                { value: '10K+', label: 'Users' },
-                { value: '4.9★', label: 'Rating' },
-                { value: '98%', label: 'Uptime' },
-              ].map(s => (
-                <div key={s.label} style={{ textAlign: 'center' }}>
-                  <div style={{ fontSize: '1.25rem', fontWeight: 900, color: '#f97316' }}>{s.value}</div>
-                  <div style={{ fontSize: '0.7rem', color: '#6b7280', marginTop: '2px' }}>{s.label}</div>
+            <div className="homeTrustItems">
+              {trustItems.map(({ icon: Icon, label }) => (
+                <div key={label}>
+                  <Icon size={14} color="#f97316" />
+                  <span>{label}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Right — Phone mockup */}
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <div style={{ position: 'relative' }}>
-              {/* Glow */}
-              <div style={{
-                position: 'absolute', inset: 0,
-                background: 'rgba(249,115,22,0.12)',
-                filter: 'blur(60px)',
-                borderRadius: '50%',
-                animation: 'float 5s ease-in-out infinite',
-              }} />
-
-              {/* Phone */}
-              <div
-                className="float"
-                style={{
-                  position: 'relative',
-                  width: '280px',
-                  height: '560px',
-                  background: 'linear-gradient(145deg, #1a1a1a, #111)',
-                  borderRadius: '48px',
-                  border: '2px solid rgba(255,255,255,0.1)',
-                  overflow: 'hidden',
-                  transform: 'perspective(1200px) rotateY(-10deg) rotateX(4deg)',
-                  boxShadow: '30px 30px 80px rgba(0,0,0,0.7), 0 0 60px rgba(249,115,22,0.1)',
-                }}
-              >
-                {/* Notch */}
-                <div style={{
-                  position: 'absolute', top: 0, left: '50%',
-                  transform: 'translateX(-50%)',
-                  width: '100px', height: '28px',
-                  background: '#000',
-                  borderBottomLeftRadius: '20px',
-                  borderBottomRightRadius: '20px',
-                  zIndex: 10,
-                }} />
-
-                {/* Status bar */}
-                <div style={{
-                  height: '48px', display: 'flex',
-                  alignItems: 'flex-end', justifyContent: 'space-between',
-                  padding: '0 1.5rem 8px',
-                }}>
-                  <span style={{ color: '#fff', fontSize: '11px', fontWeight: 600 }}>9:41</span>
-                  <span style={{ color: '#fff', fontSize: '11px' }}>● ● ●</span>
+          <div className="homePhoneColumn">
+            <div className={mounted ? 'homePhoneScene' : 'homePhoneScene pausedPhone'}>
+              <div className="homePhoneGlow" />
+              <div className="homePhoneFrame">
+                <div className="homePhoneNotch" />
+                <div className="homePhoneStatus">
+                  <span>9:41</span>
+                  <span className="homeStatusDots">...</span>
                 </div>
 
-                {/* App UI */}
-                <div style={{ padding: '0 16px', overflow: 'hidden' }}>
-                  {/* Header */}
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                <div className="homePhoneContent">
+                  <div className="homePhoneTopRow">
                     <div>
-                      <div style={{ color: '#6b7280', fontSize: '11px' }}>Good morning 👋</div>
-                      <div style={{ color: '#fff', fontWeight: 700, fontSize: '14px' }}>What are you craving?</div>
+                      <p>Good morning</p>
+                      <h3>What are you craving?</h3>
                     </div>
-                    <div style={{
-                      width: '36px', height: '36px', borderRadius: '50%',
-                      background: '#f97316', display: 'flex',
-                      alignItems: 'center', justifyContent: 'center',
-                      color: '#fff', fontWeight: 900, fontSize: '14px',
-                    }}>A</div>
+                    <div className="homeAvatarBubble">A</div>
                   </div>
 
-                  {/* Search */}
-                  <div style={{
-                    height: '38px', background: 'rgba(255,255,255,0.08)',
-                    borderRadius: '12px', display: 'flex', alignItems: 'center',
-                    padding: '0 12px', gap: '8px', marginBottom: '12px',
-                  }}>
-                    <span style={{ color: '#4b5563', fontSize: '13px' }}>🔍</span>
-                    <span style={{ color: '#4b5563', fontSize: '11px' }}>Search restaurants...</span>
+                  <div className="homeSearchBar">
+                    <Smartphone size={13} />
+                    <span>Search restaurants, hotels, cafes...</span>
                   </div>
 
-                  {/* Filters */}
-                  <div style={{ display: 'flex', gap: '8px', marginBottom: '14px', overflow: 'hidden' }}>
-                    {['All', 'Halal', 'Grill', 'Fast'].map((c, i) => (
-                      <div key={c} style={{
-                        padding: '5px 12px', borderRadius: '999px',
-                        background: i === 0 ? '#f97316' : 'rgba(255,255,255,0.08)',
-                        color: i === 0 ? '#fff' : '#9ca3af',
-                        fontSize: '10px', fontWeight: 600, flexShrink: 0,
-                      }}>{c}</div>
+                  <div className="homeChipRow">
+                    {['All', 'Halal', 'Grill', 'Fast'].map((item, index) => (
+                      <span className={index === 0 ? 'homeChip homeActiveChip' : 'homeChip'} key={item}>
+                        {item}
+                      </span>
                     ))}
                   </div>
 
-                  {/* Restaurant cards */}
                   {[
-                    { name: 'Injohi Restaurant', tag: 'Traditional', rating: '4.9', emoji: '🍲', dist: '0.3km' },
-                    { name: 'Grill House', tag: 'Grill • Meat', rating: '4.7', emoji: '🥩', dist: '0.8km' },
-                  ].map(r => (
-                    <div key={r.name} style={{
-                      background: 'rgba(255,255,255,0.05)',
-                      borderRadius: '16px', overflow: 'hidden',
-                      border: '1px solid rgba(255,255,255,0.08)',
-                      marginBottom: '10px',
-                    }}>
-                      <div style={{
-                        height: '90px', display: 'flex',
-                        alignItems: 'center', justifyContent: 'center',
-                        fontSize: '2.5rem',
-                        background: 'linear-gradient(135deg, rgba(249,115,22,0.15), rgba(0,0,0,0.3))',
-                      }}>
-                        {r.emoji}
+                    { name: 'Injohi Restaurant', type: 'Traditional', rating: '4.9', distance: '0.3km', icon: Utensils },
+                    { name: 'Burqito Hotel Cafe', type: 'Hotel - Cafe', rating: '4.7', distance: '0.8km', icon: ChefHat },
+                  ].map(({ icon: Icon, ...restaurant }) => (
+                    <div className="homeRestaurantCard" key={restaurant.name}>
+                      <div className="homeFoodPreview">
+                        <Icon size={36} />
                       </div>
-                      <div style={{ padding: '10px 12px' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                          <div>
-                            <div style={{ color: '#fff', fontSize: '11px', fontWeight: 600 }}>{r.name}</div>
-                            <div style={{ color: '#f97316', fontSize: '10px', marginTop: '2px', opacity: 0.7 }}>{r.tag}</div>
-                          </div>
-                          <div style={{ textAlign: 'right' }}>
-                            <div style={{ color: '#fbbf24', fontSize: '10px', fontWeight: 700 }}>⭐ {r.rating}</div>
-                            <div style={{ color: '#6b7280', fontSize: '10px' }}>{r.dist}</div>
-                          </div>
+                      <div className="homeRestaurantInfo">
+                        <div>
+                          <strong>{restaurant.name}</strong>
+                          <span>{restaurant.type}</span>
+                        </div>
+                        <div className="homeRatingBox">
+                          <b>* {restaurant.rating}</b>
+                          <span>{restaurant.distance}</span>
                         </div>
                       </div>
                     </div>
@@ -350,49 +114,19 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* Floating badge 1 */}
-              <div
-                className="float-delay"
-                style={{
-                  position: 'absolute', right: '-60px', top: '60px',
-                  background: '#1a1a1a',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  borderRadius: '16px', padding: '12px 14px',
-                  display: 'flex', alignItems: 'center', gap: '10px',
-                  boxShadow: '0 10px 40px rgba(0,0,0,0.4)',
-                }}
-              >
-                <div style={{
-                  width: '32px', height: '32px', borderRadius: '10px',
-                  background: 'rgba(34,197,94,0.15)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px',
-                }}>✅</div>
+              <div className="homeFloatBadge homeBadgeAccepted">
+                <div className="homeBadgeIcon homeSuccessIcon"><CheckCircle2 size={18} /></div>
                 <div>
-                  <div style={{ color: '#fff', fontSize: '11px', fontWeight: 700 }}>Order Accepted!</div>
-                  <div style={{ color: '#6b7280', fontSize: '10px' }}>Ready in 12 min</div>
+                  <strong>Order Accepted!</strong>
+                  <span>Ready in 12 min</span>
                 </div>
               </div>
 
-              {/* Floating badge 2 */}
-              <div
-                className="float"
-                style={{
-                  position: 'absolute', left: '-70px', bottom: '100px',
-                  background: '#1a1a1a',
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  borderRadius: '16px', padding: '12px 14px',
-                  display: 'flex', alignItems: 'center', gap: '10px',
-                  boxShadow: '0 10px 40px rgba(0,0,0,0.4)',
-                }}
-              >
-                <div style={{
-                  width: '32px', height: '32px', borderRadius: '10px',
-                  background: 'rgba(249,115,22,0.15)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px',
-                }}>🔔</div>
+              <div className="homeFloatBadge homeBadgeOrder">
+                <div className="homeBadgeIcon homeOrangeIcon"><Bell size={17} /></div>
                 <div>
-                  <div style={{ color: '#fff', fontSize: '11px', fontWeight: 700 }}>New Order!</div>
-                  <div style={{ color: '#f97316', fontSize: '10px', fontWeight: 600 }}>ETB 650</div>
+                  <strong>New Order!</strong>
+                  <span>ETB 650</span>
                 </div>
               </div>
             </div>
@@ -400,28 +134,499 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div style={{
-        position: 'absolute', bottom: '2rem', left: '50%',
-        transform: 'translateX(-50%)',
-        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px',
-      }}>
-        <span style={{ color: '#374151', fontSize: '11px', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-          Scroll
-        </span>
-        <div style={{
-          width: '20px', height: '32px',
-          border: '1px solid rgba(255,255,255,0.15)',
-          borderRadius: '999px',
-          display: 'flex', justifyContent: 'center', paddingTop: '6px',
-        }}>
-          <div style={{
-            width: '4px', height: '8px',
-            background: '#f97316', borderRadius: '2px',
-            animation: 'float 1.5s ease-in-out infinite',
-          }} />
-        </div>
-      </div>
+      <style>{`
+        .homeHero {
+          position: relative;
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          overflow: hidden;
+          background: #ffffff;
+          padding-top: 68px;
+        }
+
+        .homeHeroGrid {
+          position: absolute;
+          inset: 0;
+          background-image:
+            linear-gradient(rgba(17, 24, 39, 0.08) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(17, 24, 39, 0.08) 1px, transparent 1px);
+          background-size: 56px 56px;
+          mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0.56) 72%, transparent 96%);
+          pointer-events: none;
+        }
+
+        .homeGlow {
+          position: absolute;
+          border-radius: 999px;
+          pointer-events: none;
+        }
+
+        .homeGlowOne {
+          top: -10%;
+          right: -10%;
+          width: 600px;
+          height: 600px;
+          background: radial-gradient(circle, rgba(249,115,22,0.07) 0%, transparent 70%);
+          filter: blur(80px);
+        }
+
+        .homeGlowTwo {
+          bottom: -5%;
+          left: -5%;
+          width: 400px;
+          height: 400px;
+          background: radial-gradient(circle, rgba(249,115,22,0.04) 0%, transparent 70%);
+          filter: blur(100px);
+        }
+
+        .pulseGlow {
+          animation: glow-pulse 8s ease-in-out infinite;
+        }
+
+        .homeHeroInner {
+          position: relative;
+          z-index: 1;
+          width: 100%;
+          max-width: 1280px;
+          margin: 0 auto;
+          padding: 4rem 1.5rem;
+        }
+
+        .homeHeroGridLayout {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 5rem;
+          align-items: center;
+        }
+
+        .homeLiveBadge {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 6px 14px;
+          border-radius: 999px;
+          background: rgba(249,115,22,0.08);
+          border: 1px solid rgba(249,115,22,0.2);
+          margin-bottom: 2rem;
+        }
+
+        .homeLiveBadge > span:last-child {
+          font-size: 13px;
+          font-weight: 600;
+          color: #f97316;
+        }
+
+        .liveDotWrap {
+          position: relative;
+          display: inline-flex;
+        }
+
+        .liveDot,
+        .livePing {
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background: #22c55e;
+          display: block;
+        }
+
+        .livePing {
+          position: absolute;
+          inset: 0;
+          animation: ping-green 1.5s ease-out infinite;
+        }
+
+        .homeCopy h1 {
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          font-size: clamp(2.8rem, 5vw, 5rem);
+          font-weight: 800;
+          line-height: 1.05;
+          letter-spacing: -0.03em;
+          color: #111827;
+          margin: 0 0 1.5rem;
+        }
+
+        .homeCopy h1 span {
+          background-image: linear-gradient(135deg, #f97316, #ea6c0a);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        .homeCopy p {
+          font-size: 17px;
+          color: #6b7280;
+          line-height: 1.8;
+          max-width: 460px;
+          margin: 0 0 2.5rem;
+        }
+
+        .homeCopy p strong {
+          color: #f97316;
+          font-weight: 600;
+        }
+
+        .homeCtas {
+          display: flex;
+          gap: 12px;
+          flex-wrap: wrap;
+          margin-bottom: 3rem;
+        }
+
+        .homeCtas a {
+          padding: 14px 28px;
+          font-weight: 700;
+          border-radius: 12px;
+          text-decoration: none;
+          font-size: 15px;
+          transition: all 0.25s ease;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .primaryCta {
+          background: #f97316;
+          color: #fff;
+          box-shadow: 0 6px 20px rgba(249,115,22,0.35);
+        }
+
+        .primaryCta:hover {
+          background: #ea6c0a;
+          transform: translateY(-2px);
+          box-shadow: 0 12px 32px rgba(249,115,22,0.45);
+        }
+
+        .secondaryCta {
+          border: 1.5px solid #e5e7eb;
+          color: #374151;
+          background: #fff;
+        }
+
+        .secondaryCta:hover {
+          border-color: #f97316;
+          color: #f97316;
+          background: rgba(249,115,22,0.04);
+        }
+
+        .homeTrustItems {
+          display: flex;
+          gap: 1.5rem;
+          flex-wrap: wrap;
+        }
+
+        .homeTrustItems div {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          color: #9ca3af;
+          font-size: 13px;
+          font-weight: 500;
+        }
+
+        .homePhoneColumn {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 620px;
+          padding-top: 2rem;
+        }
+
+        .homePhoneScene {
+          position: relative;
+          animation: homeWaitFloat 5.8s ease-in-out infinite;
+        }
+
+        .pausedPhone {
+          animation: none;
+        }
+
+        .homePhoneGlow {
+          position: absolute;
+          inset: -34px;
+          border-radius: 999px;
+          background: rgba(249, 115, 22, 0.18);
+          filter: blur(58px);
+        }
+
+        .homePhoneFrame {
+          position: relative;
+          width: 294px;
+          height: 584px;
+          background: linear-gradient(145deg, #171717, #0b0b0b);
+          border: 2px solid rgba(255, 255, 255, 0.1);
+          border-radius: 50px;
+          overflow: hidden;
+          transform: perspective(1000px) rotateY(-8deg) rotateX(3deg);
+          box-shadow: 24px 32px 74px rgba(17,24,39,0.28), 0 0 44px rgba(249,115,22,0.18);
+        }
+
+        .homePhoneNotch {
+          position: absolute;
+          top: 0;
+          left: 50%;
+          z-index: 4;
+          width: 104px;
+          height: 30px;
+          transform: translateX(-50%);
+          background: #000;
+          border-bottom-left-radius: 20px;
+          border-bottom-right-radius: 20px;
+        }
+
+        .homePhoneStatus {
+          height: 54px;
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
+          color: #ffffff;
+          font-size: 12px;
+          font-weight: 800;
+          padding: 0 24px 9px;
+        }
+
+        .homeStatusDots {
+          letter-spacing: 3px;
+        }
+
+        .homePhoneContent {
+          padding: 0 18px;
+        }
+
+        .homePhoneTopRow {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 17px;
+        }
+
+        .homePhoneTopRow p {
+          color: #9ca3af;
+          font-size: 12px;
+          margin: 0 0 3px;
+        }
+
+        .homePhoneTopRow h3 {
+          color: #ffffff;
+          margin: 0;
+          font-size: 16px;
+          font-weight: 900;
+          letter-spacing: -0.02em;
+        }
+
+        .homeAvatarBubble {
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
+          display: grid;
+          place-items: center;
+          background: #f97316;
+          color: #fff;
+          font-size: 15px;
+          font-weight: 900;
+        }
+
+        .homeSearchBar {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          height: 42px;
+          border-radius: 14px;
+          background: rgba(255,255,255,0.08);
+          color: #6b7280;
+          border: 1px solid rgba(255,255,255,0.08);
+          box-shadow: none;
+          padding: 0 13px;
+          margin-bottom: 13px;
+          font-size: 12px;
+        }
+
+        .homeChipRow {
+          display: flex;
+          gap: 8px;
+          margin-bottom: 15px;
+        }
+
+        .homeChip {
+          border-radius: 999px;
+          background: rgba(255,255,255,0.09);
+          color: #9ca3af;
+          border: 1px solid rgba(255,255,255,0.06);
+          padding: 6px 13px;
+          font-size: 11px;
+          font-weight: 800;
+        }
+
+        .homeActiveChip {
+          color: #fff;
+          background: #f97316;
+        }
+
+        .homeRestaurantCard {
+          overflow: hidden;
+          margin-bottom: 12px;
+          border-radius: 18px;
+          background: rgba(255,255,255,0.08);
+          border: 1px solid rgba(255,255,255,0.1);
+          box-shadow: 0 10px 26px rgba(0,0,0,0.18);
+        }
+
+        .homeFoodPreview {
+          height: 108px;
+          display: grid;
+          place-items: center;
+          color: #ff8a33;
+          background: linear-gradient(135deg, rgba(249,115,22,0.18), rgba(96,48,24,0.36));
+        }
+
+        .homeRestaurantInfo {
+          display: flex;
+          justify-content: space-between;
+          gap: 10px;
+          padding: 12px 13px;
+        }
+
+        .homeRestaurantInfo strong,
+        .homeRestaurantInfo span,
+        .homeRatingBox b,
+        .homeRatingBox span {
+          display: block;
+        }
+
+        .homeRestaurantInfo strong {
+          color: #ffffff;
+          font-size: 12px;
+        }
+
+        .homeRestaurantInfo span,
+        .homeRatingBox span {
+          color: #9ca3af;
+          font-size: 11px;
+          margin-top: 2px;
+        }
+
+        .homeRestaurantInfo > div:first-child span {
+          color: #f97316;
+        }
+
+        .homeRatingBox {
+          text-align: right;
+        }
+
+        .homeRatingBox b {
+          color: #fbbf24;
+          font-size: 11px;
+        }
+
+        .homeFloatBadge {
+          position: absolute;
+          z-index: 6;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          min-width: 150px;
+          border-radius: 16px;
+          padding: 12px 14px;
+          background: #1b1b1b;
+          border: 1px solid rgba(255,255,255,0.1);
+          box-shadow: 0 18px 44px rgba(0,0,0,0.34);
+          animation: homeWaitFloatBadge 5.4s ease-in-out infinite;
+        }
+
+        .homeFloatBadge strong,
+        .homeFloatBadge span {
+          display: block;
+        }
+
+        .homeFloatBadge strong {
+          color: #ffffff;
+          font-size: 11px;
+        }
+
+        .homeFloatBadge span {
+          color: #9ca3af;
+          font-size: 10px;
+          margin-top: 2px;
+        }
+
+        .homeBadgeIcon {
+          width: 32px;
+          height: 32px;
+          border-radius: 10px;
+          display: grid;
+          place-items: center;
+        }
+
+        .homeSuccessIcon {
+          color: #41dc7e;
+          background: rgba(34,197,94,0.15);
+        }
+
+        .homeOrangeIcon {
+          color: #fb923c;
+          background: rgba(249,115,22,0.15);
+        }
+
+        .homeBadgeAccepted {
+          right: -78px;
+          top: 78px;
+        }
+
+        .homeBadgeOrder {
+          left: -76px;
+          bottom: 128px;
+          animation-delay: 0.7s;
+        }
+
+        .homeBadgeOrder span {
+          color: #f97316;
+          font-weight: 800;
+        }
+
+        @keyframes homeWaitFloat {
+          0%, 100% { translate: 0 0; }
+          50% { translate: 0 -16px; }
+        }
+
+        @keyframes homeWaitFloatBadge {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-12px); }
+        }
+
+        @media (max-width: 768px) {
+          .homeHeroGridLayout {
+            grid-template-columns: 1fr !important;
+          }
+
+          .homePhoneColumn {
+            min-height: 570px;
+            padding-top: 0;
+          }
+
+          .homePhoneScene {
+            scale: 0.86;
+          }
+
+          .homeBadgeAccepted {
+            right: -46px;
+          }
+
+          .homeBadgeOrder {
+            left: -44px;
+          }
+        }
+
+        @media (max-width: 440px) {
+          .homePhoneColumn {
+            min-height: 500px;
+          }
+
+          .homePhoneScene {
+            scale: 0.76;
+          }
+        }
+      `}</style>
     </section>
   )
 }
