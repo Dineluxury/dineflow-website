@@ -1,42 +1,21 @@
 'use client'
-import { useEffect, useState } from 'react'
 import { Store, SmilePlus, Star, Timer, Zap, Handshake, Globe, Lock } from 'lucide-react'
 
-const WAITLIST_DEFAULTS = { venues: 40, users: 130 }
+const stats = [
+  { value: '50+', label: 'Restaurant Partners', icon: Store },
+  { value: '5K+', label: 'Happy Customers', icon: SmilePlus },
+  { value: '4.9', label: 'App Store Rating', icon: Star },
+  { value: '15min', label: 'Avg Wait Saved', icon: Timer },
+]
 
 const values = [
   { icon: Zap, title: 'Built for Speed', desc: 'From order to table in minutes. No phone calls, no waiting, no stress.' },
-  { icon: Handshake, title: 'Partner-First', desc: 'We help restaurants, hotels, and cafes grow revenue, reduce waste, and serve smarter.' },
+  { icon: Handshake, title: 'Partner-First', desc: 'We help restaurants grow revenue, reduce waste, and serve smarter.' },
   { icon: Globe, title: 'Made in Ethiopia', desc: 'Designed for Ethiopian culture, food, and the way we dine together.' },
-  { icon: Lock, title: 'Trusted & Secure', desc: 'Every payment is processed securely through Chapa.' },
+  { icon: Lock, title: 'Trusted & Secure', desc: 'Every payment is secured through Telebirr\'s verified infrastructure.' },
 ]
 
 export default function About() {
-  const [waitlistStats, setWaitlistStats] = useState(WAITLIST_DEFAULTS)
-
-  useEffect(() => {
-    const readStats = () => {
-      const venues = Math.max(Number(window.localStorage.getItem('dineflowWaitlistVenues')) || WAITLIST_DEFAULTS.venues, WAITLIST_DEFAULTS.venues)
-      const users = Math.max(Number(window.localStorage.getItem('dineflowWaitlistUsers')) || WAITLIST_DEFAULTS.users, WAITLIST_DEFAULTS.users)
-      setWaitlistStats({ venues, users })
-    }
-
-    readStats()
-    window.addEventListener('storage', readStats)
-    window.addEventListener('dineflow-waitlist-updated', readStats)
-    return () => {
-      window.removeEventListener('storage', readStats)
-      window.removeEventListener('dineflow-waitlist-updated', readStats)
-    }
-  }, [])
-
-  const stats = [
-    { value: `${waitlistStats.venues}`, label: 'Restaurants, Hotels & Cafes Waiting', icon: Store },
-    { value: `${waitlistStats.users}`, label: 'Users on the Waitlist', icon: SmilePlus },
-    { value: '4.9', label: 'Preview Tester Rating', icon: Star },
-    { value: '15min', label: 'Avg Wait Saved', icon: Timer },
-  ]
-
   return (
     <section id="about" style={{ padding: '7rem 0', background: '#ffffff', position: 'relative', overflow: 'hidden' }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 1.5rem', position: 'relative', zIndex: 1 }}>
@@ -49,7 +28,7 @@ export default function About() {
             <br /><span style={{ backgroundImage: 'linear-gradient(135deg, #f97316, #ea6c0a)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>eats out.</span>
           </h2>
           <p style={{ color: '#6B7280', fontSize: '16px', maxWidth: '560px', margin: '1.5rem auto 0', lineHeight: 1.7 }}>
-            Dineflow bridges the gap between restaurants, hotels, cafes, and food lovers — making pre-ordering as natural as walking in.
+            Dineflow bridges the gap between restaurants and food lovers — making pre-ordering as natural as walking in.
           </p>
         </div>
 

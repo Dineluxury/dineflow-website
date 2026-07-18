@@ -225,7 +225,7 @@ function AmbassadorEarnings({ earnings }) {
         <span style={{ fontSize: '28px' }}>💳</span>
         <div>
           <p style={{ color: '#60a5fa', fontWeight: 700, fontSize: '14px', marginBottom: '4px' }}>Payouts sent monthly via Telebirr or bank transfer</p>
-          <p style={{ color: '#6b7280', fontSize: '13px' }}>Minimum ETB 200 to request payout. Contact support@dineflow.et to request early payout.</p>
+          <p style={{ color: '#6b7280', fontSize: '13px' }}>Minimum ETB 200 to request payout. Contact ahmedrediwan591@gmail.com to request early payout.</p>
         </div>
       </div>
 
