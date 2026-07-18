@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 
 const links = [
   { label: 'For Customers', href: '#customers' },
-  { label: 'For Restaurants', href: '#restaurants' },
+  { label: 'For Venues', href: '#restaurants' },
   { label: 'How It Works', href: '#how' },
   { label: 'Features', href: '#features' },
 ]
@@ -59,6 +59,26 @@ export default function Navbar() {
 
           {/* CTA */}
           <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+            <a href="/waitlist" style={{
+              padding: '9px 18px',
+              background: 'rgba(249,115,22,0.08)',
+              border: '1.5px solid rgba(249,115,22,0.22)',
+              color: '#f97316', fontWeight: 700, borderRadius: '10px',
+              textDecoration: 'none', fontSize: '14px',
+              transition: 'all 0.2s ease',
+            }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background = '#f97316'
+                e.currentTarget.style.color = '#fff'
+                e.currentTarget.style.transform = 'translateY(-1px)'
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = 'rgba(249,115,22,0.08)'
+                e.currentTarget.style.color = '#f97316'
+                e.currentTarget.style.transform = 'translateY(0)'
+              }}
+            >Waitlist</a>
+
             {/* Partners Button */}
             <a href="/partners" style={{
               padding: '9px 18px',
@@ -120,9 +140,18 @@ export default function Navbar() {
               fontWeight: 600, textDecoration: 'none', borderBottom: '1px solid #F0F0F0',
             }}>{l.label}</a>
           ))}
+
+          <a href="/waitlist" onClick={() => setOpen(false)} style={{
+            display: 'block', marginTop: '16px', padding: '14px',
+            background: 'rgba(249,115,22,0.08)',
+            border: '1.5px solid rgba(249,115,22,0.22)',
+            color: '#f97316', fontWeight: 800, borderRadius: '12px', textAlign: 'center',
+            textDecoration: 'none', fontSize: '15px',
+            transition: 'all 0.2s',
+          }}>Join Waitlist</a>
           
           <a href="/partners" onClick={() => setOpen(false)} style={{
-            display: 'block', marginTop: '16px', padding: '14px',
+            display: 'block', marginTop: '10px', padding: '14px',
             background: 'transparent',
             border: '1.5px solid #E5E7EB',
             color: '#374151', fontWeight: 700, borderRadius: '12px', textAlign: 'center',

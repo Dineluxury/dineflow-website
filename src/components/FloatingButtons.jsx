@@ -17,7 +17,7 @@ export default function FloatingButtons() {
     <div className={`fixed bottom-8 right-6 z-40 flex flex-col gap-3 transition-all duration-500 ${show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}>
       {/* WhatsApp */}
       <a
-        href="https://wa.me/251911234567?text=Hi%2C%20I%27m%20interested%20in%20Dineflow"
+        href="https://wa.me/25191977974?text=Hi%2C%20I%27m%20interested%20in%20Dineflow"
         target="_blank"
         rel="noreferrer"
         className="w-12 h-12 bg-[#25d366] hover:bg-[#20ba5a] rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-110"

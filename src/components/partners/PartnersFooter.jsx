@@ -11,7 +11,7 @@ export default function PartnersFooter() {
       <p style={{ color: '#4b5563', fontSize: '14px', marginBottom: '1.5rem' }}>
         Questions? Email us at{' '}
         <a href="mailto:ahmedrediwan591@gmail.com" style={{ color: '#f97316', textDecoration: 'none' }}>
-          ahmedrediwan591@gmail.com
+          support@dineflow.et
         </a>
       </p>
       <Link href="/" style={{ color: '#6b7280', fontSize: '14px', textDecoration: 'none', transition: 'color 0.2s' }}
