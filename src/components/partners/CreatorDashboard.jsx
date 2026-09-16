@@ -48,7 +48,16 @@ export default function CreatorDashboard() {
           {activeTab === 'overview' && <CreatorOverview profile={profile} links={links} earnings={earnings} />}
           {activeTab === 'links' && <CreatorLinks links={links} />}
           {activeTab === 'generate' && <GenerateLink profile={profile} onGenerated={refreshLinks} />}
-          {activeTab === 'earnings' && <CreatorEarnings earnings={earnings} />}
+          {activeTab === 'earnings' && (
+            <CreatorEarnings
+              earnings={earnings}
+              profile={profile}
+              onRefresh={() => {
+                fetch('/api/partners/me').then(r => r.json()).then(setProfile)
+                fetch('/api/partners/earnings').then(r => r.json()).then(setEarnings)
+              }}
+            />
+          )}
           {activeTab === 'calculator' && <CreatorCalculator />}
         </>
       )}
@@ -317,15 +326,68 @@ function GenerateLink({ profile, onGenerated }) {
   )
 }
 
-function CreatorEarnings({ earnings }) {
+function CreatorEarnings({ earnings, profile, onRefresh }) {
   const history = earnings?.history || []
   const pending = earnings?.pendingEarnings || 0
   const paid = earnings?.paidEarnings || 0
   const total = earnings?.totalEarnings || 0
 
+  const [showModal, setShowModal] = useState(false)
+  const [payoutMethod, setPayoutMethod] = useState(profile?.payoutMethod || 'Telebirr')
+  const [payoutAccount, setPayoutAccount] = useState(profile?.payoutAccount || profile?.phone || '')
+  const [payoutName, setPayoutName] = useState(profile?.payoutName || profile?.name || '')
+  const [submitting, setSubmitting] = useState(false)
+
+  const handleRequestSettlement = async (e) => {
+    e.preventDefault()
+    if (!payoutAccount.trim()) {
+      alert('Please enter your account number or phone number.')
+      return
+    }
+    setSubmitting(true)
+    try {
+      const res = await fetch('/api/partners/settlement-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ payoutMethod, payoutAccount, payoutName })
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        alert(data.error || data.message || 'Failed to submit settlement request')
+        return
+      }
+      alert('Settlement request submitted successfully! Payout will be transferred between day 7 - 10.')
+      setShowModal(false)
+      if (onRefresh) onRefresh()
+    } catch {
+      alert('Network error. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
   return (
     <div>
-      <h2 style={{ fontFamily: 'Syne, sans-serif', color: '#fff', fontSize: '1.5rem', fontWeight: 900, marginBottom: '1.5rem' }}>Earnings</h2>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '12px' }}>
+        <h2 style={{ fontFamily: 'Syne, sans-serif', color: '#fff', fontSize: '1.5rem', fontWeight: 900, margin: 0 }}>Earnings</h2>
+        {profile?.settlementRequested ? (
+          <div style={{ padding: '8px 16px', borderRadius: '12px', background: 'rgba(251,191,36,0.12)', border: '1px solid rgba(251,191,36,0.3)', color: '#fbbf24', fontSize: '13px', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <span>⚡</span> Settlement Requested (Transfer scheduled day 7–10)
+          </div>
+        ) : Number(pending) > 0 ? (
+          <button
+            onClick={() => setShowModal(true)}
+            style={{
+              padding: '10px 20px', borderRadius: '12px', border: 'none',
+              background: '#a855f7', color: '#fff', fontSize: '13px', fontWeight: 700,
+              cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 4px 14px rgba(168,85,247,0.35)',
+              display: 'flex', alignItems: 'center', gap: '8px'
+            }}
+          >
+            <span>💰</span> Request Settlement
+          </button>
+        ) : null}
+      </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '2rem' }}>
         {[
@@ -347,6 +409,84 @@ function CreatorEarnings({ earnings }) {
           <p style={{ color: '#6b7280', fontSize: '13px' }}>Earnings are calculated per completed and paid order. Payouts are transferred directly via Telebirr or CBE between day 7 – 10 of each month.</p>
         </div>
       </div>
+
+      {/* Settlement Request Modal */}
+      {showModal && (
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.75)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999, padding: '1rem' }}>
+          <div style={{ background: '#141414', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '24px', padding: '2rem', maxWidth: '440px', width: '100%' }}>
+            <h3 style={{ fontFamily: 'Syne, sans-serif', color: '#fff', fontSize: '1.3rem', fontWeight: 900, marginBottom: '8px' }}>
+              Request Settlement Payout
+            </h3>
+            <p style={{ color: '#9ca3af', fontSize: '13px', marginBottom: '1.5rem' }}>
+              You have <strong style={{ color: '#fbbf24' }}>ETB {pending}</strong> in pending earnings. Enter your payout details below:
+            </p>
+
+            <form onSubmit={handleRequestSettlement} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              <div>
+                <label style={{ color: '#6b7280', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>Payout Method</label>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px' }}>
+                  {['Telebirr', 'CBE Bank'].map(m => (
+                    <button
+                      key={m} type="button"
+                      onClick={() => setPayoutMethod(m)}
+                      style={{
+                        padding: '10px', borderRadius: '10px',
+                        border: payoutMethod === m ? '1px solid #a855f7' : '1px solid rgba(255,255,255,0.08)',
+                        background: payoutMethod === m ? 'rgba(168,85,247,0.15)' : '#0f0f0f',
+                        color: payoutMethod === m ? '#c084fc' : '#6b7280',
+                        cursor: 'pointer', fontSize: '12px', fontWeight: 600, fontFamily: 'inherit'
+                      }}
+                    >
+                      {m}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <label style={{ color: '#6b7280', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>
+                  {payoutMethod === 'Telebirr' ? 'Telebirr Phone Number' : 'CBE Account Number'}
+                </label>
+                <input
+                  type="text" required
+                  value={payoutAccount}
+                  onChange={e => setPayoutAccount(e.target.value)}
+                  placeholder={payoutMethod === 'Telebirr' ? '0911 234 567' : '1000...'}
+                  style={{ width: '100%', padding: '12px 14px', background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '10px', color: '#fff', fontSize: '13px', outline: 'none', boxSizing: 'border-box' }}
+                />
+              </div>
+
+              <div>
+                <label style={{ color: '#6b7280', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', display: 'block', marginBottom: '6px' }}>Account Holder Full Name</label>
+                <input
+                  type="text" required
+                  value={payoutName}
+                  onChange={e => setPayoutName(e.target.value)}
+                  placeholder="Full name on account"
+                  style={{ width: '100%', padding: '12px 14px', background: '#0a0a0a', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '10px', color: '#fff', fontSize: '13px', outline: 'none', boxSizing: 'border-box' }}
+                />
+              </div>
+
+              <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+                <button
+                  type="button"
+                  onClick={() => setShowModal(false)}
+                  style={{ flex: 1, padding: '12px', background: 'rgba(255,255,255,0.05)', color: '#9ca3af', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '10px', cursor: 'pointer', fontFamily: 'inherit', fontSize: '13px', fontWeight: 600 }}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  style={{ flex: 2, padding: '12px', background: '#a855f7', color: '#fff', border: 'none', borderRadius: '10px', cursor: submitting ? 'not-allowed' : 'pointer', fontFamily: 'inherit', fontSize: '13px', fontWeight: 700, opacity: submitting ? 0.6 : 1 }}
+                >
+                  {submitting ? 'Submitting...' : 'Submit Request'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       <div style={{ background: '#141414', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '20px', padding: '1.5rem' }}>
         <h3 style={{ fontFamily: 'Syne, sans-serif', color: '#fff', fontWeight: 800, fontSize: '1rem', marginBottom: '1.5rem' }}>Transaction History</h3>
