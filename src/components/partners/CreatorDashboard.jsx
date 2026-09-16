@@ -76,6 +76,9 @@ function CreatorOverview({ profile, links, earnings }) {
         </h1>
         <p style={{ color: '#6b7280', fontSize: '14px' }}>
           {profile?.handle && `${profile.handle} · `}
+          {profile?.dineflowUsername && (
+            <span style={{ color: '#f97316', fontWeight: 600 }}>Dineflow App: @{profile.dineflowUsername} · </span>
+          )}
           Your code: <span style={{ color: '#a855f7', fontWeight: 700, fontFamily: 'monospace' }}>{profile?.uniqueCode || 'Pending approval'}</span>
         </p>
       </div>
@@ -340,8 +343,8 @@ function CreatorEarnings({ earnings }) {
       <div style={{ background: 'rgba(96,165,250,0.06)', border: '1px solid rgba(96,165,250,0.15)', borderRadius: '16px', padding: '1.5rem', marginBottom: '2rem', display: 'flex', gap: '16px', alignItems: 'center' }}>
         <span style={{ fontSize: '28px' }}>💳</span>
         <div>
-          <p style={{ color: '#60a5fa', fontWeight: 700, fontSize: '14px', marginBottom: '4px' }}>ETB 3 per completed and paid order through your links</p>
-          <p style={{ color: '#6b7280', fontSize: '13px' }}>Paid monthly via Telebirr or bank. Minimum ETB 100 to withdraw.</p>
+          <p style={{ color: '#60a5fa', fontWeight: 700, fontSize: '14px', marginBottom: '4px' }}>Monthly Settlement Schedule</p>
+          <p style={{ color: '#6b7280', fontSize: '13px' }}>Earnings are calculated per completed and paid order. Payouts are transferred directly via Telebirr or CBE between day 7 – 10 of each month.</p>
         </div>
       </div>
 
