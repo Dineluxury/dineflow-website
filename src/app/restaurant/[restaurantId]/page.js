@@ -21,13 +21,20 @@ export default function RestaurantAppLinkPage() {
     if (typeof window === 'undefined') return ''
     return new URLSearchParams(window.location.search).get('ref') || ''
   })
+  const [item] = useState(() => {
+    if (typeof window === 'undefined') return ''
+    return new URLSearchParams(window.location.search).get('item') || ''
+  })
   const [status, setStatus] = useState('Opening Dineflow...')
 
   const appLink = useMemo(() => {
     if (!restaurantId) return ''
-    const refQuery = ref ? `?ref=${encodeURIComponent(ref)}` : ''
-    return `dineflow://restaurant/${restaurantId}${refQuery}`
-  }, [restaurantId, ref])
+    const query = new URLSearchParams()
+    if (item) query.set('item', item)
+    if (ref) query.set('ref', ref)
+    const qs = query.toString() ? `?${query.toString()}` : ''
+    return `dineflow://restaurant/${restaurantId}${qs}`
+  }, [restaurantId, ref, item])
 
   useEffect(() => {
     if (!appLink) {
