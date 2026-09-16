@@ -64,7 +64,7 @@ export default function CreatorSection() {
 
     const data = await res.json()
     if (!res.ok) {
-      alert(data.error || 'Registration failed')
+      alert(data.error || data.message || 'Registration failed')
       return
     }
 

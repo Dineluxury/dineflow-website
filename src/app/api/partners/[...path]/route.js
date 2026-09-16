@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 
 const BACKEND_API =
   process.env.DINEFLOW_BACKEND_API_URL ||
-  'https://backend-production-aa34.up.railway.app/api'
+  'https://api.dineflow.et/api'
 
 const cookieOptions = {
   httpOnly: true,
