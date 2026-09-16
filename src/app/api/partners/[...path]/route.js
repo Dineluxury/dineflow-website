@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server'
 
 const BACKEND_API =
-  process.env.DINEFLOW_BACKEND_API_URL ||
-  'https://api.dineflow.et/api'
+  process.env.DINEFLOW_BACKEND_API_URL &&
+  !process.env.DINEFLOW_BACKEND_API_URL.includes('railway')
+    ? process.env.DINEFLOW_BACKEND_API_URL
+    : 'https://api.dineflow.et/api'
 
 const cookieOptions = {
   httpOnly: true,
