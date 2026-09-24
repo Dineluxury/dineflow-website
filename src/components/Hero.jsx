@@ -5,7 +5,7 @@ import { Bell, CheckCircle2, ChefHat, CreditCard, Smartphone, Star, Utensils, Za
 
 const trustItems = [
   { icon: Smartphone, label: 'Android & iOS Soon' },
-  { icon: CreditCard, label: 'Chapa Pay' },
+  { icon: CreditCard, label: 'LakiPay Pay' },
   { icon: Zap, label: 'Real-time Track' },
   { icon: Star, label: '4.9 Rating' },
 ]
@@ -41,7 +41,7 @@ export default function Hero() {
             </h1>
 
             <p>
-              Skip the wait. Pre-order from your favorite restaurants, hotels, and cafes, pay with <strong>Chapa</strong>, and walk in to your meal already on the table.
+              Skip the wait. Pre-order from your favorite restaurants, hotels, and cafes, pay with <strong>LakiPay</strong>, and walk in to your meal already on the table.
             </p>
 
             <div className="homeCtas">

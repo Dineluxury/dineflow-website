@@ -4,7 +4,7 @@ import { BarChart2, CalendarCheck, CreditCard, TrendingUp, Bell, Users } from 'l
 const features = [
   { icon: BarChart2, title: 'Live Order Dashboard', desc: 'See every incoming order in real-time. Accept, prepare, and track - all from one screen.' },
   { icon: CalendarCheck, title: 'Smart Scheduling', desc: 'Customers book time slots. You prepare at the right time. Zero confusion, zero rush.' },
-  { icon: CreditCard, title: 'Chapa Integration', desc: 'Get paid securely through Chapa. No cash handling, no delays, no disputes.' },
+  { icon: CreditCard, title: 'LakiPay Integration', desc: 'Get paid securely through LakiPay. No cash handling, no delays, no disputes.' },
   { icon: TrendingUp, title: 'Revenue Analytics', desc: 'Daily, weekly and monthly reports. Understand your peak hours and best-selling dishes.' },
   { icon: Bell, title: 'Instant Notifications', desc: 'Get pinged the moment a new order comes in. Never miss a pre-order again.' },
   { icon: Users, title: 'Commission Program', desc: 'Earn through our ambassador network. Partners refer restaurants, hotels, and cafes and earn recurring commissions.' },

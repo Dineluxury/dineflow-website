@@ -5,7 +5,7 @@ const stats = [
   '4.9 App Rating',
   '40 Venues on Waitlist',
   '130 Users on Waitlist',
-  'Chapa Payments',
+  'LakiPay Payments',
   'Real-time Order Tracking',
   'Built in Ethiopia',
   'Zero Wait Time',

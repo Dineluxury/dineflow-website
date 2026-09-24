@@ -5,7 +5,7 @@ const testimonials = [
   { name: 'Bereket Tadesse', role: 'Pre-launch tester, Hawassa cafe owner', avatar: 'B', color: '#f97316', text: 'I tried the Dineflow preview before launch and immediately saw how much time it can save. Seeing orders come in clearly on screen feels exactly like what cafes and restaurants need.', rating: 5 },
   { name: 'Selam Girma', role: 'Pre-launch app tester, Hawassa', avatar: 'S', color: '#22c55e', text: 'The app felt simple from the first tap. I picked food, chose my time, and tracked the order. I honestly cannot wait for Dineflow to launch so I can use it for real.', rating: 5 },
   { name: 'Dawit Haile', role: 'Pre-launch tester, hotel manager', avatar: 'D', color: '#a855f7', text: 'The idea is perfect for hotels, cafes, and restaurants. Guests can order before they arrive, and the kitchen knows what to prepare. We are ready to join when it launches.', rating: 5 },
-  { name: 'Tigist Bekele', role: 'Pre-launch customer tester, Addis Ababa', avatar: 'T', color: '#3b82f6', text: 'I loved the order tracking and Chapa checkout flow. It makes dining feel modern and organized. I am waiting for launch day because this is something I would actually use.', rating: 5 },
+  { name: 'Tigist Bekele', role: 'Pre-launch customer tester, Addis Ababa', avatar: 'T', color: '#3b82f6', text: 'I loved the order tracking and LakiPay checkout flow. It makes dining feel modern and organized. I am waiting for launch day because this is something I would actually use.', rating: 5 },
 ]
 
 export default function Testimonials() {

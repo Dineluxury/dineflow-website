@@ -8,7 +8,7 @@ const values = [
   { icon: Zap, title: 'Built for Speed', desc: 'From order to table in minutes. No phone calls, no waiting, no stress.' },
   { icon: Handshake, title: 'Partner-First', desc: 'We help restaurants, hotels, and cafes grow revenue, reduce waste, and serve smarter.' },
   { icon: Globe, title: 'Made in Ethiopia', desc: 'Designed for Ethiopian culture, food, and the way we dine together.' },
-  { icon: Lock, title: 'Trusted & Secure', desc: 'Every payment is processed securely through Chapa.' },
+  { icon: Lock, title: 'Trusted & Secure', desc: 'Every payment is processed securely through LakiPay.' },
 ]
 
 export default function About() {
