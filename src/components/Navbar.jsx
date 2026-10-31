@@ -1,5 +1,6 @@
 'use client'
-import { useState, useEffect } from 'react'
+
+import { useEffect, useState } from 'react'
 
 const links = [
   { label: 'For Customers', href: '#customers' },
@@ -12,162 +13,86 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', fn)
-    return () => window.removeEventListener('scroll', fn)
+    const onScroll = () => setScrolled(window.scrollY > 20)
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  const closeMenu = () => setOpen(false)
 
   return (
     <>
-      <header style={{
-        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-        background: scrolled ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.98)',
-        backdropFilter: scrolled ? 'blur(20px)' : 'none',
-        borderBottom: '1px solid #e4e8ec',
-        transition: 'all 0.3s ease',
-        boxShadow: scrolled ? '0 2px 16px rgba(0,0,0,0.06)' : 'none',
-      }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '68px' }}>
-
-          {/* Logo */}
-          <a href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
-            <img src="/dineflow-logo.png" alt="" style={{ width: '34px', height: '34px', objectFit: 'contain' }} />
-            <span style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: '18px', color: '#18212b' }}>Dineflow</span>
+      <header className={`site-header${scrolled ? ' is-scrolled' : ''}`}>
+        <div className="site-nav-inner">
+          <a className="site-nav-brand" href="/" aria-label="Dineflow home">
+            <img className="site-nav-mark" src="/dineflow-logo.png" alt="" />
+            <span className="site-nav-wordmark">Dineflow</span>
           </a>
 
-          {/* Desktop Nav */}
-          <nav style={{ display: 'flex', gap: '4px', alignItems: 'center' }} className="desktop-nav">
-            {links.map(l => (
-              <a key={l.label} href={l.href} style={{
-                padding: '8px 14px', color: '#65717e', fontSize: '14px', fontWeight: 500,
-                textDecoration: 'none', borderRadius: '8px', transition: 'all 0.2s',
-              }}
-                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(233,107,34,0.06)'; e.currentTarget.style.color = '#e96b22' }}
-                onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#65717e' }}
-              >{l.label}</a>
-            ))}
+          <nav className="desktop-nav" aria-label="Main navigation">
+            {links.map((link) => <a key={link.label} href={link.href}>{link.label}</a>)}
           </nav>
 
-          {/* CTA */}
-          <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-            <a href="/waitlist" style={{
-              padding: '9px 18px',
-              background: 'rgba(233,107,34,0.08)',
-              border: '1.5px solid rgba(233,107,34,0.22)',
-              color: '#e96b22', fontWeight: 700, borderRadius: '10px',
-              textDecoration: 'none', fontSize: '14px',
-              transition: 'all 0.2s ease',
-            }}
-              onMouseEnter={e => {
-                e.currentTarget.style.background = '#e96b22'
-                e.currentTarget.style.color = '#fff'
-                e.currentTarget.style.transform = 'translateY(-1px)'
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.background = 'rgba(233,107,34,0.08)'
-                e.currentTarget.style.color = '#e96b22'
-                e.currentTarget.style.transform = 'translateY(0)'
-              }}
-            >Waitlist</a>
-
-            {/* Partners Button */}
-            <a href="/partners" style={{
-              padding: '9px 18px',
-              background: 'transparent',
-              border: '1.5px solid #e4e8ec',
-              color: '#374151', fontWeight: 600, borderRadius: '10px',
-              textDecoration: 'none', fontSize: '14px',
-              transition: 'all 0.2s ease',
-            }}
-              onMouseEnter={e => {
-                e.currentTarget.style.borderColor = '#e96b22'
-                e.currentTarget.style.color = '#e96b22'
-                e.currentTarget.style.background = 'rgba(233,107,34,0.04)'
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.borderColor = '#e4e8ec'
-                e.currentTarget.style.color = '#374151'
-                e.currentTarget.style.background = 'transparent'
-              }}
-            >Partners</a>
-
-            <a href="#contact" style={{
-              padding: '9px 20px',
-              background: '#e96b22',
-              color: '#fff', fontWeight: 700, borderRadius: '10px',
-              textDecoration: 'none', fontSize: '14px',
-              boxShadow: '0 4px 14px rgba(233,107,34,0.3)',
-              transition: 'all 0.2s ease',
-            }}
-              onMouseEnter={e => { e.currentTarget.style.background = '#c95a19'; e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 8px 20px rgba(233,107,34,0.4)' }}
-              onMouseLeave={e => { e.currentTarget.style.background = '#e96b22'; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 14px rgba(233,107,34,0.3)' }}
-            >Get Started</a>
-
-            {/* Burger */}
-            <button onClick={() => setOpen(!open)} style={{
-              display: 'none', background: 'none', border: '1px solid #e4e8ec',
-              borderRadius: '8px', padding: '8px', cursor: 'pointer', color: '#374151',
-              width: '38px', height: '38px', alignItems: 'center', justifyContent: 'center',
-              fontSize: '18px',
-            }} className="burger-btn" aria-label="Menu">
-              {open ? '✕' : '☰'}
+          <div className="site-nav-actions">
+            <a className="nav-waitlist" href="/waitlist">Waitlist</a>
+            <a className="nav-partners" href="/partners">Partners</a>
+            <a className="nav-get-started" href="#contact">Get Started</a>
+            <button
+              className="burger-btn"
+              type="button"
+              onClick={() => setOpen((value) => !value)}
+              aria-label={open ? 'Close menu' : 'Open menu'}
+              aria-expanded={open}
+              aria-controls="mobile-navigation"
+            >
+              <span aria-hidden="true">{open ? '×' : '☰'}</span>
             </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile menu */}
       {open && (
-        <div style={{
-          position: 'fixed', top: '68px', left: 0, right: 0, zIndex: 99,
-          background: '#fff',
-          borderBottom: '1px solid #e4e8ec',
-          padding: '1rem 1.5rem 1.5rem',
-          boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
-        }}>
-          {links.map(l => (
-            <a key={l.label} href={l.href} onClick={() => setOpen(false)} style={{
-              display: 'block', padding: '12px 0', color: '#374151', fontSize: '16px',
-              fontWeight: 600, textDecoration: 'none', borderBottom: '1px solid #e4e8ec',
-            }}>{l.label}</a>
-          ))}
-
-          <a href="/waitlist" onClick={() => setOpen(false)} style={{
-            display: 'block', marginTop: '16px', padding: '14px',
-            background: 'rgba(233,107,34,0.08)',
-            border: '1.5px solid rgba(233,107,34,0.22)',
-            color: '#e96b22', fontWeight: 800, borderRadius: '12px', textAlign: 'center',
-            textDecoration: 'none', fontSize: '15px',
-            transition: 'all 0.2s',
-          }}>Join Waitlist</a>
-          
-          <a href="/partners" onClick={() => setOpen(false)} style={{
-            display: 'block', marginTop: '10px', padding: '14px',
-            background: 'transparent',
-            border: '1.5px solid #e4e8ec',
-            color: '#374151', fontWeight: 700, borderRadius: '12px', textAlign: 'center',
-            textDecoration: 'none', fontSize: '15px',
-            transition: 'all 0.2s',
-          }}>Become a Partner</a>
-
-          <a href="#contact" onClick={() => setOpen(false)} style={{
-            display: 'block', marginTop: '10px', padding: '14px',
-            background: '#e96b22',
-            color: '#fff', fontWeight: 700, borderRadius: '12px', textAlign: 'center',
-            textDecoration: 'none', fontSize: '15px',
-            boxShadow: '0 4px 14px rgba(233,107,34,0.3)',
-          }}>Get Started</a>
-        </div>
+        <nav id="mobile-navigation" className="mobile-navigation" aria-label="Mobile navigation">
+          {links.map((link) => <a key={link.label} href={link.href} onClick={closeMenu}>{link.label}</a>)}
+          <a className="mobile-waitlist" href="/waitlist" onClick={closeMenu}>Join Waitlist</a>
+          <a href="/partners" onClick={closeMenu}>Become a Partner</a>
+          <a className="mobile-get-started" href="#contact" onClick={closeMenu}>Get Started</a>
+        </nav>
       )}
 
       <style>{`
-        @media (max-width: 768px) {
-          .desktop-nav { display: none !important; }
-          .burger-btn { display: flex !important; }
+        .site-header { position:fixed; inset:0 0 auto; z-index:100; background:rgba(255,255,255,.98); border-bottom:1px solid #e4e8ec; transition:box-shadow .25s ease,background .25s ease; }
+        .site-header.is-scrolled { background:rgba(255,255,255,.96); backdrop-filter:blur(16px); box-shadow:0 2px 14px rgba(24,33,43,.06); }
+        .site-nav-inner { max-width:1280px; height:68px; margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between; gap:18px; }
+        .site-nav-brand { display:flex; flex:0 0 auto; align-items:center; gap:9px; color:#18212b; text-decoration:none; }
+        .site-nav-mark { display:block; width:34px; height:34px; flex:0 0 34px; object-fit:contain; border-radius:10px; }
+        .site-nav-wordmark { font-family:'Plus Jakarta Sans',sans-serif; font-size:18px; font-weight:800; }
+        .desktop-nav { display:flex; align-items:center; gap:4px; }
+        .desktop-nav a { padding:9px 13px; color:#65717e; font-size:14px; font-weight:550; text-decoration:none; border-radius:8px; transition:background .18s ease,color .18s ease; }
+        .desktop-nav a:hover { color:#e96b22; background:rgba(233,107,34,.06); }
+        .site-nav-actions { display:flex; flex:0 0 auto; align-items:center; gap:9px; }
+        .site-nav-actions a { display:inline-flex; min-height:40px; align-items:center; justify-content:center; padding:0 15px; border:1px solid #e4e8ec; border-radius:10px; color:#39434e; font-size:13px; font-weight:650; text-decoration:none; white-space:nowrap; transition:background .18s ease,border-color .18s ease,color .18s ease; }
+        .site-nav-actions .nav-waitlist { border-color:rgba(233,107,34,.25); background:rgba(233,107,34,.07); color:#c95a19; }
+        .site-nav-actions .nav-waitlist:hover,.site-nav-actions .nav-partners:hover { border-color:#e96b22; color:#c95a19; }
+        .site-nav-actions .nav-get-started { padding:0 18px; border-color:#e96b22; background:#e96b22; color:#fff; }
+        .site-nav-actions .nav-get-started:hover { background:#c95a19; }
+        .burger-btn { display:none; width:40px; height:40px; align-items:center; justify-content:center; border:1px solid #e4e8ec; border-radius:9px; background:#fff; color:#18212b; font:inherit; font-size:19px; cursor:pointer; }
+        .mobile-navigation { display:none; }
+        @media(max-width:768px) {
+          .site-nav-inner { height:64px; padding:0 14px; gap:8px; }
+          .site-nav-brand { gap:7px; }
+          .site-nav-mark { width:31px; height:31px; flex-basis:31px; }
+          .site-nav-wordmark { font-size:16px; }
+          .desktop-nav,.site-nav-actions .nav-waitlist,.site-nav-actions .nav-partners { display:none; }
+          .site-nav-actions { margin-left:auto; gap:8px; }
+          .site-nav-actions .nav-get-started { min-height:38px; padding:0 12px; font-size:12px; border-radius:8px; }
+          .burger-btn { display:inline-flex; flex:0 0 38px; width:38px; height:38px; }
+          .mobile-navigation { position:fixed; z-index:99; inset:64px 0 auto; display:flex; flex-direction:column; padding:10px 18px 18px; border-bottom:1px solid #e4e8ec; background:#fff; box-shadow:0 12px 24px rgba(24,33,43,.09); }
+          .mobile-navigation a { display:block; padding:14px 2px; border-bottom:1px solid #edf0f2; color:#39434e; font-size:15px; font-weight:600; text-decoration:none; }
+          .mobile-navigation .mobile-waitlist { margin-top:12px; padding:13px; border:1px solid rgba(233,107,34,.25); border-radius:9px; background:rgba(233,107,34,.07); color:#c95a19; text-align:center; }
+          .mobile-navigation .mobile-get-started { margin-top:9px; padding:13px; border:0; border-radius:9px; background:#e96b22; color:#fff; text-align:center; }
         }
       `}</style>
     </>
   )
 }
-
-
