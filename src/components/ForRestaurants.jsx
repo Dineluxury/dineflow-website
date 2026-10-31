@@ -15,12 +15,12 @@ export default function ForRestaurants() {
     <section id="restaurants" style={{ padding: '7rem 0', background: '#ffffff', position: 'relative', overflow: 'hidden' }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 1.5rem', position: 'relative', zIndex: 1 }}>
         <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
-          <span style={{ color: '#f97316', fontSize: '11px', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase' }}>For Restaurants, Hotels & Cafes</span>
-          <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 'clamp(2.2rem, 4vw, 3.5rem)', fontWeight: 800, marginTop: '1rem', lineHeight: 1.1, letterSpacing: '-0.02em', color: '#111827' }}>
+          <span style={{ color: '#e96b22', fontSize: '11px', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase' }}>For Restaurants, Hotels & Cafes</span>
+          <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 'clamp(2.2rem, 4vw, 3.5rem)', fontWeight: 800, marginTop: '1rem', lineHeight: 1.1, letterSpacing: '-0.02em', color: '#18212b' }}>
             Run a smarter
-            <br /><span style={{ backgroundImage: 'linear-gradient(135deg, #f97316, #ea6c0a)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Restaurants, Hotels & Cafes</span>
+            <br /><span style={{ backgroundImage: 'linear-gradient(135deg, #e96b22, #c95a19)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Restaurants, Hotels & Cafes</span>
           </h2>
-          <p style={{ color: '#6B7280', fontSize: '16px', maxWidth: '560px', margin: '1.5rem auto 0', lineHeight: 1.7 }}>
+          <p style={{ color: '#65717e', fontSize: '16px', maxWidth: '560px', margin: '1.5rem auto 0', lineHeight: 1.7 }}>
             Dineflow gives your kitchen full visibility and control. Know what's coming before customers even leave their house.
           </p>
         </div>
@@ -28,24 +28,24 @@ export default function ForRestaurants() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '20px', marginBottom: '4rem' }} className="three-col">
           {features.map(({ icon: Icon, title, desc }) => (
             <div key={title} style={{
-              background: '#fff', border: '1px solid #F0F0F0',
+              background: '#fff', border: '1px solid #e4e8ec',
               borderRadius: '18px', padding: '28px',
               transition: 'all 0.3s ease', cursor: 'default',
               boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
             }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(249,115,22,0.25)'; e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(249,115,22,0.1)' }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = '#F0F0F0'; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.04)' }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(233,107,34,0.25)'; e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 8px 22px rgba(60,45,35,0.07)' }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = '#e4e8ec'; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.04)' }}
             >
               <div style={{
                 width: '48px', height: '48px', borderRadius: '14px',
-                background: 'rgba(249,115,22,0.08)',
+                background: 'rgba(233,107,34,0.08)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 marginBottom: '18px',
               }}>
-                <Icon size={22} color="#f97316" />
+                <Icon size={22} color="#e96b22" />
               </div>
-              <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: '16px', color: '#111827', marginBottom: '8px' }}>{title}</div>
-              <div style={{ color: '#6B7280', fontSize: '14px', lineHeight: 1.65 }}>{desc}</div>
+              <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: '16px', color: '#18212b', marginBottom: '8px' }}>{title}</div>
+              <div style={{ color: '#65717e', fontSize: '14px', lineHeight: 1.65 }}>{desc}</div>
             </div>
           ))}
         </div>
@@ -54,27 +54,27 @@ export default function ForRestaurants() {
           <div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
             <a href="/waitlist" style={{
               display: 'inline-flex', alignItems: 'center', gap: '10px',
-              padding: '15px 32px', background: '#f97316',
+              padding: '15px 32px', background: '#e96b22',
               color: '#fff', fontWeight: 700, borderRadius: '14px',
               textDecoration: 'none', fontSize: '15px',
-              boxShadow: '0 6px 20px rgba(249,115,22,0.35)',
+              boxShadow: '0 3px 10px rgba(60,45,35,0.12)',
               transition: 'all 0.25s ease',
             }}
-              onMouseEnter={e => { e.currentTarget.style.background = '#ea6c0a'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(249,115,22,0.45)' }}
-              onMouseLeave={e => { e.currentTarget.style.background = '#f97316'; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 6px 20px rgba(249,115,22,0.35)' }}
+              onMouseEnter={e => { e.currentTarget.style.background = '#c95a19'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 5px 14px rgba(60,45,35,0.16)' }}
+              onMouseLeave={e => { e.currentTarget.style.background = '#e96b22'; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 3px 10px rgba(60,45,35,0.12)' }}
             >
               Windows App - Coming Soon
             </a>
             <a href="/waitlist" style={{
               display: 'inline-flex', alignItems: 'center', gap: '10px',
-              padding: '15px 32px', border: '1.5px solid #E5E7EB',
+              padding: '15px 32px', border: '1.5px solid #e4e8ec',
               color: '#374151', fontWeight: 700, borderRadius: '14px',
               textDecoration: 'none', fontSize: '15px',
               background: '#fff',
               transition: 'all 0.25s ease',
             }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = '#f97316'; e.currentTarget.style.color = '#f97316'; e.currentTarget.style.background = 'rgba(249,115,22,0.04)' }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = '#E5E7EB'; e.currentTarget.style.color = '#374151'; e.currentTarget.style.background = '#fff' }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = '#e96b22'; e.currentTarget.style.color = '#e96b22'; e.currentTarget.style.background = 'rgba(233,107,34,0.04)' }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = '#e4e8ec'; e.currentTarget.style.color = '#374151'; e.currentTarget.style.background = '#fff' }}
             >
               Join Venue Waitlist
             </a>
@@ -85,3 +85,5 @@ export default function ForRestaurants() {
     </section>
   )
 }
+
+

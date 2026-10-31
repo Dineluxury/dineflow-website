@@ -43,15 +43,15 @@ export default function Contact() {
   const inputStyle = (name) => ({
     width: '100%', padding: '13px 16px',
     background: '#fff',
-    border: `1.5px solid ${focused === name ? '#f97316' : '#E5E7EB'}`,
-    borderRadius: '12px', color: '#111827', fontSize: '14px',
+    border: `1.5px solid ${focused === name ? '#e96b22' : '#e4e8ec'}`,
+    borderRadius: '12px', color: '#18212b', fontSize: '14px',
     outline: 'none', transition: 'all 0.2s ease',
     fontFamily: 'inherit', boxSizing: 'border-box',
-    boxShadow: focused === name ? '0 0 0 3px rgba(249,115,22,0.1)' : 'none',
+    boxShadow: focused === name ? '0 0 0 3px rgba(233,107,34,0.1)' : 'none',
   })
 
   const labelStyle = {
-    color: '#6B7280', fontSize: '11px', fontWeight: 700,
+    color: '#65717e', fontSize: '11px', fontWeight: 700,
     letterSpacing: '0.12em', textTransform: 'uppercase',
     display: 'block', marginBottom: '8px',
   }
@@ -62,31 +62,31 @@ export default function Contact() {
       <div style={{ maxWidth: '720px', margin: '0 auto', padding: '0 1.5rem', position: 'relative', zIndex: 1 }}>
 
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-          <span style={{ color: '#f97316', fontSize: '11px', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase' }}>Get In Touch</span>
-          <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 'clamp(2.2rem, 4vw, 3.5rem)', fontWeight: 800, marginTop: '1rem', lineHeight: 1.1, letterSpacing: '-0.02em', color: '#111827' }}>
+          <span style={{ color: '#e96b22', fontSize: '11px', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase' }}>Get In Touch</span>
+          <h2 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 'clamp(2.2rem, 4vw, 3.5rem)', fontWeight: 800, marginTop: '1rem', lineHeight: 1.1, letterSpacing: '-0.02em', color: '#18212b' }}>
             Have something<br />
-            <span style={{ backgroundImage: 'linear-gradient(135deg, #f97316, #ea6c0a)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>to say?</span>
+            <span style={{ backgroundImage: 'linear-gradient(135deg, #e96b22, #c95a19)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>to say?</span>
           </h2>
-          <p style={{ color: '#6B7280', fontSize: '15px', maxWidth: '440px', margin: '1.5rem auto 0', lineHeight: 1.7 }}>
+          <p style={{ color: '#65717e', fontSize: '15px', maxWidth: '440px', margin: '1.5rem auto 0', lineHeight: 1.7 }}>
             Restaurant, hotel, cafe owner, food lover, or investor — we'd love to hear from you.
           </p>
         </div>
 
         {sent ? (
-          <div style={{ textAlign: 'center', padding: '5rem 2rem', background: '#F9FAFB', border: '1px solid #E5E7EB', borderRadius: '20px' }}>
+          <div style={{ textAlign: 'center', padding: '5rem 2rem', background: '#f6f7f8', border: '1px solid #e4e8ec', borderRadius: '20px' }}>
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
               <CheckCircle size={56} color="#22c55e" />
             </div>
-            <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", color: '#111827', fontSize: '1.75rem', fontWeight: 800, marginBottom: '10px' }}>Message sent!</h3>
-            <p style={{ color: '#6B7280', marginBottom: '8px', fontSize: '14px' }}>We'll reply within 24 hours.</p>
-            <p style={{ color: '#f97316', fontWeight: 600, fontSize: '13px', fontFamily: 'Geist Mono, monospace' }}>support@dineflow.et</p>
-            <button onClick={() => setSent(false)} style={{ marginTop: '2rem', padding: '10px 22px', border: '1.5px solid #E5E7EB', background: '#fff', color: '#374151', borderRadius: '10px', cursor: 'pointer', fontSize: '13px', fontFamily: 'inherit', fontWeight: 600, transition: 'all 0.2s' }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = '#f97316'; e.currentTarget.style.color = '#f97316' }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = '#E5E7EB'; e.currentTarget.style.color = '#374151' }}
+            <h3 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", color: '#18212b', fontSize: '1.75rem', fontWeight: 800, marginBottom: '10px' }}>Message sent!</h3>
+            <p style={{ color: '#65717e', marginBottom: '8px', fontSize: '14px' }}>We'll reply within 24 hours.</p>
+            <p style={{ color: '#e96b22', fontWeight: 600, fontSize: '13px', fontFamily: 'Geist Mono, monospace' }}>support@dineflow.et</p>
+            <button onClick={() => setSent(false)} style={{ marginTop: '2rem', padding: '10px 22px', border: '1.5px solid #e4e8ec', background: '#fff', color: '#374151', borderRadius: '10px', cursor: 'pointer', fontSize: '13px', fontFamily: 'inherit', fontWeight: 600, transition: 'all 0.2s' }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = '#e96b22'; e.currentTarget.style.color = '#e96b22' }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = '#e4e8ec'; e.currentTarget.style.color = '#374151' }}
             >Send another →</button>
           </div>
         ) : (
-          <div style={{ background: '#fff', border: '1px solid #F0F0F0', borderRadius: '24px', padding: '3rem 2.5rem', boxShadow: '0 4px 24px rgba(0,0,0,0.06)' }}>
+          <div style={{ background: '#fff', border: '1px solid #e4e8ec', borderRadius: '24px', padding: '3rem 2.5rem', boxShadow: '0 4px 24px rgba(0,0,0,0.06)' }}>
             <form onSubmit={handleSubmit}>
               {/* Name + Email */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '20px' }} className="two-col">
@@ -108,12 +108,12 @@ export default function Contact() {
                     <button key={id} type="button" onClick={() => setForm({ ...form, type: id })} style={{
                       display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', padding: '14px 8px',
                       borderRadius: '12px',
-                      border: form.type === id ? '1.5px solid #f97316' : '1.5px solid #E5E7EB',
-                      background: form.type === id ? 'rgba(249,115,22,0.06)' : '#fff',
-                      color: form.type === id ? '#f97316' : '#6B7280',
+                      border: form.type === id ? '1.5px solid #e96b22' : '1.5px solid #e4e8ec',
+                      background: form.type === id ? 'rgba(233,107,34,0.06)' : '#fff',
+                      color: form.type === id ? '#e96b22' : '#65717e',
                       cursor: 'pointer', fontSize: '11px', fontWeight: 700, fontFamily: 'inherit', transition: 'all 0.2s',
                     }}>
-                      <Icon size={18} color={form.type === id ? '#f97316' : '#9CA3AF'} />
+                      <Icon size={18} color={form.type === id ? '#e96b22' : '#9CA3AF'} />
                       {label}
                     </button>
                   ))}
@@ -128,16 +128,16 @@ export default function Contact() {
 
               {error && <div style={{ background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: '10px', padding: '12px 16px', color: '#dc2626', fontSize: '13px', marginBottom: '16px' }}>{error}</div>}
 
-              <button type="submit" disabled={loading} style={{ width: '100%', padding: '15px', background: loading ? '#fed7aa' : '#f97316', color: '#fff', fontWeight: 700, fontSize: '15px', border: 'none', borderRadius: '12px', cursor: loading ? 'not-allowed' : 'pointer', fontFamily: 'inherit', transition: 'all 0.2s', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', boxShadow: '0 4px 16px rgba(249,115,22,0.3)' }}
-                onMouseEnter={e => { if (!loading) { e.currentTarget.style.background = '#ea6c0a'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 10px 28px rgba(249,115,22,0.4)' } }}
-                onMouseLeave={e => { if (!loading) { e.currentTarget.style.background = '#f97316'; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(249,115,22,0.3)' } }}
+              <button type="submit" disabled={loading} style={{ width: '100%', padding: '15px', background: loading ? '#fed7aa' : '#e96b22', color: '#fff', fontWeight: 700, fontSize: '15px', border: 'none', borderRadius: '12px', cursor: loading ? 'not-allowed' : 'pointer', fontFamily: 'inherit', transition: 'all 0.2s', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', boxShadow: '0 3px 10px rgba(60,45,35,0.14)' }}
+                onMouseEnter={e => { if (!loading) { e.currentTarget.style.background = '#c95a19'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 5px 14px rgba(60,45,35,0.17)' } }}
+                onMouseLeave={e => { if (!loading) { e.currentTarget.style.background = '#e96b22'; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 3px 10px rgba(60,45,35,0.14)' } }}
               >
                 {loading ? <><div style={{ width: '16px', height: '16px', border: '2px solid rgba(255,255,255,0.4)', borderTopColor: '#fff', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} /> Sending...</> : <><Send size={16} /> Send Message</>}
               </button>
             </form>
 
-            <div style={{ marginTop: '24px', paddingTop: '24px', borderTop: '1px solid #F0F0F0', display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap' }}>
-              <a href="mailto:support@dineflow.et" style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#6B7280', textDecoration: 'none', fontSize: '13px', fontWeight: 500, transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = '#f97316'} onMouseLeave={e => e.currentTarget.style.color = '#6B7280'}>
+            <div style={{ marginTop: '24px', paddingTop: '24px', borderTop: '1px solid #e4e8ec', display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap' }}>
+              <a href="mailto:support@dineflow.et" style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#65717e', textDecoration: 'none', fontSize: '13px', fontWeight: 500, transition: 'color 0.2s' }} onMouseEnter={e => e.currentTarget.style.color = '#e96b22'} onMouseLeave={e => e.currentTarget.style.color = '#65717e'}>
                 <Mail size={14} /> support@dineflow.et
               </a>
               <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#9CA3AF', fontSize: '13px' }}>
@@ -151,3 +151,5 @@ export default function Contact() {
     </section>
   )
 }
+
+

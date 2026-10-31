@@ -52,7 +52,7 @@ export default function Hero() {
             <div className="homeTrustItems">
               {trustItems.map(({ icon: Icon, label }) => (
                 <div key={label}>
-                  <Icon size={14} color="#f97316" />
+                  <Icon size={14} color="#e96b22" />
                   <span>{label}</span>
                 </div>
               ))}
@@ -167,7 +167,7 @@ export default function Hero() {
           right: -10%;
           width: 600px;
           height: 600px;
-          background: radial-gradient(circle, rgba(249,115,22,0.07) 0%, transparent 70%);
+          background: radial-gradient(circle, rgba(233,107,34,0.07) 0%, transparent 70%);
           filter: blur(80px);
         }
 
@@ -176,7 +176,7 @@ export default function Hero() {
           left: -5%;
           width: 400px;
           height: 400px;
-          background: radial-gradient(circle, rgba(249,115,22,0.04) 0%, transparent 70%);
+          background: radial-gradient(circle, rgba(233,107,34,0.04) 0%, transparent 70%);
           filter: blur(100px);
         }
 
@@ -206,15 +206,15 @@ export default function Hero() {
           gap: 8px;
           padding: 6px 14px;
           border-radius: 999px;
-          background: rgba(249,115,22,0.08);
-          border: 1px solid rgba(249,115,22,0.2);
+          background: rgba(233,107,34,0.08);
+          border: 1px solid rgba(233,107,34,0.2);
           margin-bottom: 2rem;
         }
 
         .homeLiveBadge > span:last-child {
           font-size: 13px;
           font-weight: 600;
-          color: #f97316;
+          color: #e96b22;
         }
 
         .liveDotWrap {
@@ -243,12 +243,12 @@ export default function Hero() {
           font-weight: 800;
           line-height: 1.05;
           letter-spacing: -0.03em;
-          color: #111827;
+          color: #18212b;
           margin: 0 0 1.5rem;
         }
 
         .homeCopy h1 span {
-          background-image: linear-gradient(135deg, #f97316, #ea6c0a);
+          background-image: linear-gradient(135deg, #e96b22, #c95a19);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
@@ -263,7 +263,7 @@ export default function Hero() {
         }
 
         .homeCopy p strong {
-          color: #f97316;
+          color: #e96b22;
           font-weight: 600;
         }
 
@@ -287,15 +287,15 @@ export default function Hero() {
         }
 
         .primaryCta {
-          background: #f97316;
+          background: #e96b22;
           color: #fff;
-          box-shadow: 0 6px 20px rgba(249,115,22,0.35);
+          box-shadow: 0 6px 20px rgba(233,107,34,0.35);
         }
 
         .primaryCta:hover {
-          background: #ea6c0a;
+          background: #c95a19;
           transform: translateY(-2px);
-          box-shadow: 0 12px 32px rgba(249,115,22,0.45);
+          box-shadow: 0 6px 16px rgba(65,45,34,0.18);
         }
 
         .secondaryCta {
@@ -305,9 +305,9 @@ export default function Hero() {
         }
 
         .secondaryCta:hover {
-          border-color: #f97316;
-          color: #f97316;
-          background: rgba(249,115,22,0.04);
+          border-color: #e96b22;
+          color: #e96b22;
+          background: rgba(233,107,34,0.04);
         }
 
         .homeTrustItems {
@@ -346,7 +346,7 @@ export default function Hero() {
           position: absolute;
           inset: -34px;
           border-radius: 999px;
-          background: rgba(249, 115, 22, 0.18);
+          background: rgba(184, 95, 56, 0.18);
           filter: blur(58px);
         }
 
@@ -359,7 +359,7 @@ export default function Hero() {
           border-radius: 50px;
           overflow: hidden;
           transform: perspective(1000px) rotateY(-8deg) rotateX(3deg);
-          box-shadow: 24px 32px 74px rgba(17,24,39,0.28), 0 0 44px rgba(249,115,22,0.18);
+          box-shadow: 24px 32px 74px rgba(17,24,39,0.28), 0 0 44px rgba(233,107,34,0.18);
         }
 
         .homePhoneNotch {
@@ -421,7 +421,7 @@ export default function Hero() {
           border-radius: 50%;
           display: grid;
           place-items: center;
-          background: #f97316;
+          background: #e96b22;
           color: #fff;
           font-size: 15px;
           font-weight: 900;
@@ -460,7 +460,7 @@ export default function Hero() {
 
         .homeActiveChip {
           color: #fff;
-          background: #f97316;
+          background: #e96b22;
         }
 
         .homeRestaurantCard {
@@ -476,8 +476,8 @@ export default function Hero() {
           height: 108px;
           display: grid;
           place-items: center;
-          color: #ff8a33;
-          background: linear-gradient(135deg, rgba(249,115,22,0.18), rgba(96,48,24,0.36));
+          color: #c98763;
+          background: linear-gradient(135deg, rgba(233,107,34,0.12), rgba(96,48,24,0.24));
         }
 
         .homeRestaurantInfo {
@@ -507,7 +507,7 @@ export default function Hero() {
         }
 
         .homeRestaurantInfo > div:first-child span {
-          color: #f97316;
+          color: #e96b22;
         }
 
         .homeRatingBox {
@@ -515,7 +515,7 @@ export default function Hero() {
         }
 
         .homeRatingBox b {
-          color: #fbbf24;
+          color: #cfb078;
           font-size: 11px;
         }
 
@@ -564,8 +564,8 @@ export default function Hero() {
         }
 
         .homeOrangeIcon {
-          color: #fb923c;
-          background: rgba(249,115,22,0.15);
+          color: #cf815d;
+          background: rgba(233,107,34,0.15);
         }
 
         .homeBadgeAccepted {
@@ -580,7 +580,7 @@ export default function Hero() {
         }
 
         .homeBadgeOrder span {
-          color: #f97316;
+          color: #e96b22;
           font-weight: 800;
         }
 
@@ -630,3 +630,5 @@ export default function Hero() {
     </section>
   )
 }
+
+
