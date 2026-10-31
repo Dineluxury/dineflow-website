@@ -33,17 +33,7 @@ function PageLoader() {
           border: '2px solid rgba(249,115,22,0.3)',
           animation: 'loaderPing 1.5s ease-out infinite',
         }} />
-        <div style={{
-          width: '64px', height: '64px',
-          background: '#f97316',
-          borderRadius: '18px',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          color: '#fff', fontWeight: 900, fontSize: '28px',
-          fontFamily: "'Plus Jakarta Sans', sans-serif",
-          boxShadow: '0 0 40px rgba(249,115,22,0.5)',
-        }}>
-          D
-        </div>
+        <img src="/dineflow-logo.png" alt="Dineflow" style={{ width: '64px', height: '64px', objectFit: 'contain', borderRadius: '18px', boxShadow: '0 0 40px rgba(249,115,22,0.2)' }} />
       </div>
 
       <p style={{
@@ -171,7 +161,7 @@ function FloatingButtons() {
     }}>
       {/* WhatsApp */}
       <a
-        href="https://wa.me/25191977974?text=Hi%2C%20I%27m%20interested%20in%20Dineflow"
+        href="https://wa.me/251919779774?text=Hi%2C%20I%27m%20interested%20in%20Dineflow"
         target="_blank"
         rel="noreferrer"
         title="Chat on WhatsApp"

@@ -43,6 +43,20 @@ export default function RestaurantAppLinkPage() {
     }
 
     setStatus('Opening this restaurant in Dineflow...')
+
+    if (ref) {
+      const trackUrl = `/api/partners/track/share?ref=${encodeURIComponent(ref)}&restaurantId=${encodeURIComponent(restaurantId || '')}&item=${encodeURIComponent(item || '')}`
+      try {
+        if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
+          navigator.sendBeacon(trackUrl)
+        } else {
+          fetch(trackUrl, { keepalive: true }).catch(() => {})
+        }
+      } catch {
+        fetch(trackUrl, { keepalive: true }).catch(() => {})
+      }
+    }
+
     window.location.href = appLink
     const timer = window.setTimeout(() => {
       window.location.href = getStoreUrl()

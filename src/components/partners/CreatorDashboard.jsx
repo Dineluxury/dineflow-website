@@ -1,13 +1,14 @@
 'use client'
 import { useState, useEffect } from 'react'
+import { Calculator, CircleDollarSign, LayoutDashboard, Link2, MousePointer2, Plus, Share2, ShoppingBag, Utensils, Wallet } from 'lucide-react'
 import DashboardLayout from './DashboardLayout'
 
 const tabs = [
-  { id: 'overview', emoji: '📊', label: 'Overview' },
-  { id: 'links', emoji: '🔗', label: 'My Links' },
-  { id: 'generate', emoji: '✨', label: 'Generate Link' },
-  { id: 'earnings', emoji: '💰', label: 'Earnings' },
-  { id: 'calculator', emoji: '🧮', label: 'Calculator' },
+  { id: 'overview', icon: LayoutDashboard, label: 'Overview' },
+  { id: 'links', icon: Link2, label: 'My links' },
+  { id: 'generate', icon: Plus, label: 'Generate link' },
+  { id: 'earnings', icon: Wallet, label: 'Earnings' },
+  { id: 'calculator', icon: Calculator, label: 'Calculator' },
 ]
 
 export default function CreatorDashboard() {
@@ -71,17 +72,17 @@ function CreatorOverview({ profile, links, earnings }) {
   const totalOrders = links.reduce((s, l) => s + (l.totalOrders || 0), 0)
 
   const stats = [
-    { label: 'Active Links', value: links.length, emoji: '🔗', color: '#a855f7' },
-    { label: 'Total Clicks', value: totalClicks.toLocaleString(), emoji: '👆', color: '#60a5fa' },
-    { label: 'Total Orders', value: totalOrders.toLocaleString(), emoji: '🛒', color: '#22c55e' },
-    { label: 'Pending Earnings (ETB)', value: earnings?.pendingEarnings || '0.00', emoji: '💰', color: '#fbbf24' },
+    { label: 'Active links', value: links.length, icon: Link2, color: '#8040bd' },
+    { label: 'Total clicks', value: totalClicks.toLocaleString(), icon: MousePointer2, color: '#3975bd' },
+    { label: 'Total orders', value: totalOrders.toLocaleString(), icon: ShoppingBag, color: '#318257' },
+    { label: 'Pending earnings (ETB)', value: earnings?.pendingEarnings || '0.00', icon: CircleDollarSign, color: '#a57518' },
   ]
 
   return (
     <div>
       <div style={{ marginBottom: '2rem' }}>
         <h1 style={{ fontFamily: 'Syne, sans-serif', color: '#fff', fontSize: '1.8rem', fontWeight: 900, marginBottom: '6px' }}>
-          Welcome back, {profile?.name?.split(' ')[0] || 'Creator'} 🎬
+          Welcome back, {profile?.name?.split(' ')[0] || 'Creator'}
         </h1>
         <p style={{ color: '#6b7280', fontSize: '14px' }}>
           {profile?.handle && `${profile.handle} · `}
@@ -99,8 +100,8 @@ function CreatorOverview({ profile, links, earnings }) {
             onMouseEnter={e => { e.currentTarget.style.borderColor = `${s.color}30`; e.currentTarget.style.transform = 'translateY(-2px)' }}
             onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)'; e.currentTarget.style.transform = 'translateY(0)' }}
           >
-            <div style={{ fontSize: '28px', marginBottom: '12px' }}>{s.emoji}</div>
-            <div style={{ color: s.color, fontSize: '2rem', fontWeight: 900, fontFamily: 'Syne, sans-serif', lineHeight: 1 }}>{s.value}</div>
+            <div style={{ width: '36px', height: '36px', display: 'grid', placeItems: 'center', marginBottom: '16px', borderRadius: '10px', background: `${s.color}12` }}><s.icon size={18} color={s.color} strokeWidth={1.9} /></div>
+            <div style={{ color: s.color, fontSize: '1.8rem', fontWeight: 800, fontFamily: 'Syne, sans-serif', lineHeight: 1, fontVariantNumeric: 'tabular-nums' }}>{s.value}</div>
             <div style={{ color: '#6b7280', fontSize: '12px', marginTop: '6px' }}>{s.label}</div>
           </div>
         ))}
@@ -121,13 +122,13 @@ function CreatorOverview({ profile, links, earnings }) {
         <h3 style={{ fontFamily: 'Syne, sans-serif', color: '#fff', fontWeight: 800, fontSize: '1rem', marginBottom: '1.5rem' }}>How your earnings work</h3>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px' }}>
           {[
-            { emoji: '🔗', title: 'Generate link', desc: 'For any food item on Dineflow' },
-            { emoji: '🎬', title: 'Share it', desc: 'On TikTok, YouTube, Instagram' },
-            { emoji: '👆', title: 'Followers order', desc: 'Through your personal link' },
-            { emoji: '💰', title: 'You earn ETB 3', desc: 'Per completed paid order' },
+            { icon: Link2, title: 'Generate a link', desc: 'Choose a food item on Dineflow' },
+            { icon: Share2, title: 'Share your link', desc: 'Post it on your social channels' },
+            { icon: Utensils, title: 'Followers order', desc: 'Orders are tracked to your link' },
+            { icon: CircleDollarSign, title: 'Earn ETB 3', desc: 'For each completed paid order' },
           ].map(step => (
             <div key={step.title} style={{ textAlign: 'center', padding: '16px', background: 'rgba(168,85,247,0.05)', borderRadius: '14px', border: '1px solid rgba(168,85,247,0.1)' }}>
-              <div style={{ fontSize: '28px', marginBottom: '8px' }}>{step.emoji}</div>
+              <div style={{ display: 'grid', placeItems: 'center', width: '36px', height: '36px', margin: '0 auto 10px', borderRadius: '10px', background: 'rgba(128,64,189,.09)', color: '#8040bd' }}><step.icon size={17} strokeWidth={1.8} /></div>
               <p style={{ color: '#fff', fontWeight: 700, fontSize: '12px', marginBottom: '4px' }}>{step.title}</p>
               <p style={{ color: '#6b7280', fontSize: '11px', lineHeight: 1.5 }}>{step.desc}</p>
             </div>
@@ -151,9 +152,9 @@ function CreatorLinks({ links }) {
       {links.length === 0 ? (
         <div style={{ background: '#141414', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '20px', padding: '4rem', textAlign: 'center' }}>
           <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>🔗</div>
-          <h3 style={{ fontFamily: 'Syne, sans-serif', color: '#fff', fontWeight: 800, marginBottom: '8px' }}>No links yet</h3>
-          <p style={{ color: '#6b7280', fontSize: '14px', maxWidth: '400px', margin: '0 auto', lineHeight: 1.7 }}>
-            Go to the "Generate Link" tab to create your first personal food link. Share it in your next video and start earning.
+          <h3 style={{ fontFamily: 'Syne, sans-serif', color: '#fff', fontWeight: 800, marginBottom: '8px' }}>No shared links yet</h3>
+          <p style={{ color: '#9ca3af', fontSize: '14px', maxWidth: '480px', margin: '0 auto', lineHeight: 1.7 }}>
+            Open the <strong>Dineflow app</strong> on your phone, find any dish you love, and tap <strong>Share</strong>. When followers click your shared link or order, your food links and live click stats will appear here automatically!
           </p>
         </div>
       ) : (
@@ -163,21 +164,39 @@ function CreatorLinks({ links }) {
               onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(168,85,247,0.2)'}
               onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)'}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '18px', gap: '16px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                   {link.foodPhoto ? (
-                    <img src={link.foodPhoto} style={{ width: '52px', height: '52px', borderRadius: '12px', objectFit: 'cover' }} />
-                  ) : (
-                    <div style={{ width: '52px', height: '52px', background: 'rgba(168,85,247,0.1)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px' }}>🍽️</div>
-                  )}
+                    <img
+                      src={link.foodPhoto}
+                      alt={link.foodName || 'Food Item'}
+                      style={{ width: '68px', height: '68px', borderRadius: '14px', objectFit: 'cover', border: '1px solid rgba(255,255,255,0.1)', flexShrink: 0 }}
+                      onError={e => { e.currentTarget.style.display = 'none'; e.currentTarget.nextSibling.style.display = 'flex' }}
+                    />
+                  ) : null}
+                  <div style={{ width: '68px', height: '68px', background: 'rgba(168,85,247,0.1)', borderRadius: '14px', display: link.foodPhoto ? 'none' : 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '28px', border: '1px solid rgba(168,85,247,0.2)', flexShrink: 0 }}>
+                    🍽️
+                  </div>
                   <div>
-                    <h4 style={{ color: '#fff', fontWeight: 700, fontSize: '15px', marginBottom: '2px' }}>{link.foodName || 'Food Item'}</h4>
-                    <p style={{ color: '#6b7280', fontSize: '12px' }}>{link.restaurantName} · ETB {link.foodPrice}</p>
+                    <h4 style={{ color: '#fff', fontWeight: 800, fontSize: '17px', marginBottom: '4px', letterSpacing: '-0.01em' }}>
+                      {link.foodName || 'Food Item'}
+                    </h4>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                      <span style={{ color: '#d4d4d8', fontSize: '13px', fontWeight: 600 }}>🏪 {link.restaurantName || 'Featured Restaurant'}</span>
+                      <span style={{ color: 'rgba(255,255,255,0.2)' }}>•</span>
+                      <span style={{ background: 'rgba(168,85,247,0.12)', border: '1px solid rgba(168,85,247,0.25)', color: '#c084fc', padding: '1px 8px', borderRadius: '6px', fontSize: '12px', fontWeight: 700 }}>
+                        ETB {link.foodPrice || '0.00'}
+                      </span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: '#a1a1aa', fontSize: '12px' }}>
+                      <span>📍</span>
+                      <span>{link.placeName || link.restaurantAddress || 'Addis Ababa'}</span>
+                    </div>
                   </div>
                 </div>
-                <div style={{ textAlign: 'right' }}>
-                  <p style={{ color: '#22c55e', fontWeight: 700, fontSize: '15px' }}>ETB {(link.totalOrders || 0) * 3}</p>
-                  <p style={{ color: '#6b7280', fontSize: '11px' }}>earned</p>
+                <div style={{ textAlign: 'right', background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.2)', padding: '6px 14px', borderRadius: '12px', flexShrink: 0 }}>
+                  <p style={{ color: '#22c55e', fontWeight: 800, fontSize: '15px', margin: 0 }}>ETB {(link.totalOrders || 0) * 3}</p>
+                  <p style={{ color: '#86efac', fontSize: '11px', margin: 0, fontWeight: 500 }}>earned</p>
                 </div>
               </div>
 
@@ -269,6 +288,16 @@ function GenerateLink({ profile, onGenerated }) {
     <div>
       <h2 style={{ fontFamily: 'Syne, sans-serif', color: '#fff', fontSize: '1.5rem', fontWeight: 900, marginBottom: '8px' }}>Generate Food Link</h2>
       <p style={{ color: '#6b7280', fontSize: '14px', marginBottom: '2rem' }}>Enter a Dineflow food item ID to create your personal affiliate link.</p>
+
+      <div style={{ background: 'rgba(168,85,247,0.08)', border: '1px solid rgba(168,85,247,0.25)', borderRadius: '16px', padding: '16px 20px', marginBottom: '24px', maxWidth: '600px', display: 'flex', gap: '14px', alignItems: 'center' }}>
+        <span style={{ fontSize: '24px' }}>✨</span>
+        <div>
+          <h4 style={{ color: '#fff', fontSize: '14px', fontWeight: 700, marginBottom: '3px' }}>Automatic App Tracking is Active</h4>
+          <p style={{ color: '#a1a1aa', fontSize: '13px', lineHeight: 1.5, margin: 0 }}>
+            You do not need to manually create links! Every time you tap <strong>Share</strong> on any dish inside the <strong>Dineflow app</strong>, your affiliate link is created automatically. Once people click or order, it will appear in your <strong>My Links</strong> tab.
+          </p>
+        </div>
+      </div>
 
       <div style={{ background: '#141414', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '24px', padding: '2.5rem', maxWidth: '600px' }}>
         <div style={{ marginBottom: '20px' }}>

@@ -1,22 +1,20 @@
 'use client'
+
 import { useState } from 'react'
+import { ChevronDown } from 'lucide-react'
 
 const faqs = {
   ambassador: [
-    { q: 'Do I need any experience to become an ambassador?', a: 'No experience needed. If you can walk into a restaurant and show them an app on a laptop or phone, you can do this. We give you a simple guide on what to say.' },
-    { q: 'When do I start earning?', a: 'You start earning after the restaurant receives their first real paid order. Usually within a few days of them signing up.' },
-    { q: 'How do I get paid?', a: 'We pay via Telebirr or bank transfer at the end of each month. You need a minimum of ETB 200 in earnings to request a payout.' },
-    { q: 'What if the restaurant signs up but never gets orders?', a: 'You only earn when orders happen. But you can help them get started by telling people about the restaurant. More orders = more money for both of you.' },
-    { q: 'Can I refer restaurants in any city?', a: 'Yes. You can refer restaurants anywhere in Ethiopia. Not just near your university.' },
-    { q: 'What happens after 3 months?', a: 'Your earning period ends after 3 months per restaurant. But you can keep referring new restaurants and earn from each of them for their own 3-month period.' },
+    { q: 'Do I need experience to apply?', a: 'No prior experience is required. Ambassadors receive a guide for introducing Dineflow to local restaurants.' },
+    { q: 'When do ambassador earnings begin?', a: 'Earnings begin when a referred restaurant is approved and receives eligible orders, according to the partner terms.' },
+    { q: 'How are ambassadors paid?', a: 'The program currently lists monthly payout by Telebirr or bank transfer, with a minimum payout request of ETB 200.' },
+    { q: 'How long can I earn from a restaurant?', a: 'The stated earning period is three months per referred restaurant. Each new referral has its own period.' },
   ],
   creator: [
-    { q: 'How many followers do I need?', a: 'There is no minimum. A creator with 500 highly engaged followers in the right city can outperform someone with 50,000 unengaged followers. Quality matters more.' },
-    { q: 'How do I get my unique food link?', a: 'Once approved, you get access to your creator dashboard. From there you can generate your personal link for any food item or restaurant on Dineflow.' },
-    { q: 'When do I earn — on clicks or on orders?', a: 'Only on completed, paid orders. A click means nothing. An order that gets paid means ETB 3 in your account. This protects everyone.' },
-    { q: 'How long does the link track orders?', a: 'Your link tracks for 30 days. If someone clicks your video today and orders next week, you still get credit.' },
-    { q: 'Can I share links for multiple restaurants?', a: 'Yes. You can create personal links for as many food items and restaurants as you want. The more you share, the more you can earn.' },
-    { q: 'How do I get paid?', a: 'Monthly payout via Telebirr or bank transfer. Minimum ETB 100 to withdraw.' },
+    { q: 'Is there a minimum follower count?', a: 'There is no stated minimum. Applications are reviewed based on the creator profile and audience fit.' },
+    { q: 'How are creator orders attributed?', a: 'Use a unique food or restaurant link from the creator dashboard. The program states that the link tracks for 30 days.' },
+    { q: 'Do clicks or views earn commission?', a: 'No. The stated commission is ETB 3 per completed, paid order attributed to your link.' },
+    { q: 'How are creators paid?', a: 'The program currently lists monthly payout by Telebirr or bank transfer, with a minimum withdrawal of ETB 100.' },
   ],
 }
 
@@ -25,49 +23,29 @@ export default function PartnersFAQ() {
   const [open, setOpen] = useState(null)
 
   return (
-    <section style={{ padding: '8rem 0', background: '#0d0d0d' }}>
-      <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 1.5rem' }}>
-
-        <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-          <span style={{ color: '#f97316', fontSize: '12px', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase' }}>FAQ</span>
-          <h2 style={{ fontFamily: 'Syne, sans-serif', fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 900, marginTop: '1rem', color: '#fff' }}>
-            Common questions.
-          </h2>
-        </div>
-
-        {/* Tab toggle */}
-        <div style={{ display: 'flex', background: '#1a1a1a', borderRadius: '14px', padding: '5px', marginBottom: '3rem', border: '1px solid rgba(255,255,255,0.08)' }}>
-          {[
-            { id: 'ambassador', label: '🎓 Student Ambassador' },
-            { id: 'creator', label: '🎬 Content Creator' },
-          ].map(t => (
-            <button
-              key={t.id}
-              onClick={() => { setTab(t.id); setOpen(null) }}
-              style={{ flex: 1, padding: '12px', borderRadius: '10px', border: 'none', background: tab === t.id ? '#f97316' : 'transparent', color: tab === t.id ? '#fff' : '#6b7280', fontWeight: 600, fontSize: '14px', cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.2s' }}
-            >
-              {t.label}
-            </button>
+    <section id="faq" className="partner-section partner-faq">
+      <div className="partner-section-inner" style={{ maxWidth: 820 }}>
+        <header className="partner-section-heading">
+          <span className="partner-eyebrow">Helpful details</span>
+          <h2>Questions before you apply?</h2>
+          <p>Review the current program guidance. Final eligibility and payment terms should be confirmed in your partner agreement.</p>
+        </header>
+        <div className="partner-faq-tabs" role="tablist" aria-label="Choose program questions">
+          {[['ambassador', 'Student Ambassador'], ['creator', 'Content Creator']].map(([id, label]) => (
+            <button key={id} type="button" role="tab" aria-selected={tab === id} className={tab === id ? 'partner-faq-tab active' : 'partner-faq-tab'} onClick={() => { setTab(id); setOpen(null) }}>{label}</button>
           ))}
         </div>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          {faqs[tab].map((faq, i) => (
-            <div key={i} style={{ background: '#1a1a1a', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '16px', overflow: 'hidden', transition: 'all 0.2s' }}>
-              <button
-                onClick={() => setOpen(open === i ? null : i)}
-                style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px 24px', background: 'transparent', border: 'none', color: '#fff', fontWeight: 600, fontSize: '15px', cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left', gap: '16px' }}
-              >
-                <span>{faq.q}</span>
-                <span style={{ color: '#f97316', fontSize: '20px', flexShrink: 0, transform: open === i ? 'rotate(45deg)' : 'rotate(0)', transition: 'transform 0.2s' }}>+</span>
-              </button>
-              {open === i && (
-                <div style={{ padding: '0 24px 20px' }}>
-                  <p style={{ color: '#9ca3af', fontSize: '14px', lineHeight: 1.7 }}>{faq.a}</p>
-                </div>
-              )}
-            </div>
-          ))}
+        <div className="partner-faq-list">
+          {faqs[tab].map((faq, index) => {
+            const expanded = open === index
+            const answerId = `partner-faq-${tab}-${index}`
+            return (
+              <article className="partner-faq-item" key={faq.q}>
+                <h3><button type="button" aria-expanded={expanded} aria-controls={answerId} onClick={() => setOpen(expanded ? null : index)}>{faq.q}<ChevronDown size={18} aria-hidden="true" /></button></h3>
+                {expanded && <p id={answerId}>{faq.a}</p>}
+              </article>
+            )
+          })}
         </div>
       </div>
     </section>

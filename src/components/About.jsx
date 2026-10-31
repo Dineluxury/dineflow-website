@@ -1,8 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
 import { Store, SmilePlus, Star, Timer, Zap, Handshake, Globe, Lock } from 'lucide-react'
-
-const WAITLIST_DEFAULTS = { venues: 40, users: 130 }
 
 const values = [
   { icon: Zap, title: 'Built for Speed', desc: 'From order to table in minutes. No phone calls, no waiting, no stress.' },
@@ -12,29 +9,11 @@ const values = [
 ]
 
 export default function About() {
-  const [waitlistStats, setWaitlistStats] = useState(WAITLIST_DEFAULTS)
-
-  useEffect(() => {
-    const readStats = () => {
-      const venues = Math.max(Number(window.localStorage.getItem('dineflowWaitlistVenues')) || WAITLIST_DEFAULTS.venues, WAITLIST_DEFAULTS.venues)
-      const users = Math.max(Number(window.localStorage.getItem('dineflowWaitlistUsers')) || WAITLIST_DEFAULTS.users, WAITLIST_DEFAULTS.users)
-      setWaitlistStats({ venues, users })
-    }
-
-    readStats()
-    window.addEventListener('storage', readStats)
-    window.addEventListener('dineflow-waitlist-updated', readStats)
-    return () => {
-      window.removeEventListener('storage', readStats)
-      window.removeEventListener('dineflow-waitlist-updated', readStats)
-    }
-  }, [])
-
   const stats = [
-    { value: `${waitlistStats.venues}`, label: 'Restaurants, Hotels & Cafes Waiting', icon: Store },
-    { value: `${waitlistStats.users}`, label: 'Users on the Waitlist', icon: SmilePlus },
-    { value: '4.9', label: 'Preview Tester Rating', icon: Star },
-    { value: '15min', label: 'Avg Wait Saved', icon: Timer },
+    { value: 'Order ahead', label: 'Plan your meal before arriving', icon: Store },
+    { value: 'One app', label: 'For diners and local venues', icon: SmilePlus },
+    { value: 'Live updates', label: 'Follow each order as it moves', icon: Star },
+    { value: 'Made local', label: 'Designed for Ethiopia', icon: Timer },
   ]
 
   return (

@@ -38,7 +38,7 @@ export default function Footer() {
         <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '3rem', marginBottom: '4rem' }} className="stats-grid">
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '1.5rem' }}>
-              <div style={{ width: '34px', height: '34px', background: '#f97316', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 900, fontSize: '16px', fontFamily: "'Plus Jakarta Sans', sans-serif", boxShadow: '0 4px 14px rgba(249,115,22,0.3)' }}>D</div>
+              <img src="/dineflow-logo.png" alt="" style={{ width: '34px', height: '34px', objectFit: 'contain' }} />
               <span style={{ color: '#111827', fontWeight: 800, fontSize: '18px', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Dineflow</span>
             </div>
             <p style={{ color: '#6B7280', fontSize: '13px', lineHeight: 1.7, maxWidth: '280px', marginBottom: '1.5rem' }}>
@@ -51,9 +51,9 @@ export default function Footer() {
           </div>
 
           {[
-            { title: 'Product', links: [{ l: 'For Customers', h: '#customers' }, { l: 'For Venues', h: '#restaurants' }, { l: 'How It Works', h: '#how' }, { l: 'Become a Partner', h: '/partners' }] },
-            { title: 'Company', links: [{ l: 'About Us', h: '#about' }, { l: 'Blog', h: '#contact' }, { l: 'Careers', h: '#contact' }, { l: 'Contact', h: '#contact' }] },
-            { title: 'Legal', links: [{ l: 'Privacy Policy', h: '#contact' }, { l: 'Terms of Service', h: '#contact' }, { l: 'Cookie Policy', h: '#contact' }] },
+            { title: 'Product', links: [{ l: 'For Customers', h: '#customers' }, { l: 'For Venues', h: '#restaurants' }, { l: 'Pricing', h: '/pricing' }, { l: 'How It Works', h: '#how' }, { l: 'Become a Partner', h: '/partners' }] },
+            { title: 'Company', links: [{ l: 'About Us', h: '#about' }, { l: 'Contact', h: '#contact' }, { l: 'Features', h: '#features' }] },
+            { title: 'Legal', links: [{ l: 'Privacy Policy', h: '/privacy' }, { l: 'Terms of Service', h: '#contact' }] },
           ].map(col => (
             <div key={col.title}>
               <h4 style={{ color: '#111827', fontWeight: 700, marginBottom: '1.25rem', fontSize: '11px', letterSpacing: '0.12em', textTransform: 'uppercase', fontFamily: "'Plus Jakarta Sans', sans-serif" }}>{col.title}</h4>
@@ -79,3 +79,4 @@ export default function Footer() {
     </footer>
   )
 }
+

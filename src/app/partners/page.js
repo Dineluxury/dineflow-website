@@ -1,7 +1,5 @@
 import PartnersHero from '@/components/partners/PartnersHero'
 import PartnerChoices from '@/components/partners/PartnerChoices'
-import AmbassadorSection from '@/components/partners/AmbassadorSection'
-import CreatorSection from '@/components/partners/CreatorSection'
 import EarningsCalculator from '@/components/partners/EarningsCalculator'
 import PartnersFAQ from '@/components/partners/PartnersFAQ'
 import PartnersFooter from '@/components/partners/PartnersFooter'
@@ -13,11 +11,9 @@ export const metadata = {
 
 export default function PartnersPage() {
   return (
-    <main style={{ background: '#0F0500', minHeight: '100vh', color: '#fff' }}>
+    <main>
       <PartnersHero />
       <PartnerChoices />
-      <AmbassadorSection />
-      <CreatorSection />
       <EarningsCalculator />
       <PartnersFAQ />
       <PartnersFooter />

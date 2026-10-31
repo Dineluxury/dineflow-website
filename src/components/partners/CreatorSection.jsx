@@ -2,11 +2,11 @@
 import { useState } from 'react'
 
 const steps = [
-  { emoji: '📝', title: 'Apply as a Creator', desc: 'Sign up with your social media profile. We review and approve within 48 hours.' },
-  { emoji: '🔗', title: 'Get Your Personal Food Links', desc: 'For any food item or restaurant on Dineflow, you get a unique link that tracks orders back to you.' },
-  { emoji: '🎬', title: 'Make Your Content', desc: 'Review the restaurant or food on TikTok, YouTube, or Instagram. Share your Dineflow food link in the description or bio.' },
-  { emoji: '👆', title: 'Followers Click and Order', desc: 'Your followers click the link, open the specific food item in the Dineflow app, and order it.' },
-  { emoji: '💸', title: 'Earn After Every Payment', desc: 'Only when the customer pays do you earn. No clicks, no installs — only real paid orders.' },
+  { title: 'Apply as a Creator', desc: 'Sign up with your social media profile. We review and approve within 48 hours.' },
+  { title: 'Get Your Personal Food Links', desc: 'For any food item or restaurant on Dineflow, you get a unique link that tracks orders back to you.' },
+  { title: 'Make Your Content', desc: 'Review the restaurant or food on TikTok, YouTube, or Instagram. Share your Dineflow food link in the description or bio.' },
+  { title: 'Followers Click and Order', desc: 'Your followers click the link, open the specific food item in the Dineflow app, and order it.' },
+  { title: 'Earn After Every Payment', desc: 'Only when the customer pays do you earn. No clicks, no installs — only real paid orders.' },
 ]
 
 const platforms = ['TikTok', 'YouTube', 'Instagram', 'Telegram Channel', 'Facebook', 'Other']
@@ -37,6 +37,11 @@ export default function CreatorSection() {
 
   if (form.password !== form.confirmPassword) {
     alert('Password and confirm password do not match.')
+    return
+  }
+
+  if (!form.platform) {
+    alert('Please select your primary platform.')
     return
   }
 
@@ -77,7 +82,7 @@ export default function CreatorSection() {
 }
 
   return (
-    <section id="creator" style={{ padding: '8rem 0', background: '#0d0d0d', position: 'relative', overflow: 'hidden' }}>
+    <section id="creator" className="partner-application" style={{ padding: '8rem 0', background: '#0d0d0d', position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 80% 50%, rgba(168,85,247,0.05) 0%, transparent 60%)' }} />
 
       <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 1.5rem', position: 'relative', zIndex: 1 }}>
@@ -85,7 +90,6 @@ export default function CreatorSection() {
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', padding: '8px 20px', borderRadius: '999px', border: '1px solid rgba(168,85,247,0.3)', background: 'rgba(168,85,247,0.08)', marginBottom: '1.5rem' }}>
-            <span style={{ fontSize: '16px' }}>🎬</span>
             <span style={{ color: '#c084fc', fontSize: '14px', fontWeight: 600 }}>Creator Partner Program</span>
           </div>
           <h2 style={{ fontFamily: 'Syne, sans-serif', fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 900, marginTop: '1rem', marginBottom: '1.5rem', lineHeight: 1.05 }}>
@@ -100,8 +104,8 @@ export default function CreatorSection() {
         </div>
 
         {/* How the link works — visual explanation */}
-        <div style={{ background: '#1a1a1a', border: '1px solid rgba(168,85,247,0.2)', borderRadius: '20px', padding: '2rem', marginBottom: '5rem' }}>
-          <div style={{ color: '#a855f7', fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1.5rem' }}>🔗 How your food link works</div>
+        <div className="partner-link-flow" style={{ background: '#fff', border: '1px solid #e1e6ea', borderRadius: '16px', padding: '2rem', marginBottom: '3rem' }}>
+          <div style={{ color: '#a855f7', fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1.5rem' }}>How your food link works</div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
             {[
               { label: 'Normal link', value: 'dineflow.et/food/tibs-123', color: '#6b7280' },
@@ -111,7 +115,7 @@ export default function CreatorSection() {
               item.value ? (
                 <div key={i}>
                   <div style={{ color: '#6b7280', fontSize: '11px', marginBottom: '6px' }}>{item.label}</div>
-                  <div style={{ background: '#0f0f0f', border: `1px solid ${item.color === '#a855f7' ? 'rgba(168,85,247,0.4)' : 'rgba(255,255,255,0.08)'}`, borderRadius: '10px', padding: '10px 16px', color: item.color, fontSize: '13px', fontFamily: 'monospace', fontWeight: 600 }}>
+                  <div className="partner-link-code" style={{ background: '#f6f7f8', border: '1px solid #e1e6ea', borderRadius: '10px', padding: '10px 16px', color: '#4d5964', fontSize: '13px', fontFamily: 'monospace', fontWeight: 600 }}>
                     {item.value}
                   </div>
                 </div>
@@ -122,13 +126,13 @@ export default function CreatorSection() {
           </div>
           <div style={{ marginTop: '1.5rem', display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
             {[
-              { emoji: '👆', text: 'Follower clicks your link' },
-              { emoji: '🍲', text: 'Opens that exact food in the app' },
-              { emoji: '💳', text: 'Orders and pays' },
-              { emoji: '💰', text: 'You earn commission' },
-            ].map(step => (
+              { text: 'Follower clicks your link' },
+              { text: 'Opens that exact food in the app' },
+              { text: 'Orders and pays' },
+              { text: 'You earn commission' },
+            ].map((step, index) => (
               <div key={step.text} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ fontSize: '18px' }}>{step.emoji}</span>
+                <span style={{ color: '#a855f7', fontSize: '11px', fontWeight: 800 }}>{String(index + 1).padStart(2, '0')}</span>
                 <span style={{ color: '#9ca3af', fontSize: '13px' }}>{step.text}</span>
               </div>
             ))}
@@ -144,8 +148,8 @@ export default function CreatorSection() {
               {steps.map((step, i) => (
                 <div key={step.title} style={{ display: 'flex', gap: '16px', marginBottom: '4px' }}>
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0 }}>
-                    <div style={{ width: '48px', height: '48px', background: '#1a1a1a', border: '1px solid rgba(168,85,247,0.2)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '22px' }}>
-                      {step.emoji}
+                    <div className="partner-application-step-number" style={{ width: '48px', height: '48px', background: '#fff2e9', border: '1px solid #f0d6c5', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#a74918', fontSize: '13px', fontWeight: 800 }}>
+                      {String(i + 1).padStart(2, '0')}
                     </div>
                     {i < steps.length - 1 && (
                       <div style={{ width: '1px', height: '28px', background: 'linear-gradient(to bottom, rgba(168,85,247,0.3), transparent)', marginTop: '4px' }} />
@@ -160,8 +164,8 @@ export default function CreatorSection() {
             </div>
 
             {/* Earning table */}
-            <div style={{ background: '#1a1a1a', border: '1px solid rgba(168,85,247,0.2)', borderRadius: '20px', padding: '24px', marginTop: '2rem' }}>
-              <div style={{ color: '#a855f7', fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px' }}>💰 Earning potential</div>
+            <div className="partner-earning-card" style={{ background: '#fff', border: '1px solid #e1e6ea', borderRadius: '16px', padding: '24px', marginTop: '2rem' }}>
+              <div style={{ color: '#a855f7', fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px' }}>Earning potential</div>
               {[
                 { orders: '100 orders', earn: 'ETB 300', from: '1 video' },
                 { orders: '500 orders', earn: 'ETB 1,500', from: '1 viral video' },
@@ -186,7 +190,6 @@ export default function CreatorSection() {
             <div style={{ background: '#1a1a1a', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '24px', padding: '2.5rem' }}>
               {submitted ? (
                 <div style={{ textAlign: 'center', padding: '2rem 0' }}>
-                  <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>🎬</div>
                   <h3 style={{ fontFamily: 'Syne, sans-serif', color: '#fff', fontSize: '1.5rem', fontWeight: 900, marginBottom: '12px' }}>Application received!</h3>
                   <p style={{ color: '#6b7280', fontSize: '14px', lineHeight: 1.7, marginBottom: '8px' }}>
                     We'll review your profile and send your creator dashboard access within 48 hours.
@@ -225,11 +228,14 @@ export default function CreatorSection() {
 
                     <div>
                       <label style={{ color: '#6b7280', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', display: 'block', marginBottom: '8px' }}>Primary Platform</label>
-                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px' }}>
+                      <div className="creator-platform-options" role="group" aria-label="Primary platform" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px' }}>
                         {platforms.map(p => (
                           <button
-                            key={p} type="button"
-                            onClick={() => setForm({ ...form, platform: p })}
+                            key={p}
+                            className="creator-platform-option"
+                            type="button"
+                            aria-pressed={form.platform === p}
+                            onClick={() => setForm(current => ({ ...current, platform: p }))}
                             style={{ padding: '10px', borderRadius: '10px', border: form.platform === p ? '1px solid rgba(168,85,247,0.5)' : '1px solid rgba(255,255,255,0.08)', background: form.platform === p ? 'rgba(168,85,247,0.15)' : '#0f0f0f', color: form.platform === p ? '#c084fc' : '#6b7280', cursor: 'pointer', fontSize: '12px', fontWeight: 600, fontFamily: 'inherit', transition: 'all 0.2s' }}
                           >
                             {p}
@@ -259,7 +265,7 @@ export default function CreatorSection() {
                       onMouseEnter={e => { if (!loading) e.currentTarget.style.background = '#9333ea' }}
                       onMouseLeave={e => { if (!loading) e.currentTarget.style.background = '#a855f7' }}
                     >
-                      {loading ? <div style={{ width: '20px', height: '20px', border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} /> : '🎬 Submit Application'}
+                      {loading ? <div style={{ width: '20px', height: '20px', border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} /> : 'Submit application'}
                     </button>
                   </form>
                 </>

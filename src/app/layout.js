@@ -1,24 +1,24 @@
 import './globals.css'
 
 export const metadata = {
-  metadataBase: new URL('https://dineflow-website.vercel.app'),
+  metadataBase: new URL('https://www.dineflow.et'),
   title: {
     default: 'Dineflow — Order food before you arrive. Your table is waiting.',
     template: '%s | Dineflow'
   },
   description: "Ethiopia's smartest food ordering platform. Order ahead, pay with LakiPay, track in real time. Built for restaurants, hotels, cafes, and food lovers across Ethiopia.",
   keywords: ['food ordering Ethiopia', 'restaurant app Ethiopia', 'hotel food app Ethiopia', 'cafe app Ethiopia', 'Dineflow', 'Hawassa food', 'Addis Ababa restaurant', 'LakiPay payment', 'order food online Ethiopia'],
-  authors: [{ name: 'Dineflow', url: 'https://dineflow-website.vercel.app' }],
+  authors: [{ name: 'Dineflow', url: 'https://www.dineflow.et' }],
   creator: 'Dineflow',
   openGraph: {
     type: 'website',
     locale: 'en_ET',
-    url: 'https://dineflow-website.vercel.app',
+    url: 'https://www.dineflow.et',
     siteName: 'Dineflow',
     title: 'Dineflow — Order food before you arrive.',
     description: "Ethiopia's smartest food ordering platform. Browse restaurants, hotels, and cafes, order ahead, pay with LakiPay.",
     images: [{
-      url: '/og-image.png',
+      url: '/og-image.svg',
       width: 1200,
       height: 630,
       alt: 'Dineflow — Order food before you arrive',
@@ -28,7 +28,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Dineflow — Order food before you arrive.',
     description: "Ethiopia's smartest food ordering platform.",
-    images: ['/og-image.png'],
+    images: ['/og-image.svg'],
   },
   robots: {
     index: true,

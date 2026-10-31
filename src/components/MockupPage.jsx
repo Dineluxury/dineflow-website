@@ -35,7 +35,7 @@ export default function MockupPage() {
 
       <header className="mockupTopbar">
         <a className="brandLink" href="/">
-          <span>D</span>
+          <img src="/dineflow-logo.png" alt="" />
           <b>Dineflow</b>
         </a>
 
@@ -168,6 +168,7 @@ export default function MockupPage() {
           background: #f97316;
           box-shadow: 0 14px 28px rgba(249,115,22,0.25);
         }
+        .brandLink img { width: 34px; height: 34px; object-fit: contain; }
 
         .mockupTopbar nav {
           display: flex;

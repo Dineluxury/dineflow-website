@@ -9,20 +9,16 @@ export default function Icon() {
       <div
         style={{
           alignItems: 'center',
-          background: '#f97316',
+          background: '#ffffff',
           borderRadius: 8,
-          color: '#ffffff',
           display: 'flex',
-          fontFamily: 'Arial Black, Arial, sans-serif',
-          fontSize: 20,
-          fontWeight: 900,
           height: '32px',
           justifyContent: 'center',
-          lineHeight: 1,
+          overflow: 'hidden',
           width: '32px',
         }}
       >
-        D
+        <img src="/dineflow-logo.png" width="32" height="32" alt="Dineflow" style={{ objectFit: 'cover' }} />
       </div>
     ),
     size

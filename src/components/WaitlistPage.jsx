@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import {
   Bell,
   CheckCircle2,
@@ -21,7 +21,6 @@ const EMAILJS_SERVICE_ID = 'service_paczsiv'
 const EMAILJS_TEMPLATE_ID = 'template_5ybzx4q'
 const EMAILJS_PUBLIC_KEY = 'AEb0huD-y3PKEsQd0'
 const SUPPORT_EMAIL = 'support@dineflow.et'
-const WAITLIST_DEFAULTS = { venues: 40, users: 130 }
 
 const audienceOptions = [
   {
@@ -180,31 +179,10 @@ export default function WaitlistPage() {
   const [loading, setLoading] = useState(false)
   const [sent, setSent] = useState(false)
   const [error, setError] = useState('')
-  const [waitlistStats, setWaitlistStats] = useState(WAITLIST_DEFAULTS)
 
   const isRestaurant = form.audience === 'Venue Waitlist'
 
   const updateForm = (key, value) => setForm((current) => ({ ...current, [key]: value }))
-
-  useEffect(() => {
-    const venues = Math.max(Number(window.localStorage.getItem('dineflowWaitlistVenues')) || WAITLIST_DEFAULTS.venues, WAITLIST_DEFAULTS.venues)
-    const users = Math.max(Number(window.localStorage.getItem('dineflowWaitlistUsers')) || WAITLIST_DEFAULTS.users, WAITLIST_DEFAULTS.users)
-    setWaitlistStats({ venues, users })
-  }, [])
-
-  const syncWaitlistStats = (nextAudience = null) => {
-    const currentVenues = Math.max(Number(window.localStorage.getItem('dineflowWaitlistVenues')) || WAITLIST_DEFAULTS.venues, WAITLIST_DEFAULTS.venues)
-    const currentUsers = Math.max(Number(window.localStorage.getItem('dineflowWaitlistUsers')) || WAITLIST_DEFAULTS.users, WAITLIST_DEFAULTS.users)
-    const nextStats = {
-      venues: nextAudience === 'Venue Waitlist' ? currentVenues + 1 : currentVenues,
-      users: nextAudience === 'Customer Waitlist' ? currentUsers + 1 : currentUsers,
-    }
-
-    window.localStorage.setItem('dineflowWaitlistVenues', String(nextStats.venues))
-    window.localStorage.setItem('dineflowWaitlistUsers', String(nextStats.users))
-    setWaitlistStats(nextStats)
-    window.dispatchEvent(new Event('dineflow-waitlist-updated'))
-  }
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -232,7 +210,6 @@ export default function WaitlistPage() {
         },
         EMAILJS_PUBLIC_KEY
       )
-      syncWaitlistStats(form.audience)
       setSent(true)
       setForm({
         audience: form.audience,
@@ -266,7 +243,7 @@ export default function WaitlistPage() {
         <div className="waitShell">
           <div className="waitLeft">
             <a className="brandMark" href="/">
-              <span>D</span>
+              <img src="/dineflow-logo.png" alt="" />
               <b>Dineflow</b>
             </a>
 
@@ -286,12 +263,12 @@ export default function WaitlistPage() {
 
             <div className="waitlistNumberStrip">
               <div>
-                <strong>{waitlistStats.venues}</strong>
-                <span>restaurants, hotels & cafes waiting</span>
+                <strong>For customers</strong>
+                <span>Get early access when Dineflow launches.</span>
               </div>
               <div>
-                <strong>{waitlistStats.users}</strong>
-                <span>users on the waitlist</span>
+                <strong>For venues</strong>
+                <span>Prepare your menu and launch setup with our team.</span>
               </div>
             </div>
 
@@ -506,16 +483,11 @@ export default function WaitlistPage() {
           margin-bottom: 38px;
         }
 
-        .brandMark span {
+        .brandMark img {
           width: 38px;
           height: 38px;
-          border-radius: 13px;
-          background: #f97316;
-          color: #fff;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          box-shadow: 0 16px 36px rgba(249, 115, 22, 0.28);
+          object-fit: contain;
+          border-radius: 10px;
         }
 
         .launchBadge {

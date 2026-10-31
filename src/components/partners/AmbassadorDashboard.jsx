@@ -1,13 +1,14 @@
 'use client'
 import { useState, useEffect } from 'react'
+import { Banknote, BookOpenText, Calculator, CheckCircle2, Clock3, LayoutDashboard, Store, Wallet } from 'lucide-react'
 import DashboardLayout from './DashboardLayout'
 
 const tabs = [
-  { id: 'overview', emoji: '📊', label: 'Overview' },
-  { id: 'referrals', emoji: '🏪', label: 'My Referrals' },
-  { id: 'earnings', emoji: '💰', label: 'Earnings' },
-  { id: 'calculator', emoji: '🧮', label: 'Calculator' },
-  { id: 'guide', emoji: '📖', label: 'Pitch Guide' },
+  { id: 'overview', icon: LayoutDashboard, label: 'Overview' },
+  { id: 'referrals', icon: Store, label: 'My referrals' },
+  { id: 'earnings', icon: Wallet, label: 'Earnings' },
+  { id: 'calculator', icon: Calculator, label: 'Calculator' },
+  { id: 'guide', icon: BookOpenText, label: 'Pitch guide' },
 ]
 
 export default function AmbassadorDashboard() {
@@ -53,17 +54,17 @@ export default function AmbassadorDashboard() {
 
 function AmbassadorOverview({ profile, referrals, earnings }) {
   const stats = [
-    { label: 'Restaurants Referred', value: profile?.totalReferrals || 0, emoji: '🏪', color: '#f97316' },
-    { label: 'Active Referrals', value: profile?.activeReferrals || 0, emoji: '✅', color: '#22c55e' },
-    { label: 'Pending Earnings (ETB)', value: earnings?.pendingEarnings || '0.00', emoji: '💰', color: '#fbbf24' },
-    { label: 'Total Paid (ETB)', value: earnings?.paidEarnings || '0.00', emoji: '🏦', color: '#60a5fa' },
+    { label: 'Restaurants referred', value: profile?.totalReferrals || 0, icon: Store, color: '#bd5b1d' },
+    { label: 'Active referrals', value: profile?.activeReferrals || 0, icon: CheckCircle2, color: '#318257' },
+    { label: 'Pending earnings (ETB)', value: earnings?.pendingEarnings || '0.00', icon: Wallet, color: '#a57518' },
+    { label: 'Total paid (ETB)', value: earnings?.paidEarnings || '0.00', icon: Banknote, color: '#3975bd' },
   ]
 
   return (
     <div>
       <div style={{ marginBottom: '2rem' }}>
         <h1 style={{ fontFamily: 'Syne, sans-serif', color: '#fff', fontSize: '1.8rem', fontWeight: 900, marginBottom: '6px' }}>
-          Welcome back, {profile?.name?.split(' ')[0] || 'Ambassador'} 👋
+          Welcome back, {profile?.name?.split(' ')[0] || 'Ambassador'}
         </h1>
         <p style={{ color: '#6b7280', fontSize: '14px' }}>
           {profile?.university && `${profile.university} · `}
@@ -78,8 +79,8 @@ function AmbassadorOverview({ profile, referrals, earnings }) {
             onMouseEnter={e => { e.currentTarget.style.borderColor = `${s.color}30`; e.currentTarget.style.transform = 'translateY(-2px)' }}
             onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)'; e.currentTarget.style.transform = 'translateY(0)' }}
           >
-            <div style={{ fontSize: '28px', marginBottom: '12px' }}>{s.emoji}</div>
-            <div style={{ color: s.color, fontSize: '2rem', fontWeight: 900, fontFamily: 'Syne, sans-serif', lineHeight: 1 }}>{s.value}</div>
+            <div style={{ width: '36px', height: '36px', display: 'grid', placeItems: 'center', marginBottom: '16px', borderRadius: '10px', background: `${s.color}12` }}><s.icon size={18} color={s.color} strokeWidth={1.9} /></div>
+            <div style={{ color: s.color, fontSize: '1.8rem', fontWeight: 800, fontFamily: 'Syne, sans-serif', lineHeight: 1, fontVariantNumeric: 'tabular-nums' }}>{s.value}</div>
             <div style={{ color: '#6b7280', fontSize: '12px', marginTop: '6px' }}>{s.label}</div>
           </div>
         ))}
@@ -88,7 +89,7 @@ function AmbassadorOverview({ profile, referrals, earnings }) {
       {/* How to get started */}
       {(!profile?.uniqueCode) && (
         <div style={{ background: 'rgba(249,115,22,0.06)', border: '1px solid rgba(249,115,22,0.2)', borderRadius: '20px', padding: '2rem', marginBottom: '2rem' }}>
-          <h3 style={{ fontFamily: 'Syne, sans-serif', color: '#fff', fontWeight: 800, marginBottom: '1rem' }}>⏳ Your application is being reviewed</h3>
+          <h3 style={{ display: 'flex', alignItems: 'center', gap: 8, fontFamily: 'Syne, sans-serif', color: '#fff', fontWeight: 800, marginBottom: '1rem' }}><Clock3 size={18} /> Your application is being reviewed</h3>
           <p style={{ color: '#9ca3af', fontSize: '14px', lineHeight: 1.7 }}>
             We'll review your student ID and send your unique ambassador code to your email within 24 hours.
             Once approved you can start referring restaurants and earning immediately.

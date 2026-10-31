@@ -1,14 +1,13 @@
 'use client'
 import { useMemo, useState } from 'react'
 
-// 👇 Emojis taken from the SECOND code (📧, 🏫, 🚶, 🔗, ✅, 💰, etc.)
 const steps = [
-  { emoji: '📧', title: 'Sign Up with Student Email', desc: 'Create your ambassador account using your university email or upload your student ID card.' },
-  { emoji: '🏫', title: 'Select Your University', desc: 'Choose your university from the list. We assign you a unique ambassador code like HARAMAYA-247.' },
-  { emoji: '🚶', title: 'Visit Restaurants Near You', desc: 'Go to restaurants, cafes, and hotels near your campus. Show them the Dineflow app and help them sign up.' },
-  { emoji: '🔗', title: 'Restaurant Uses Your Code', desc: 'When the restaurant registers on the Dineflow desktop app, they enter your unique code.' },
-  { emoji: '✅', title: 'Dineflow Reviews and Approves', desc: 'We verify the restaurant and approve them. Once their first real order comes in, you start earning.' },
-  { emoji: '💰', title: 'Earn for 3 Months', desc: 'You receive 50% of our commission from that restaurant every month for 3 full months. Paid via Telebirr or bank transfer.' },
+  { title: 'Apply with your student details', desc: 'Create your ambassador account with your university email and student ID card.' },
+  { title: 'Confirm your university', desc: 'Select your university so we can assign your campus referral code.' },
+  { title: 'Introduce nearby restaurants', desc: 'Show restaurants, cafes, and hotels how Dineflow helps manage orders.' },
+  { title: 'Share your referral code', desc: 'Restaurants enter your code when they register for Dineflow.' },
+  { title: 'Wait for review and activation', desc: 'We verify the restaurant. Eligible earnings begin after its first paid order.' },
+  { title: 'Earn from referred venues', desc: 'Receive 50% of Dineflow’s commission for three months, subject to the partner terms.' },
 ]
 
 const universities = [
@@ -70,6 +69,11 @@ export default function AmbassadorSection() {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
+    if (form.idCard && (form.idCard.size > 5 * 1024 * 1024 || !['image/jpeg', 'image/png', 'application/pdf'].includes(form.idCard.type))) {
+      alert('Please upload a JPG, PNG, or PDF student ID smaller than 5 MB.')
+      return
+    }
+
     if (form.password.length < 8) {
       alert('Password must be at least 8 characters long.')
       return
@@ -117,13 +121,12 @@ export default function AmbassadorSection() {
   }
 
   return (
-    <section id="ambassador" style={{ padding: '8rem 0', background: '#0a0a0a', position: 'relative', overflow: 'hidden' }}>
+    <section id="ambassador" className="partner-application" style={{ padding: '8rem 0', background: '#0a0a0a', position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 20% 50%, rgba(249,115,22,0.05) 0%, transparent 60%)' }} />
 
       <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 1.5rem', position: 'relative', zIndex: 1 }}>
         <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', padding: '8px 20px', borderRadius: '999px', border: '1px solid rgba(249,115,22,0.3)', background: 'rgba(249,115,22,0.08)', marginBottom: '1.5rem' }}>
-            <span style={{ fontSize: '16px' }}>🎓</span>   {/* from second code */}
             <span style={{ color: '#fb923c', fontSize: '14px', fontWeight: 600 }}>Student Ambassador Program</span>
           </div>
           <h2 style={{ fontFamily: 'Syne, sans-serif', fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 900, marginTop: '1rem', marginBottom: '1.5rem', lineHeight: 1.05 }}>
@@ -145,8 +148,8 @@ export default function AmbassadorSection() {
               {steps.map((step, i) => (
                 <div key={step.title} style={{ display: 'flex', gap: '16px', marginBottom: '4px' }}>
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0 }}>
-                    <div style={{ width: '48px', height: '48px', background: '#1a1a1a', border: '1px solid rgba(249,115,22,0.2)', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '22px' }}>
-                      {step.emoji}
+                    <div className="partner-application-step-number" style={{ width: '48px', height: '48px', background: '#fff2e9', border: '1px solid #f0d6c5', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#a74918', fontSize: '13px', fontWeight: 800 }}>
+                      {String(i + 1).padStart(2, '0')}
                     </div>
                     {i < steps.length - 1 && (
                       <div style={{ width: '1px', height: '28px', background: 'linear-gradient(to bottom, rgba(249,115,22,0.3), transparent)', marginTop: '4px' }} />
@@ -160,8 +163,8 @@ export default function AmbassadorSection() {
               ))}
             </div>
 
-            <div style={{ background: '#1a1a1a', border: '1px solid rgba(249,115,22,0.2)', borderRadius: '20px', padding: '24px', marginTop: '2rem' }}>
-              <div style={{ color: '#f97316', fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px' }}>💰 Earning potential</div>  {/* from second code */}
+            <div className="partner-earning-card" style={{ background: '#fff', border: '1px solid #e1e6ea', borderRadius: '16px', padding: '24px', marginTop: '2rem' }}>
+              <div style={{ color: '#f97316', fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '16px' }}>Earning potential</div>
               {[
                 { restaurants: 1, monthly: 'ETB 500 - 2,500', total: 'ETB 1,500 - 7,500' },
                 { restaurants: 3, monthly: 'ETB 1,500 - 7,500', total: 'ETB 4,500 - 22,500' },
@@ -185,7 +188,6 @@ export default function AmbassadorSection() {
             <div style={{ background: '#1a1a1a', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '24px', padding: '2.5rem' }}>
               {submitted ? (
                 <div style={{ textAlign: 'center', padding: '2rem 0' }}>
-                  <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>🎉</div>   {/* from second code */}
                   <h3 style={{ fontFamily: 'Syne, sans-serif', color: '#fff', fontSize: '1.5rem', fontWeight: 900, marginBottom: '12px' }}>Application received!</h3>
                   <p style={{ color: '#6b7280', fontSize: '14px', lineHeight: 1.7, marginBottom: '8px' }}>
                     We'll review your student ID and send your unique ambassador code to your email within 24 hours.
@@ -252,10 +254,10 @@ export default function AmbassadorSection() {
                           style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', width: '100%', height: '100%' }}
                         />
                         {form.idCard ? (
-                          <p style={{ color: '#22c55e', fontSize: '14px', fontWeight: 600 }}>✅ {form.idCard.name}</p>
+                          <p style={{ color: '#22c55e', fontSize: '14px', fontWeight: 600 }}>{form.idCard.name}</p>
                         ) : (
                           <>
-                            <p style={{ color: '#f97316', fontSize: '24px', marginBottom: '8px' }}>📄</p>   {/* from second code */}
+                            <p style={{ color: '#f97316', fontSize: '14px', fontWeight: 700, marginBottom: '8px' }}>UPLOAD DOCUMENT</p>
                             <p style={{ color: '#9ca3af', fontSize: '13px' }}>Click to upload your student ID</p>
                             <p style={{ color: '#6b7280', fontSize: '11px', marginTop: '4px' }}>JPG, PNG, or PDF - max 5MB</p>
                           </>
@@ -270,7 +272,7 @@ export default function AmbassadorSection() {
                       onMouseEnter={e => { if (!loading) e.currentTarget.style.background = '#ea6c0a' }}
                       onMouseLeave={e => { if (!loading) e.currentTarget.style.background = '#f97316' }}
                     >
-                      {loading ? <div style={{ width: '20px', height: '20px', border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} /> : '🎓 Submit Application'}   {/* from second code */}
+                      {loading ? <div style={{ width: '20px', height: '20px', border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} /> : 'Submit application'}
                     </button>
                   </form>
                 </>

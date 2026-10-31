@@ -5,7 +5,6 @@ const links = [
   { label: 'For Customers', href: '#customers' },
   { label: 'For Venues', href: '#restaurants' },
   { label: 'How It Works', href: '#how' },
-  { label: 'Features', href: '#features' },
 ]
 
 export default function Navbar() {
@@ -32,15 +31,7 @@ export default function Navbar() {
 
           {/* Logo */}
           <a href="#" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
-            <div style={{
-              width: '34px', height: '34px',
-              background: '#f97316',
-              borderRadius: '10px',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              color: '#fff', fontWeight: 900, fontSize: '17px',
-              fontFamily: "'Plus Jakarta Sans', sans-serif",
-              boxShadow: '0 4px 14px rgba(249,115,22,0.3)',
-            }}>D</div>
+            <img src="/dineflow-logo.png" alt="" style={{ width: '34px', height: '34px', objectFit: 'contain' }} />
             <span style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 800, fontSize: '18px', color: '#111827' }}>Dineflow</span>
           </a>
 
