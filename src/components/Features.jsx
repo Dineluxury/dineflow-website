@@ -4,7 +4,7 @@ import { Zap, MapPin, CreditCard, Bell, Star, Store, CalendarCheck, Gift } from 
 const features = [
   { icon: Zap, title: 'Zero Wait Time', desc: 'Walk in to food already on the table. Dineflow syncs your arrival with kitchen prep.', color: '#e96b22' },
   { icon: MapPin, title: 'Real-time Tracking', desc: 'Live status updates from order confirmed → kitchen prep → ready to serve.', color: '#647a68' },
-  { icon: CreditCard, title: 'LakiPay Payments', desc: 'Secure checkout through LakiPay. Pay and confirm in one smooth flow.', color: '#627589' },
+  { icon: CreditCard, title: 'Local Payment Options', desc: 'Pay with supported local options, including Telebirr, M-Pesa, and bank payments.', color: '#627589' },
   { icon: Bell, title: 'Smart Notifications', desc: 'Get pinged when your table is ready, when food is being prepared, and when it\'s done.', color: '#85718a' },
   { icon: Star, title: 'Review & Rating', desc: 'Rate your experience after every meal and help others discover the best restaurants, hotels, and cafes.', color: '#9a8057' },
   { icon: Store, title: 'Venue Discovery', desc: 'Browse curated restaurants, hotels, and cafes by cuisine, rating, or neighborhood across Ethiopia.', color: '#9a6556' },

@@ -5,7 +5,7 @@ const steps = [
   { num: 1, icon: Smartphone, title: 'Download the App', desc: 'Available free on Android and iOS. Sign up in under 60 seconds with your phone number.' },
   { num: 2, icon: Store, title: 'Pick a Restaurant', desc: 'Browse nearby restaurants, check menus, read reviews, and see real-time table availability.' },
   { num: 3, icon: Clock, title: 'Choose Your Arrival Time', desc: 'Schedule when you\'ll arrive. Dineflow tells the restaurant kitchen exactly when to start cooking.' },
-  { num: 4, icon: CreditCard, title: 'Pay Securely', desc: 'Checkout with Telebirr in one tap. Your payment is confirmed and your spot is reserved instantly.' },
+  { num: 4, icon: CreditCard, title: 'Pay Your Way', desc: 'Choose from supported local methods such as Telebirr, M-Pesa, or bank payments. Your payment is confirmed and your spot is reserved instantly.' },
   { num: 5, icon: CheckCircle, title: 'Walk in & Enjoy', desc: 'Arrive to your table with your meal already ready. No waiting. Just eating.' },
 ]
 

@@ -11,8 +11,8 @@ export const metadata = {
     default: 'Dineflow — Order food before you arrive. Your table is waiting.',
     template: '%s | Dineflow'
   },
-  description: "Ethiopia's smartest food ordering platform. Order ahead, pay with LakiPay, track in real time. Built for restaurants, hotels, cafes, and food lovers across Ethiopia.",
-  keywords: ['food ordering Ethiopia', 'restaurant app Ethiopia', 'hotel food app Ethiopia', 'cafe app Ethiopia', 'Dineflow', 'Hawassa food', 'Addis Ababa restaurant', 'LakiPay payment', 'order food online Ethiopia'],
+  description: "Ethiopia's food ordering platform. Order ahead, pay with local payment options, and track in real time. Built for restaurants, hotels, cafes, and food lovers across Ethiopia.",
+  keywords: ['food ordering Ethiopia', 'restaurant app Ethiopia', 'hotel food app Ethiopia', 'cafe app Ethiopia', 'Dineflow', 'Hawassa food', 'Addis Ababa restaurant', 'Telebirr', 'M-Pesa', 'bank payments', 'order food online Ethiopia'],
   authors: [{ name: 'Dineflow', url: 'https://www.dineflow.et' }],
   creator: 'Dineflow',
   openGraph: {
@@ -21,7 +21,7 @@ export const metadata = {
     url: 'https://www.dineflow.et',
     siteName: 'Dineflow',
     title: 'Dineflow — Order food before you arrive.',
-    description: "Ethiopia's smartest food ordering platform. Browse restaurants, hotels, and cafes, order ahead, pay with LakiPay.",
+    description: "Ethiopia's food ordering platform. Browse restaurants, hotels, and cafes, order ahead, and pay with supported local payment options.",
     images: [{
       url: '/og-image.svg',
       width: 1200,

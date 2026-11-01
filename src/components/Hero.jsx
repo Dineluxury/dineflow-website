@@ -5,7 +5,7 @@ import { Bell, CheckCircle2, ChefHat, CreditCard, Smartphone, Star, Utensils, Za
 
 const trustItems = [
   { icon: Smartphone, label: 'Android & iOS Soon' },
-  { icon: CreditCard, label: 'LakiPay Pay' },
+  { icon: CreditCard, label: 'Local payment options' },
   { icon: Zap, label: 'Real-time Track' },
   { icon: Star, label: '4.9 Rating' },
 ]
@@ -41,7 +41,7 @@ export default function Hero() {
             </h1>
 
             <p>
-              Skip the wait. Pre-order from your favorite restaurants, hotels, and cafes, pay with <strong>LakiPay</strong>, and walk in to your meal already on the table.
+              Skip the wait. Pre-order from your favorite restaurants, hotels, and cafes, pay with local options like <strong>Telebirr, M-Pesa, or bank payments</strong>, and walk in to your meal already on the table.
             </p>
 
             <div className="homeCtas">
@@ -63,54 +63,16 @@ export default function Hero() {
             <div className={mounted ? 'homePhoneScene' : 'homePhoneScene pausedPhone'}>
               <div className="homePhoneGlow" />
               <div className="homePhoneFrame">
-                <div className="homePhoneNotch" />
-                <div className="homePhoneStatus">
-                  <span>9:41</span>
-                  <span className="homeStatusDots">...</span>
-                </div>
-
-                <div className="homePhoneContent">
-                  <div className="homePhoneTopRow">
-                    <div>
-                      <p>Good morning</p>
-                      <h3>What are you craving?</h3>
-                    </div>
-                    <div className="homeAvatarBubble">A</div>
-                  </div>
-
-                  <div className="homeSearchBar">
-                    <Smartphone size={13} />
-                    <span>Search restaurants, hotels, cafes...</span>
-                  </div>
-
-                  <div className="homeChipRow">
-                    {['All', 'Halal', 'Grill', 'Fast'].map((item, index) => (
-                      <span className={index === 0 ? 'homeChip homeActiveChip' : 'homeChip'} key={item}>
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-
-                  {[
-                    { name: 'Injohi Restaurant', type: 'Traditional', rating: '4.9', distance: '0.3km', icon: Utensils },
-                    { name: 'Burqito Hotel Cafe', type: 'Hotel - Cafe', rating: '4.7', distance: '0.8km', icon: ChefHat },
-                  ].map(({ icon: Icon, ...restaurant }) => (
-                    <div className="homeRestaurantCard" key={restaurant.name}>
-                      <div className="homeFoodPreview">
-                        <Icon size={36} />
-                      </div>
-                      <div className="homeRestaurantInfo">
-                        <div>
-                          <strong>{restaurant.name}</strong>
-                          <span>{restaurant.type}</span>
-                        </div>
-                        <div className="homeRatingBox">
-                          <b>* {restaurant.rating}</b>
-                          <span>{restaurant.distance}</span>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                <div className="homePhoneButton homePhoneActionButton" />
+                <div className="homePhoneButton homePhoneVolumeUp" />
+                <div className="homePhoneButton homePhoneVolumeDown" />
+                <div className="homePhoneButton homePhonePower" />
+                <div className="homePhoneScreen">
+                  <img
+                    className="homePhoneAppScreenshot"
+                    src="/dineflow-app-home.png"
+                    alt="Dineflow app home screen showing nearby restaurants"
+                  />
                 </div>
               </div>
 
@@ -352,46 +314,156 @@ export default function Hero() {
 
         .homePhoneFrame {
           position: relative;
-          width: 294px;
-          height: 584px;
-          background: linear-gradient(145deg, #171717, #0b0b0b);
-          border: 2px solid rgba(255, 255, 255, 0.1);
-          border-radius: 50px;
-          overflow: hidden;
+          width: 302px;
+          height: 606px;
+          padding: 8px;
+          background: linear-gradient(90deg, #77787b 0%, #c4c5c7 1.3%, #f2f2f3 2.8%, #a3a4a7 4.4%, #e8e8e9 5.4%, #fbfbfc 50%, #dbdbdd 94.6%, #929396 96.2%, #d9d9db 98.4%, #6f7073 100%);
+          border: 1px solid #8f9093;
+          border-radius: 48px;
           transform: perspective(1000px) rotateY(-8deg) rotateX(3deg);
-          box-shadow: 24px 32px 74px rgba(17,24,39,0.28), 0 0 44px rgba(233,107,34,0.18);
+          box-shadow: 24px 32px 74px rgba(17,24,39,0.28), 0 0 44px rgba(233,107,34,0.18), inset 0 0 0 1px rgba(255,255,255,.82), inset 0 0 0 2px rgba(72,73,76,.65);
         }
 
-        .homePhoneNotch {
+        .homePhoneFrame::before {
+          content: '';
           position: absolute;
-          top: 0;
+          z-index: 1;
+          inset: 2px;
+          border: 1px solid rgba(255,255,255,.74);
+          border-radius: 45px;
+          pointer-events: none;
+        }
+
+        .homePhoneButton {
+          position: absolute;
+          z-index: -1;
+          width: 3px;
+          background: linear-gradient(90deg, #747579, #f5f5f6 48%, #8e8f92);
+          border: 1px solid #898a8d;
+          box-shadow: 0 1px 2px rgba(0,0,0,.24);
+        }
+
+        .homePhoneActionButton {
+          left: -4px;
+          top: 113px;
+          height: 28px;
+          border-radius: 3px 0 0 3px;
+        }
+
+        .homePhoneVolumeUp {
+          left: -4px;
+          top: 163px;
+          height: 42px;
+          border-radius: 3px 0 0 3px;
+        }
+
+        .homePhoneVolumeDown {
+          left: -4px;
+          top: 216px;
+          height: 42px;
+          border-radius: 3px 0 0 3px;
+        }
+
+        .homePhonePower {
+          right: -4px;
+          top: 176px;
+          height: 66px;
+          border-radius: 0 3px 3px 0;
+        }
+
+        .homePhoneScreen {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          border-radius: 40px;
+          background: #f7f8fa;
+          box-shadow: inset 0 0 0 1px rgba(255,255,255,.05);
+        }
+
+        .homePhoneAppScreenshot {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center top;
+        }
+
+        .homePhoneIsland {
+          position: absolute;
+          top: 7px;
           left: 50%;
           z-index: 4;
-          width: 104px;
-          height: 30px;
+          width: 102px;
+          height: 27px;
           transform: translateX(-50%);
           background: #000;
-          border-bottom-left-radius: 20px;
-          border-bottom-right-radius: 20px;
+          border-radius: 18px;
+          box-shadow: inset 0 1px 1px rgba(255,255,255,.08);
+        }
+
+        .homePhoneIsland span {
+          position: absolute;
+          width: 7px;
+          height: 7px;
+          right: 13px;
+          top: 10px;
+          border-radius: 50%;
+          background: #111521;
+          box-shadow: inset 0 0 3px #29404c;
         }
 
         .homePhoneStatus {
-          height: 54px;
+          height: 53px;
           display: flex;
           justify-content: space-between;
           align-items: flex-end;
           color: #ffffff;
           font-size: 12px;
           font-weight: 800;
-          padding: 0 24px 9px;
+          padding: 0 23px 9px;
+          position: relative;
+          z-index: 3;
         }
 
-        .homeStatusDots {
-          letter-spacing: 3px;
+        .homeStatusIcons {
+          display: flex;
+          align-items: center;
+          gap: 3px;
+        }
+
+        .homeStatusIcons i {
+          display: block;
+          width: 4px;
+          height: 6px;
+          border-radius: 1px;
+          background: #fff;
+        }
+
+        .homeStatusIcons i:last-child {
+          width: 13px;
+          height: 7px;
+          border: 1px solid rgba(255,255,255,.9);
+          border-radius: 2px;
+          background: linear-gradient(90deg, #fff 70%, transparent 70%);
+        }
+
+        .homePhoneHomeIndicator {
+          position: absolute;
+          z-index: 6;
+          bottom: 7px;
+          left: 50%;
+          width: 92px;
+          height: 4px;
+          border-radius: 99px;
+          background: rgba(255,255,255,.9);
+          transform: translateX(-50%);
+          pointer-events: none;
         }
 
         .homePhoneContent {
           padding: 0 18px;
+          padding-bottom: 18px;
         }
 
         .homePhoneTopRow {
@@ -528,9 +600,9 @@ export default function Hero() {
           min-width: 150px;
           border-radius: 16px;
           padding: 12px 14px;
-          background: #1b1b1b;
-          border: 1px solid rgba(255,255,255,0.1);
-          box-shadow: 0 18px 44px rgba(0,0,0,0.34);
+          background: rgba(255,255,255,0.97);
+          border: 1px solid rgba(24,33,43,0.08);
+          box-shadow: 0 18px 44px rgba(17,24,39,0.18), 0 2px 8px rgba(17,24,39,0.06);
           animation: homeWaitFloatBadge 5.4s ease-in-out infinite;
         }
 
@@ -540,12 +612,12 @@ export default function Hero() {
         }
 
         .homeFloatBadge strong {
-          color: #ffffff;
+          color: #18212b;
           font-size: 11px;
         }
 
         .homeFloatBadge span {
-          color: #9ca3af;
+          color: #6b7280;
           font-size: 10px;
           margin-top: 2px;
         }
@@ -559,13 +631,13 @@ export default function Hero() {
         }
 
         .homeSuccessIcon {
-          color: #41dc7e;
-          background: rgba(34,197,94,0.15);
+          color: #16a05a;
+          background: rgba(34,197,94,0.12);
         }
 
         .homeOrangeIcon {
-          color: #cf815d;
-          background: rgba(233,107,34,0.15);
+          color: #e96b22;
+          background: rgba(233,107,34,0.12);
         }
 
         .homeBadgeAccepted {
@@ -624,6 +696,10 @@ export default function Hero() {
 
           .homePhoneScene {
             scale: 0.76;
+          }
+
+          .homePhoneFrame {
+            transform: perspective(1000px) rotateY(-2deg) rotateX(1deg);
           }
         }
       `}</style>

@@ -47,7 +47,7 @@ export default function About() {
               <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'rgba(233,107,34,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 14px' }}>
                 <Icon size={20} color="#e96b22" />
               </div>
-              <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 'clamp(1.8rem, 3vw, 2.4rem)', fontWeight: 800, color: '#18212b', lineHeight: 1.1, marginBottom: '6px' }}>{value}</div>
+              <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 'clamp(1.15rem, 1.7vw, 1.4rem)', fontWeight: 700, color: '#18212b', lineHeight: 1.25, marginBottom: '6px' }}>{value}</div>
               <div style={{ color: '#65717e', fontSize: '13px', fontWeight: 500 }}>{label}</div>
             </div>
           ))}

@@ -159,7 +159,7 @@ function TrackingPhone() {
         <div className="badgeIcon successIcon"><ShieldCheck size={18} /></div>
         <div>
           <strong>Payment Done</strong>
-          <span>via LakiPay</span>
+          <span>Local payment confirmed</span>
         </div>
       </div>
     </div>

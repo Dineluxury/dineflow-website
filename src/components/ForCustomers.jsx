@@ -4,7 +4,7 @@ import { Smartphone, UtensilsCrossed, CreditCard, CheckCircle } from 'lucide-rea
 const steps = [
   { num: '01', icon: Smartphone, title: 'Browse Venues', desc: 'Open Dineflow and discover restaurants, hotels, and cafes near you. Filter by cuisine, rating, or pre-order availability.' },
   { num: '02', icon: UtensilsCrossed, title: 'Choose Your Meal', desc: 'Pick your dishes ahead of time and customize them exactly how you like them.' },
-  { num: '03', icon: CreditCard, title: 'Pay with LakiPay', desc: 'Checkout securely in seconds using LakiPay. Your order is confirmed and the kitchen starts immediately.' },
+  { num: '03', icon: CreditCard, title: 'Choose How to Pay', desc: 'Pay securely with supported local options, including Telebirr, M-Pesa, or bank payments. Your order is confirmed and the kitchen starts immediately.' },
   { num: '04', icon: CheckCircle, title: 'Walk In & Enjoy', desc: 'Arrive at your scheduled time and your food is hot, fresh, and waiting on the table for you.' },
 ]
 
@@ -19,7 +19,7 @@ export default function ForCustomers() {
             <span style={{ backgroundImage: 'linear-gradient(135deg, #e96b22, #c95a19)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Ever again.</span>
           </h2>
           <p style={{ color: '#65717e', fontSize: '16px', maxWidth: '520px', margin: '1.5rem auto 0', lineHeight: 1.7 }}>
-            Order from your phone, pay instantly with LakiPay, and walk into a restaurant, hotel, or cafe where your food is already there.
+            Order from your phone, pay with a local method that works for you, and walk into a restaurant, hotel, or cafe where your food is already there.
           </p>
         </div>
 
