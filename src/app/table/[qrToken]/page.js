@@ -168,19 +168,30 @@ export default function TableAppLinkPage() {
   }
 
   const breakdown = pendingOrder?.chargeBreakdown || []
+  const dineflowServiceFee = Number(pendingOrder?.dineflowServiceFee || 0)
+  const displayCharges = breakdown.flatMap(charge => {
+    if (String(charge.name || '').toLowerCase() !== 'service fee') return [charge]
+    if (pendingOrder?.serviceFeeIncluded) return [{ ...charge, name: 'Restaurant service fee' }]
+
+    // Older backend responses combine DineFlow's fee and the restaurant's
+    // optional service fee in this breakdown row. DineFlow's amount is already
+    // shown separately below, so show only any restaurant portion here.
+    const restaurantFee = Math.max(0, Number(charge.amount || 0) - dineflowServiceFee)
+    return restaurantFee > 0.001 ? [{ ...charge, name: 'Restaurant service fee', amount: restaurantFee }] : []
+  })
 
   return (
     <main style={styles.page}>
       <div style={styles.shell}>
         <header style={styles.header}>
-          <a href="/" style={styles.brand}><span style={styles.brandMark}>D</span><span>Dineflow</span></a>
-          <a href={appLink || '#'} onClick={event => { if (!appLink) event.preventDefault() }} style={styles.openApp}>Open in app</a>
+          <a href="/" style={styles.brand}><span style={styles.brandMark}>D</span><span>DineFlow ET</span></a>
+          <a href={appLink || '#'} onClick={event => { if (!appLink) event.preventDefault() }} style={styles.openApp}>Open DineFlow ET</a>
         </header>
 
         {loading ? (
           <section style={styles.stateCard}><div style={styles.spinner} /><h1 style={styles.title}>Loading this table…</h1><p style={styles.muted}>Getting the restaurant menu ready.</p></section>
         ) : pageError ? (
-          <section style={styles.stateCard}><h1 style={styles.title}>Menu unavailable</h1><p style={styles.muted}>{pageError}</p><a href="/" style={styles.secondaryButton}>Back to Dineflow</a></section>
+          <section style={styles.stateCard}><h1 style={styles.title}>Menu unavailable</h1><p style={styles.muted}>{pageError}</p><a href="/" style={styles.secondaryButton}>Back to DineFlow ET</a></section>
         ) : pendingOrder ? (
           <section style={styles.checkoutCard}>
             <div style={styles.eyebrow}>REVIEW YOUR ORDER</div>
@@ -188,7 +199,7 @@ export default function TableAppLinkPage() {
             <p style={styles.muted}>Your order is waiting for payment. The restaurant receives it after payment is confirmed.</p>
             <div style={styles.reviewItems}>{renderCheckoutLineItems()}</div>
             <div style={styles.totalRow}><span>{pendingOrder.serviceFeeIncluded ? 'Menu subtotal (service fee included)' : 'Subtotal'}</span><strong>{money(pendingOrder.subtotalAmount)}</strong></div>
-            {breakdown.filter(charge => Number(charge.amount || 0) > 0).map((charge, index) => <div key={`${charge.name}-${index}`} style={styles.chargeRow}><span>{charge.name || 'Restaurant charge'}</span><strong>{money(charge.amount)}</strong></div>)}
+            {displayCharges.filter(charge => Number(charge.amount || 0) > 0).map((charge, index) => <div key={`${charge.name}-${index}`} style={styles.chargeRow}><span>{charge.name || 'Restaurant charge'}</span><strong>{money(charge.amount)}</strong></div>)}
             {Number(pendingOrder.dineflowServiceFee || 0) > 0 && <div style={styles.chargeRow}><span>Service fee{pendingOrder.serviceFeeIncluded ? ' · included above' : ''}</span><strong>{money(pendingOrder.dineflowServiceFee)}</strong></div>}
             <div style={{ ...styles.totalRow, ...styles.grandTotal }}><span>Total</span><strong>{money(pendingOrder.totalAmount)}</strong></div>
             {checkoutError && <p role="alert" style={styles.error}>{checkoutError}</p>}
@@ -202,7 +213,7 @@ export default function TableAppLinkPage() {
             <section style={styles.hero}>
               <div style={styles.eyebrow}>TABLE {table.tableNumber}{table.label ? ` · ${table.label}` : ''}</div>
               <h1 style={styles.title}>{table.restaurantName}</h1>
-              <p style={styles.muted}>Browse the menu and order as a guest. No Dineflow account is needed.</p>
+              <p style={styles.muted}>Browse the menu and order as a guest. No DineFlow ET account is needed.</p>
             </section>
 
             <form onSubmit={submitGuestOrder}>
@@ -269,7 +280,7 @@ export default function TableAppLinkPage() {
           </>
         )}
 
-        <footer style={styles.footer}>Ordering as a guest · Powered by Dineflow</footer>
+        <footer style={styles.footer}>Ordering as a guest · Powered by DineFlow ET</footer>
       </div>
     </main>
   )
