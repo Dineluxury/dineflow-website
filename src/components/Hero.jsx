@@ -291,7 +291,7 @@ export default function Hero() {
           display: flex;
           justify-content: center;
           align-items: center;
-          min-height: 620px;
+          min-height: 700px;
           padding-top: 2rem;
         }
 
@@ -314,13 +314,13 @@ export default function Hero() {
 
         .homePhoneFrame {
           position: relative;
-          width: 302px;
-          height: 606px;
+          width: 350px;
+          height: 680px;
           padding: 8px;
           background: linear-gradient(90deg, #77787b 0%, #c4c5c7 1.3%, #f2f2f3 2.8%, #a3a4a7 4.4%, #e8e8e9 5.4%, #fbfbfc 50%, #dbdbdd 94.6%, #929396 96.2%, #d9d9db 98.4%, #6f7073 100%);
           border: 1px solid #8f9093;
-          border-radius: 48px;
-          transform: perspective(1000px) rotateY(-8deg) rotateX(3deg);
+          border-radius: 54px;
+          transform: perspective(1100px) rotateY(-5deg) rotateX(2deg);
           box-shadow: 24px 32px 74px rgba(17,24,39,0.28), 0 0 44px rgba(233,107,34,0.18), inset 0 0 0 1px rgba(255,255,255,.82), inset 0 0 0 2px rgba(72,73,76,.65);
         }
 
@@ -330,7 +330,7 @@ export default function Hero() {
           z-index: 1;
           inset: 2px;
           border: 1px solid rgba(255,255,255,.74);
-          border-radius: 45px;
+          border-radius: 51px;
           pointer-events: none;
         }
 
@@ -376,7 +376,7 @@ export default function Hero() {
           width: 100%;
           height: 100%;
           overflow: hidden;
-          border-radius: 40px;
+          border-radius: 46px;
           background: #f7f8fa;
           box-shadow: inset 0 0 0 1px rgba(255,255,255,.05);
         }
@@ -672,12 +672,12 @@ export default function Hero() {
           }
 
           .homePhoneColumn {
-            min-height: 570px;
+            min-height: 650px;
             padding-top: 0;
           }
 
           .homePhoneScene {
-            scale: 0.86;
+            scale: 0.9;
           }
 
           .homeBadgeAccepted {
@@ -691,11 +691,11 @@ export default function Hero() {
 
         @media (max-width: 440px) {
           .homePhoneColumn {
-            min-height: 500px;
+            min-height: 610px;
           }
 
           .homePhoneScene {
-            scale: 0.76;
+            scale: 0.84;
           }
 
           .homePhoneFrame {
