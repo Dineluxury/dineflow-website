@@ -38,6 +38,33 @@ function StoreBadge({ store }) {
   </a>
 }
 
+function playPromoAlert() {
+  try {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext
+    if (!AudioContextClass) return
+    const context = new AudioContextClass()
+    const playTone = () => {
+      const oscillator = context.createOscillator()
+      const gain = context.createGain()
+      oscillator.type = 'sine'
+      oscillator.frequency.setValueAtTime(740, context.currentTime)
+      oscillator.frequency.setValueAtTime(980, context.currentTime + 0.11)
+      gain.gain.setValueAtTime(0.0001, context.currentTime)
+      gain.gain.exponentialRampToValueAtTime(0.055, context.currentTime + 0.025)
+      gain.gain.exponentialRampToValueAtTime(0.0001, context.currentTime + 0.28)
+      oscillator.connect(gain)
+      gain.connect(context.destination)
+      oscillator.start()
+      oscillator.stop(context.currentTime + 0.29)
+      oscillator.onended = () => context.close().catch(() => {})
+    }
+    if (context.state === 'suspended') context.resume().then(playTone).catch(() => context.close().catch(() => {}))
+    else playTone()
+  } catch {
+    // Browsers without audio support or autoplay permission simply stay quiet.
+  }
+}
+
 export default function GuestOrderResultPage() {
   const [state, setState] = useState('checking')
   const [orderId, setOrderId] = useState('')
@@ -50,6 +77,7 @@ export default function GuestOrderResultPage() {
   const [platform, setPlatform] = useState('other')
   const [promoStage, setPromoStage] = useState('')
   const [promoOpen, setPromoOpen] = useState(false)
+  const [promoVisible, setPromoVisible] = useState(false)
   const promoOpenRef = useRef(false)
 
   const showInstallPrompt = useCallback((id, stage) => {
@@ -63,13 +91,18 @@ export default function GuestOrderResultPage() {
     sessionStorage.setItem(key, JSON.stringify(history))
     promoOpenRef.current = true
     setPromoStage(stage)
+    setPromoVisible(false)
     setPromoOpen(true)
+    window.requestAnimationFrame(() => setPromoVisible(true))
+    if (typeof navigator.vibrate === 'function') navigator.vibrate([70, 35, 70])
+    playPromoAlert()
   }, [])
 
-  const closeInstallPrompt = () => {
+  const closeInstallPrompt = useCallback(() => {
     promoOpenRef.current = false
-    setPromoOpen(false)
-  }
+    setPromoVisible(false)
+    window.setTimeout(() => setPromoOpen(false), 320)
+  }, [])
 
   const storeOptions = platform === 'ios'
     ? [{ id: 'ios', url: IOS_APP_URL }]
@@ -134,6 +167,7 @@ export default function GuestOrderResultPage() {
 
         if (orderStatus === 'READY' || orderStatus === 'COMPLETED' || orderStatus === 'CANCELLED') {
           promoOpenRef.current = false
+          setPromoVisible(false)
           setPromoOpen(false)
         } else if (PAID_STATUSES.has(orderStatus) || ['PAID', 'COMPLETED', 'SUCCESS'].includes(paymentStatus)) {
           if (orderStatus === 'ACCEPTED') showInstallPrompt(id, 'accepted')
@@ -183,6 +217,12 @@ export default function GuestOrderResultPage() {
     const timer = window.setInterval(() => setNow(Date.now()), 1000)
     return () => window.clearInterval(timer)
   }, [])
+
+  useEffect(() => {
+    if (!promoOpen) return undefined
+    const timer = window.setTimeout(closeInstallPrompt, 9000)
+    return () => window.clearTimeout(timer)
+  }, [promoOpen, closeInstallPrompt])
 
   const isPaid = state === 'paid'
   const isFailed = state === 'failed'
@@ -267,17 +307,16 @@ export default function GuestOrderResultPage() {
         {!isPaid && !isFailed && <p style={styles.liveNote}>This page checks for order updates automatically.</p>}
         {!isPaid && <a href="/" style={styles.secondaryButton}>Back to DineFlow ET</a>}
       </section>
-      {promoOpen && !['READY', 'COMPLETED', 'CANCELLED'].includes(status) && <div style={styles.modalBackdrop} role="presentation">
-        <section style={styles.promoModal} role="dialog" aria-modal="true" aria-labelledby="install-prompt-title">
+      {promoOpen && !['READY', 'COMPLETED', 'CANCELLED'].includes(status) && <aside style={{ ...styles.promoToast, transform: promoVisible ? 'translateX(0)' : 'translateX(calc(100% + 24px))', opacity: promoVisible ? 1 : 0 }} role="region" aria-live="polite" aria-label="DineFlow ET app offer">
+        <section style={styles.promoModal} aria-labelledby="install-prompt-title">
           <button type="button" onClick={closeInstallPrompt} aria-label="Close app promotion" style={styles.modalClose}>×</button>
-          <div style={styles.promoMark}>D</div>
-          <div style={styles.eyebrow}>DINEFLOW ET</div>
+          <div style={styles.promoHeader}><div style={styles.promoMark}>D</div><div><div style={styles.eyebrow}>DINEFLOW ET</div><span style={styles.promoHint}>App offer · Order tracking stays open</span></div></div>
           <h2 id="install-prompt-title" style={styles.promoTitle}>{promoStage === 'payment-confirmed' ? 'Track your order in the app' : 'Get DineFlow ET for a better experience'}</h2>
-          <p style={styles.message}>Get order updates and check available app discounts while the restaurant prepares your food. You can still track this order here.</p>
+          <p style={styles.promoMessage}>Get order updates and check available app discounts while your food is being prepared.</p>
           <div style={styles.links}>{storeOptions.map(store => <StoreBadge key={store.id} store={store} />)}</div>
-          <button type="button" onClick={closeInstallPrompt} style={styles.continueButton}>Continue tracking order</button>
+          <button type="button" onClick={closeInstallPrompt} style={styles.continueButton}>Keep tracking as a guest</button>
         </section>
-      </div>}
+      </aside>}
     </main>
   )
 }
@@ -315,10 +354,13 @@ const styles = {
   appleIcon: { width: 28, height: 28, flexShrink: 0 },
   playIcon: { width: 29, height: 29, flexShrink: 0 },
   secondaryButton: { display: 'inline-block', padding: 12, borderRadius: 11, border: '1px solid #444', color: '#f4f4f5', textDecoration: 'none', fontWeight: 700 },
-  modalBackdrop: { position: 'fixed', inset: 0, zIndex: 50, display: 'grid', placeItems: 'center', padding: 18, background: 'rgba(0,0,0,.78)', backdropFilter: 'blur(4px)' },
-  promoModal: { position: 'relative', width: 'min(100%, 480px)', boxSizing: 'border-box', padding: '30px 22px 22px', borderRadius: 22, border: '1px solid #414141', background: '#191919', textAlign: 'center', boxShadow: '0 24px 80px rgba(0,0,0,.55)' },
-  modalClose: { position: 'absolute', top: 12, right: 14, width: 34, height: 34, border: 0, borderRadius: 99, background: '#292929', color: '#fff', fontSize: 24, cursor: 'pointer' },
-  promoMark: { width: 48, height: 48, display: 'grid', placeItems: 'center', margin: '0 auto 14px', borderRadius: 14, background: '#f97316', color: '#fff', fontSize: 28, fontWeight: 900 },
-  promoTitle: { margin: '4px 0 10px', fontSize: 23, lineHeight: 1.2 },
-  continueButton: { width: '100%', marginTop: 14, padding: 12, border: '1px solid #444', borderRadius: 10, background: 'transparent', color: '#d4d4d8', fontSize: 14, fontWeight: 700, cursor: 'pointer' }
+  promoToast: { position: 'fixed', top: 'max(12px, env(safe-area-inset-top))', right: 'max(12px, env(safe-area-inset-right))', zIndex: 50, width: 'min(410px, calc(100vw - 24px))', maxHeight: 'calc(100dvh - 24px)', overflowY: 'auto', borderRadius: 18, border: '1px solid #414141', background: '#191919', boxShadow: '0 16px 52px rgba(0,0,0,.48)', transition: 'transform .34s cubic-bezier(.2,.8,.2,1), opacity .34s ease' },
+  promoModal: { position: 'relative', boxSizing: 'border-box', padding: '16px 16px 14px', textAlign: 'left' },
+  modalClose: { position: 'absolute', top: 10, right: 10, width: 32, height: 32, border: 0, borderRadius: 99, background: '#292929', color: '#fff', fontSize: 22, cursor: 'pointer' },
+  promoHeader: { display: 'flex', alignItems: 'center', gap: 10, paddingRight: 35 },
+  promoMark: { width: 38, height: 38, display: 'grid', placeItems: 'center', flexShrink: 0, borderRadius: 11, background: '#f97316', color: '#fff', fontSize: 23, fontWeight: 900 },
+  promoHint: { display: 'block', color: '#a1a1aa', fontSize: 11, marginTop: -5 },
+  promoTitle: { margin: '13px 0 6px', fontSize: 18, lineHeight: 1.25 },
+  promoMessage: { color: '#b4b4bb', fontSize: 13, lineHeight: 1.45, margin: '0 0 10px' },
+  continueButton: { width: '100%', marginTop: 8, padding: '8px 10px', border: 0, borderRadius: 9, background: 'transparent', color: '#a1a1aa', fontSize: 12, fontWeight: 700, cursor: 'pointer' }
 }
