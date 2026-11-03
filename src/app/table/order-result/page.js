@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import Image from 'next/image'
 
 const API_BASE = (process.env.NEXT_PUBLIC_DINEFLOW_API_URL || 'https://api.dineflow.et/api').replace(/\/$/, '')
 const ANDROID_APP_URL = process.env.NEXT_PUBLIC_DINEFLOW_ANDROID_URL || 'https://play.google.com/store/search?q=DineFlow%20ET&c=apps'
@@ -310,7 +311,7 @@ export default function GuestOrderResultPage() {
       {promoOpen && !['READY', 'COMPLETED', 'CANCELLED'].includes(status) && <aside style={{ ...styles.promoToast, transform: promoVisible ? 'translateX(0)' : 'translateX(calc(100% + 24px))', opacity: promoVisible ? 1 : 0 }} role="region" aria-live="polite" aria-label="DineFlow ET app offer">
         <section style={styles.promoModal} aria-labelledby="install-prompt-title">
           <button type="button" onClick={closeInstallPrompt} aria-label="Close app promotion" style={styles.modalClose}>×</button>
-          <div style={styles.promoHeader}><div style={styles.promoMark}>D</div><div><div style={styles.eyebrow}>DINEFLOW ET</div><span style={styles.promoHint}>App offer · Order tracking stays open</span></div></div>
+          <div style={styles.promoHeader}><Image src="/dineflow-et-icon.png" alt="DineFlow ET" width={46} height={46} style={styles.promoMark} priority /><div><div style={styles.eyebrow}>DINEFLOW ET</div><span style={styles.promoHint}>App offer · Order tracking stays open</span></div></div>
           <h2 id="install-prompt-title" style={styles.promoTitle}>{promoStage === 'payment-confirmed' ? 'Track your order in the app' : 'Get DineFlow ET for a better experience'}</h2>
           <p style={styles.promoMessage}>Get order updates and check available app discounts while your food is being prepared.</p>
           <div style={styles.links}>{storeOptions.map(store => <StoreBadge key={store.id} store={store} />)}</div>
@@ -354,11 +355,11 @@ const styles = {
   appleIcon: { width: 28, height: 28, flexShrink: 0 },
   playIcon: { width: 29, height: 29, flexShrink: 0 },
   secondaryButton: { display: 'inline-block', padding: 12, borderRadius: 11, border: '1px solid #444', color: '#f4f4f5', textDecoration: 'none', fontWeight: 700 },
-  promoToast: { position: 'fixed', top: 'max(12px, env(safe-area-inset-top))', right: 'max(12px, env(safe-area-inset-right))', zIndex: 50, width: 'min(410px, calc(100vw - 24px))', maxHeight: 'calc(100dvh - 24px)', overflowY: 'auto', borderRadius: 18, border: '1px solid #414141', background: '#191919', boxShadow: '0 16px 52px rgba(0,0,0,.48)', transition: 'transform .34s cubic-bezier(.2,.8,.2,1), opacity .34s ease' },
+  promoToast: { position: 'fixed', top: 'max(12px, env(safe-area-inset-top))', right: 'max(12px, env(safe-area-inset-right))', zIndex: 50, width: 'min(410px, calc(100vw - 24px))', maxHeight: 'calc(100dvh - 24px)', overflowY: 'auto', borderRadius: 18, border: '1px solid rgba(249,115,22,.42)', borderTop: '3px solid #f97316', background: 'linear-gradient(145deg, rgba(38,28,22,.98), rgba(20,20,20,.98))', boxShadow: '0 18px 58px rgba(0,0,0,.52), 0 0 28px rgba(249,115,22,.12)', transition: 'transform .34s cubic-bezier(.2,.8,.2,1), opacity .34s ease' },
   promoModal: { position: 'relative', boxSizing: 'border-box', padding: '16px 16px 14px', textAlign: 'left' },
   modalClose: { position: 'absolute', top: 10, right: 10, width: 32, height: 32, border: 0, borderRadius: 99, background: '#292929', color: '#fff', fontSize: 22, cursor: 'pointer' },
   promoHeader: { display: 'flex', alignItems: 'center', gap: 10, paddingRight: 35 },
-  promoMark: { width: 38, height: 38, display: 'grid', placeItems: 'center', flexShrink: 0, borderRadius: 11, background: '#f97316', color: '#fff', fontSize: 23, fontWeight: 900 },
+  promoMark: { width: 46, height: 46, display: 'block', flexShrink: 0, borderRadius: 13, background: '#fff', objectFit: 'cover', boxShadow: '0 4px 15px rgba(0,0,0,.24)' },
   promoHint: { display: 'block', color: '#a1a1aa', fontSize: 11, marginTop: -5 },
   promoTitle: { margin: '13px 0 6px', fontSize: 18, lineHeight: 1.25 },
   promoMessage: { color: '#b4b4bb', fontSize: 13, lineHeight: 1.45, margin: '0 0 10px' },
