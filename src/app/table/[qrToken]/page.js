@@ -4,8 +4,8 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useParams } from 'next/navigation'
 
 const API_BASE = (process.env.NEXT_PUBLIC_DINEFLOW_API_URL || 'https://api.dineflow.et/api').replace(/\/$/, '')
-const ANDROID_APP_URL = process.env.NEXT_PUBLIC_DINEFLOW_ANDROID_URL || ''
-const IOS_APP_URL = process.env.NEXT_PUBLIC_DINEFLOW_IOS_URL || ''
+const ANDROID_APP_URL = process.env.NEXT_PUBLIC_DINEFLOW_ANDROID_URL || 'https://play.google.com/store/search?q=DineFlow%20ET&c=apps'
+const IOS_APP_URL = process.env.NEXT_PUBLIC_DINEFLOW_IOS_URL || 'https://apps.apple.com/search?term=DineFlow%20ET'
 
 async function apiRequest(path, options = {}) {
   const response = await fetch(`${API_BASE}${path}`, {
@@ -37,6 +37,9 @@ export default function TableAppLinkPage() {
   const [submitting, setSubmitting] = useState(false)
   const [checkoutError, setCheckoutError] = useState('')
   const [pendingOrder, setPendingOrder] = useState(null)
+  const [installPrompt, setInstallPrompt] = useState(false)
+  const [installPromptVisible, setInstallPromptVisible] = useState(false)
+  const [storeUrl, setStoreUrl] = useState('')
 
   const appLink = useMemo(() => qrToken ? `dineflow://table/${encodeURIComponent(qrToken)}` : '', [qrToken])
   const menuCategories = useMemo(() => (table?.menu || []).filter(category => String(category.categoryType || 'MENU').toUpperCase() !== 'EXTRA'), [table])
@@ -88,6 +91,26 @@ export default function TableAppLinkPage() {
     const timer = window.setTimeout(() => { window.location.href = appLink }, 250)
     return () => window.clearTimeout(timer)
   }, [appLink])
+
+  // Offer the native app after guests have had a moment to see the web menu.
+  // Keep it dismissible and leave the menu and guest checkout fully usable.
+  useEffect(() => {
+    if (loading || pageError || pendingOrder || !table || typeof window === 'undefined') return
+    const userAgent = navigator.userAgent || ''
+    const isIOS = /iphone|ipad|ipod/i.test(userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+    setStoreUrl(isIOS ? IOS_APP_URL : ANDROID_APP_URL)
+    const timer = window.setTimeout(() => {
+      setInstallPrompt(true)
+      window.requestAnimationFrame(() => setInstallPromptVisible(true))
+      if (typeof navigator.vibrate === 'function') navigator.vibrate([45, 30, 45])
+    }, 6000)
+    return () => window.clearTimeout(timer)
+  }, [loading, pageError, pendingOrder, table])
+
+  const closeInstallPrompt = () => {
+    setInstallPromptVisible(false)
+    window.setTimeout(() => setInstallPrompt(false), 280)
+  }
 
   const changeQuantity = (itemId, delta) => {
     setQuantities(current => {
@@ -187,6 +210,13 @@ export default function TableAppLinkPage() {
           <a href="/" style={styles.brand}><span style={styles.brandMark}>D</span><span>DineFlow ET</span></a>
           <a href={appLink || '#'} onClick={event => { if (!appLink) event.preventDefault() }} style={styles.openApp}>Open DineFlow ET</a>
         </header>
+
+        {installPrompt && !pendingOrder && <aside style={{ ...styles.installToast, transform: installPromptVisible ? 'translateX(0)' : 'translateX(calc(100% + 24px))', opacity: installPromptVisible ? 1 : 0 }} role="region" aria-live="polite" aria-label="DineFlow ET app offer">
+          <button type="button" onClick={closeInstallPrompt} aria-label="Close app offer" style={styles.installClose}>×</button>
+          <div style={styles.installBrand}><img src="/dineflow-et-icon.png" alt="" width="42" height="42" style={styles.installIcon} /><div><strong style={styles.installEyebrow}>DINEFLOW ET</strong><span style={styles.installCaption}>For a better ordering experience</span></div></div>
+          <p style={styles.installMessage}>Get order updates and discover app-only discounts. You can keep browsing and ordering here as a guest.</p>
+          <a href={storeUrl || ANDROID_APP_URL} target="_blank" rel="noreferrer" style={styles.installButton}>Get the DineFlow ET app</a>
+        </aside>}
 
         {loading ? (
           <section style={styles.stateCard}><div style={styles.spinner} /><h1 style={styles.title}>Loading this table…</h1><p style={styles.muted}>Getting the restaurant menu ready.</p></section>
@@ -293,6 +323,14 @@ const styles = {
   brand: { display: 'inline-flex', alignItems: 'center', gap: 10, color: '#fff', textDecoration: 'none', fontSize: 18, fontWeight: 800 },
   brandMark: { width: 34, height: 34, borderRadius: 10, display: 'grid', placeItems: 'center', background: '#f97316', fontSize: 20 },
   openApp: { color: '#fb923c', fontWeight: 700, textDecoration: 'none', fontSize: 14 },
+  installToast: { position: 'fixed', top: 'max(12px, env(safe-area-inset-top))', right: 'max(12px, env(safe-area-inset-right))', zIndex: 50, boxSizing: 'border-box', width: 'min(360px, calc(100vw - 24px))', borderRadius: 18, border: '1px solid rgba(249,115,22,.42)', borderTop: '3px solid #f97316', background: 'linear-gradient(145deg, #261c16, #141414)', boxShadow: '0 18px 58px rgba(0,0,0,.52), 0 0 28px rgba(249,115,22,.12)', padding: '16px 16px 14px', transition: 'transform .34s cubic-bezier(.2,.8,.2,1), opacity .34s ease' },
+  installClose: { position: 'absolute', top: 10, right: 10, width: 30, height: 30, border: 0, borderRadius: 99, background: '#303030', color: '#fff', fontSize: 22, lineHeight: 1, cursor: 'pointer' },
+  installBrand: { display: 'flex', alignItems: 'center', gap: 10, paddingRight: 30 },
+  installIcon: { display: 'block', flexShrink: 0, borderRadius: 12, objectFit: 'cover', background: '#fff' },
+  installEyebrow: { display: 'block', color: '#fb923c', fontSize: 12, letterSpacing: '.12em' },
+  installCaption: { display: 'block', color: '#a1a1aa', fontSize: 11, marginTop: 3 },
+  installMessage: { color: '#d4d4d8', fontSize: 13, lineHeight: 1.45, margin: '12px 0' },
+  installButton: { display: 'block', padding: '11px 14px', borderRadius: 12, background: '#f97316', color: '#fff', textAlign: 'center', textDecoration: 'none', fontSize: 13, fontWeight: 800 },
   hero: { padding: '10px 0 24px' },
   eyebrow: { color: '#fb923c', fontSize: 12, fontWeight: 800, letterSpacing: '0.12em', marginBottom: 9 },
   title: { fontSize: 'clamp(26px, 6vw, 36px)', fontWeight: 850, margin: '0 0 8px', letterSpacing: '-0.03em' },
