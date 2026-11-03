@@ -3,8 +3,8 @@
 import { useEffect, useMemo, useState } from 'react'
 
 const API_BASE = (process.env.NEXT_PUBLIC_DINEFLOW_API_URL || 'https://api.dineflow.et/api').replace(/\/$/, '')
-const ANDROID_APP_URL = process.env.NEXT_PUBLIC_DINEFLOW_ANDROID_URL || ''
-const IOS_APP_URL = process.env.NEXT_PUBLIC_DINEFLOW_IOS_URL || ''
+const ANDROID_APP_URL = process.env.NEXT_PUBLIC_DINEFLOW_ANDROID_URL || 'https://play.google.com/store/search?q=Dineflow&c=apps'
+const IOS_APP_URL = process.env.NEXT_PUBLIC_DINEFLOW_IOS_URL || 'https://apps.apple.com/search?term=Dineflow'
 
 const money = (value) => `ETB ${Number(value || 0).toFixed(2)}`
 const PAID_STATUSES = new Set(['PENDING', 'ACCEPTED', 'PREPARING', 'READY', 'COMPLETED'])
@@ -175,16 +175,21 @@ export default function GuestOrderResultPage() {
         </div>}
         {order?.qrUsed && <p style={styles.usedNotice}>Order QR scanned by staff.</p>}
 
-        {isPaid && (
+        {isPaid && ['READY', 'COMPLETED'].includes(status) && (
           <div style={styles.downloadBox}>
             <h2 style={styles.downloadTitle}>Get the Dineflow app</h2>
-            <p style={styles.message}>You can keep following this order here as a guest. The Dineflow app makes future orders and updates easier.</p>
-            {(ANDROID_APP_URL || IOS_APP_URL) ? (
-              <div style={styles.links}>
-                {ANDROID_APP_URL && <a href={ANDROID_APP_URL} target="_blank" rel="noreferrer" style={styles.storeButton}>Get it on Google Play</a>}
-                {IOS_APP_URL && <a href={IOS_APP_URL} target="_blank" rel="noreferrer" style={styles.secondaryButton}>Download on the App Store</a>}
-              </div>
-            ) : <p style={styles.storeNotice}>You can keep ordering here as a guest.</p>}
+            <p style={styles.message}>Get a better experience with Dineflow: discover restaurants, order, and follow updates in the app.</p>
+            <div style={styles.links}>
+              <a href={IOS_APP_URL} target="_blank" rel="noreferrer" aria-label="Download Dineflow on the App Store" style={styles.storeButton}>
+                <svg viewBox="0 0 24 24" aria-hidden="true" style={styles.appleIcon}><path fill="currentColor" d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.43.61-2.18.43-3.04-.35C2.79 15.96 3.42 8.64 8.87 8.36c1.32.13 2.24.74 3.04.79.95-.19 1.86-.8 3.29-.82 1.72-.14 3.29.67 4.34 1.85-3.6 2.16-2.75 6.93.59 8.22-.65 1.6-1.49 3.17-3.08 4.89zM12.03 8.25c-.15-2.37 1.83-4.32 4.05-4.5.31 2.74-2.49 4.77-4.05 4.5z" /></svg>
+                <span><small>Download on the</small><strong>App Store</strong></span>
+              </a>
+              <a href={ANDROID_APP_URL} target="_blank" rel="noreferrer" aria-label="Get Dineflow on Google Play" style={styles.storeButton}>
+                <svg viewBox="0 0 24 24" aria-hidden="true" style={styles.playIcon}><path fill="#34A853" d="M3.2 2.7c-.3.4-.5.9-.5 1.6v15.4c0 .7.2 1.2.5 1.6l8.6-9.3z"/><path fill="#4285F4" d="m11.8 12 3.2 3.4 4-2.3c1.2-.7 1.2-1.8 0-2.5l-4-2.3z"/><path fill="#FBBC04" d="m3.2 21.3 11.8-6.8-3.2-2.5z"/><path fill="#EA4335" d="m3.2 2.7 8.6 9.3 3.2-2.5z"/></svg>
+                <span><small>GET IT ON</small><strong>Google Play</strong></span>
+              </a>
+            </div>
+            <p style={styles.storeNotice}>You can also keep ordering here as a guest.</p>
           </div>
         )}
         {!isPaid && !isFailed && <p style={styles.liveNote}>This page checks for order updates automatically.</p>}
@@ -220,8 +225,10 @@ const styles = {
   liveNote: { marginTop: 20, color: '#a1a1aa', fontSize: 12 },
   downloadBox: { marginTop: 26, paddingTop: 22, borderTop: '1px solid #303030' },
   downloadTitle: { fontSize: 19, margin: '0 0 8px' },
-  links: { display: 'grid', gap: 10, marginTop: 18 },
-  storeNotice: { color: '#d4d4d8', fontSize: 13, lineHeight: 1.5, margin: '16px 0 0' },
-  storeButton: { display: 'block', padding: 13, borderRadius: 11, background: '#f97316', color: '#fff', textDecoration: 'none', fontWeight: 800 },
+  links: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: 10, marginTop: 18 },
+  storeNotice: { color: '#a1a1aa', fontSize: 12, lineHeight: 1.5, margin: '14px 0 0' },
+  storeButton: { minHeight: 58, boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, padding: '8px 13px', border: '1px solid #666', borderRadius: 10, background: '#050505', color: '#fff', textDecoration: 'none', textAlign: 'left' },
+  appleIcon: { width: 28, height: 28, flexShrink: 0 },
+  playIcon: { width: 29, height: 29, flexShrink: 0 },
   secondaryButton: { display: 'inline-block', padding: 12, borderRadius: 11, border: '1px solid #444', color: '#f4f4f5', textDecoration: 'none', fontWeight: 700 }
 }
