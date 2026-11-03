@@ -291,7 +291,7 @@ export default function Hero() {
           display: flex;
           justify-content: center;
           align-items: center;
-          min-height: 700px;
+          min-height: 750px;
           padding-top: 2rem;
         }
 
@@ -315,12 +315,12 @@ export default function Hero() {
         .homePhoneFrame {
           position: relative;
           width: 350px;
-          height: 680px;
+          height: 730px;
           padding: 8px;
           background: linear-gradient(90deg, #77787b 0%, #c4c5c7 1.3%, #f2f2f3 2.8%, #a3a4a7 4.4%, #e8e8e9 5.4%, #fbfbfc 50%, #dbdbdd 94.6%, #929396 96.2%, #d9d9db 98.4%, #6f7073 100%);
           border: 1px solid #8f9093;
-          border-radius: 54px;
-          transform: perspective(1100px) rotateY(-5deg) rotateX(2deg);
+          border-radius: 56px;
+          transform: perspective(1400px) rotateY(-7deg) rotateX(1deg);
           box-shadow: 24px 32px 74px rgba(17,24,39,0.28), 0 0 44px rgba(233,107,34,0.18), inset 0 0 0 1px rgba(255,255,255,.82), inset 0 0 0 2px rgba(72,73,76,.65);
         }
 
@@ -330,7 +330,7 @@ export default function Hero() {
           z-index: 1;
           inset: 2px;
           border: 1px solid rgba(255,255,255,.74);
-          border-radius: 51px;
+          border-radius: 53px;
           pointer-events: none;
         }
 
@@ -373,6 +373,8 @@ export default function Hero() {
 
         .homePhoneScreen {
           position: relative;
+          display: flex;
+          justify-content: center;
           width: 100%;
           height: 100%;
           overflow: hidden;
@@ -383,10 +385,11 @@ export default function Hero() {
 
         .homePhoneAppScreenshot {
           display: block;
-          width: 100%;
+          width: auto;
           height: 100%;
-          object-fit: cover;
-          object-position: center top;
+          max-width: 100%;
+          object-fit: contain;
+          object-position: center;
         }
 
         .homePhoneIsland {
@@ -672,7 +675,7 @@ export default function Hero() {
           }
 
           .homePhoneColumn {
-            min-height: 650px;
+            min-height: 700px;
             padding-top: 0;
           }
 
@@ -691,7 +694,7 @@ export default function Hero() {
 
         @media (max-width: 440px) {
           .homePhoneColumn {
-            min-height: 610px;
+            min-height: 650px;
           }
 
           .homePhoneScene {
@@ -699,7 +702,7 @@ export default function Hero() {
           }
 
           .homePhoneFrame {
-            transform: perspective(1000px) rotateY(-2deg) rotateX(1deg);
+            transform: perspective(1400px) rotateY(-3deg) rotateX(0.5deg);
           }
         }
       `}</style>
