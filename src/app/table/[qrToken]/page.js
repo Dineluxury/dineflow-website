@@ -40,6 +40,17 @@ export default function TableAppLinkPage() {
   const [installPrompt, setInstallPrompt] = useState(false)
   const [installPromptVisible, setInstallPromptVisible] = useState(false)
   const [storeUrl, setStoreUrl] = useState('')
+  const [lightMode, setLightMode] = useState(false)
+
+  useEffect(() => {
+    setLightMode(window.localStorage.getItem('dineflow_table_theme') === 'light')
+  }, [])
+
+  const toggleTheme = () => setLightMode(current => {
+    const next = !current
+    window.localStorage.setItem('dineflow_table_theme', next ? 'light' : 'dark')
+    return next
+  })
 
   const appLink = useMemo(() => qrToken ? `dineflow://table/${encodeURIComponent(qrToken)}` : '', [qrToken])
   const menuCategories = useMemo(() => (table?.menu || []).filter(category => String(category.categoryType || 'MENU').toUpperCase() !== 'EXTRA'), [table])
@@ -204,11 +215,14 @@ export default function TableAppLinkPage() {
   })
 
   return (
-    <main style={styles.page}>
+    <main style={{ ...styles.page, ...(lightMode ? styles.lightTheme : {}) }}>
       <div style={styles.shell}>
         <header style={styles.header}>
-          <a href="/" style={styles.brand}><span style={styles.brandMark}>D</span><span>DineFlow ET</span></a>
-          <a href={appLink || '#'} onClick={event => { if (!appLink) event.preventDefault() }} style={styles.openApp}>Open DineFlow ET</a>
+          <a href="/" style={styles.brand}><img src="/dineflow-logo.png" alt="" width="40" height="40" style={styles.brandLogo} /><span>DineFlow ET</span></a>
+          <div style={styles.headerActions}>
+            <button type="button" onClick={toggleTheme} aria-pressed={lightMode} aria-label={`Switch to ${lightMode ? 'dark' : 'light'} mode`} style={styles.themeToggle}>{lightMode ? '☾ Dark' : '☼ Light'}</button>
+            <a href={appLink || '#'} onClick={event => { if (!appLink) event.preventDefault() }} style={styles.openApp}>Open DineFlow ET</a>
+          </div>
         </header>
 
         {installPrompt && !pendingOrder && <aside style={{ ...styles.installToast, transform: installPromptVisible ? 'translateX(0)' : 'translateX(calc(100% + 24px))', opacity: installPromptVisible ? 1 : 0 }} role="region" aria-live="polite" aria-label="DineFlow ET app offer">
@@ -317,12 +331,15 @@ export default function TableAppLinkPage() {
 }
 
 const styles = {
-  page: { minHeight: '100vh', background: '#0d0d0d', color: '#fff', padding: '0 16px 48px', fontFamily: 'Inter, system-ui, sans-serif' },
+  page: { minHeight: '100vh', background: 'var(--page-bg, #0d0d0d)', color: 'var(--text-primary, #fff)', padding: '0 16px 48px', fontFamily: 'Inter, system-ui, sans-serif', transition: 'background .2s ease, color .2s ease', '--page-bg': '#0d0d0d', '--text-primary': '#fff', '--card-bg': '#171717', '--card-border': '#303030', '--muted-text': '#a1a1aa', '--secondary-text': '#d4d4d8', '--subtle-border': '#303030', '--field-bg': '#101010', '--field-border': '#3b3b3b', '--soft-surface': '#272727' },
+  lightTheme: { '--page-bg': '#fff', '--text-primary': '#18181b', '--card-bg': '#fff', '--card-border': '#e4e4e7', '--muted-text': '#71717a', '--secondary-text': '#3f3f46', '--subtle-border': '#e4e4e7', '--field-bg': '#fff', '--field-border': '#d4d4d8', '--soft-surface': '#f4f4f5' },
   shell: { maxWidth: 760, margin: '0 auto' },
-  header: { height: 72, display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #242424', marginBottom: 28 },
-  brand: { display: 'inline-flex', alignItems: 'center', gap: 10, color: '#fff', textDecoration: 'none', fontSize: 18, fontWeight: 800 },
-  brandMark: { width: 34, height: 34, borderRadius: 10, display: 'grid', placeItems: 'center', background: '#f97316', fontSize: 20 },
-  openApp: { color: '#fb923c', fontWeight: 700, textDecoration: 'none', fontSize: 14 },
+  header: { minHeight: 72, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, borderBottom: '1px solid var(--subtle-border, #242424)', marginBottom: 28 },
+  brand: { display: 'inline-flex', alignItems: 'center', gap: 8, color: 'var(--text-primary, #fff)', textDecoration: 'none', fontSize: 16, fontWeight: 800, whiteSpace: 'nowrap' },
+  brandLogo: { width: 36, height: 36, display: 'block', borderRadius: 9, objectFit: 'cover', background: '#fff' },
+  headerActions: { display: 'flex', alignItems: 'center', gap: 8 },
+  themeToggle: { border: '1px solid var(--card-border, #303030)', borderRadius: 10, background: 'var(--card-bg, #171717)', color: 'var(--text-primary, #fff)', padding: '7px 9px', fontSize: 12, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' },
+  openApp: { color: '#fb923c', fontWeight: 700, textDecoration: 'none', fontSize: 12, whiteSpace: 'nowrap' },
   installToast: { position: 'fixed', top: 'max(12px, env(safe-area-inset-top))', right: 'max(12px, env(safe-area-inset-right))', zIndex: 50, boxSizing: 'border-box', width: 'min(360px, calc(100vw - 24px))', borderRadius: 18, border: '1px solid rgba(249,115,22,.42)', borderTop: '3px solid #f97316', background: 'linear-gradient(145deg, #261c16, #141414)', boxShadow: '0 18px 58px rgba(0,0,0,.52), 0 0 28px rgba(249,115,22,.12)', padding: '16px 16px 14px', transition: 'transform .34s cubic-bezier(.2,.8,.2,1), opacity .34s ease' },
   installClose: { position: 'absolute', top: 10, right: 10, width: 30, height: 30, border: 0, borderRadius: 99, background: '#303030', color: '#fff', fontSize: 22, lineHeight: 1, cursor: 'pointer' },
   installBrand: { display: 'flex', alignItems: 'center', gap: 10, paddingRight: 30 },
@@ -334,46 +351,46 @@ const styles = {
   hero: { padding: '10px 0 24px' },
   eyebrow: { color: '#fb923c', fontSize: 12, fontWeight: 800, letterSpacing: '0.12em', marginBottom: 9 },
   title: { fontSize: 'clamp(26px, 6vw, 36px)', fontWeight: 850, margin: '0 0 8px', letterSpacing: '-0.03em' },
-  muted: { color: '#a1a1aa', margin: 0, lineHeight: 1.55 },
-  tabs: { display: 'flex', gap: 10, borderBottom: '1px solid #303030', marginBottom: 22 },
-  tab: { padding: '12px 18px', border: 0, borderBottom: '2px solid transparent', background: 'transparent', color: '#a1a1aa', fontSize: 15, fontWeight: 750, cursor: 'pointer' },
+  muted: { color: 'var(--muted-text, #a1a1aa)', margin: 0, lineHeight: 1.55 },
+  tabs: { display: 'flex', gap: 10, borderBottom: '1px solid var(--subtle-border, #303030)', marginBottom: 22 },
+  tab: { padding: '12px 18px', border: 0, borderBottom: '2px solid transparent', background: 'transparent', color: 'var(--muted-text, #a1a1aa)', fontSize: 15, fontWeight: 750, cursor: 'pointer' },
   activeTab: { color: '#fb923c', borderBottomColor: '#f97316' },
   menuSection: { display: 'grid', gap: 24 },
   category: { minWidth: 0 },
   categoryTitle: { fontSize: 19, fontWeight: 800, margin: '0 0 12px' },
   items: { display: 'grid', gap: 10 },
-  menuItem: { display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 14, padding: 12, background: '#171717', border: '1px solid #292929', borderRadius: 15 },
+  menuItem: { display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 14, padding: 12, background: 'var(--card-bg, #171717)', border: '1px solid var(--card-border, #292929)', borderRadius: 15 },
   itemImage: { width: 76, height: 76, objectFit: 'cover', borderRadius: 11, background: '#252525', flexShrink: 0 },
   imagePlaceholder: { width: 76, height: 76, display: 'grid', placeItems: 'center', borderRadius: 11, background: '#29221d', color: '#fb923c', fontSize: 24, fontWeight: 800, flexShrink: 0 },
   itemInfo: { flex: 1, minWidth: 140 },
-  itemTitle: { fontSize: 15, fontWeight: 750, margin: '0 0 4px' },
-  itemDescription: { color: '#a1a1aa', fontSize: 12, lineHeight: 1.4, margin: '0 0 6px' },
+  itemTitle: { color: 'var(--text-primary, #fff)', fontSize: 15, fontWeight: 750, margin: '0 0 4px' },
+  itemDescription: { color: 'var(--muted-text, #a1a1aa)', fontSize: 12, lineHeight: 1.4, margin: '0 0 6px' },
   price: { color: '#fb923c', fontSize: 14 },
   customizeButton: { display: 'block', marginTop: 8, padding: 0, color: '#fdba74', border: 0, background: 'transparent', cursor: 'pointer', fontSize: 12, fontWeight: 750 },
   quantity: { display: 'flex', alignItems: 'center', gap: 10, fontWeight: 700 },
-  qtyButton: { width: 34, height: 34, borderRadius: 10, color: '#fff', background: '#272727', border: '1px solid #3a3a3a', fontSize: 20, cursor: 'pointer' },
+  qtyButton: { width: 34, height: 34, borderRadius: 10, color: 'var(--text-primary, #fff)', background: 'var(--soft-surface, #272727)', border: '1px solid var(--card-border, #3a3a3a)', fontSize: 20, cursor: 'pointer' },
   addButton: { background: '#f97316', borderColor: '#f97316' },
-  extrasBox: { flexBasis: '100%', padding: '10px 4px 0 90px', borderTop: '1px solid #303030' },
-  extrasHeading: { display: 'block', marginBottom: 8, color: '#e4e4e7', fontSize: 13 },
-  extraOption: { display: 'flex', alignItems: 'center', gap: 9, padding: '7px 0', color: '#d4d4d8', fontSize: 13 },
-  checkoutCard: { marginTop: 26, padding: 20, background: '#171717', border: '1px solid #303030', borderRadius: 16 },
-  stateCard: { marginTop: 60, padding: 30, textAlign: 'center', background: '#171717', border: '1px solid #303030', borderRadius: 16 },
+  extrasBox: { flexBasis: '100%', padding: '10px 4px 0 90px', borderTop: '1px solid var(--subtle-border, #303030)' },
+  extrasHeading: { display: 'block', marginBottom: 8, color: 'var(--secondary-text, #e4e4e7)', fontSize: 13 },
+  extraOption: { display: 'flex', alignItems: 'center', gap: 9, padding: '7px 0', color: 'var(--secondary-text, #d4d4d8)', fontSize: 13 },
+  checkoutCard: { marginTop: 26, padding: 20, background: 'var(--card-bg, #171717)', border: '1px solid var(--card-border, #303030)', borderRadius: 16 },
+  stateCard: { marginTop: 60, padding: 30, textAlign: 'center', background: 'var(--card-bg, #171717)', border: '1px solid var(--card-border, #303030)', borderRadius: 16 },
   formGrid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 12, marginBottom: 18 },
-  fieldLabel: { display: 'grid', gap: 7, color: '#d4d4d8', fontSize: 13, fontWeight: 650 },
-  input: { width: '100%', boxSizing: 'border-box', borderRadius: 10, border: '1px solid #3b3b3b', background: '#101010', color: '#fff', padding: '12px 13px', fontSize: 15, outlineColor: '#f97316' },
+  fieldLabel: { display: 'grid', gap: 7, color: 'var(--secondary-text, #d4d4d8)', fontSize: 13, fontWeight: 650 },
+  input: { width: '100%', boxSizing: 'border-box', borderRadius: 10, border: '1px solid var(--field-border, #3b3b3b)', background: 'var(--field-bg, #101010)', color: 'var(--text-primary, #fff)', padding: '12px 13px', fontSize: 15, outlineColor: '#f97316' },
   reviewItems: { display: 'grid', gap: 14, marginTop: 22 },
-  reviewGroup: { paddingBottom: 12, borderBottom: '1px solid #303030' },
+  reviewGroup: { paddingBottom: 12, borderBottom: '1px solid var(--subtle-border, #303030)' },
   reviewGroupTitle: { margin: '0 0 8px', color: '#fb923c', fontSize: 14 },
-  reviewLine: { display: 'flex', justifyContent: 'space-between', gap: 12, padding: '6px 0', color: '#e4e4e7', fontSize: 14 },
-  lineUnit: { display: 'block', marginTop: 3, color: '#a1a1aa', fontSize: 11 },
-  totalRow: { display: 'flex', justifyContent: 'space-between', gap: 12, paddingTop: 15, marginTop: 8, borderTop: '1px solid #303030', fontSize: 15 },
-  chargeRow: { display: 'flex', justifyContent: 'space-between', gap: 12, paddingTop: 10, color: '#d4d4d8', fontSize: 14 },
-  grandTotal: { marginTop: 13, color: '#fff', fontSize: 18, fontWeight: 800 },
-  finePrint: { color: '#a1a1aa', fontSize: 12, lineHeight: 1.5, margin: '9px 0 16px' },
+  reviewLine: { display: 'flex', justifyContent: 'space-between', gap: 12, padding: '6px 0', color: 'var(--secondary-text, #e4e4e7)', fontSize: 14 },
+  lineUnit: { display: 'block', marginTop: 3, color: 'var(--muted-text, #a1a1aa)', fontSize: 11 },
+  totalRow: { display: 'flex', justifyContent: 'space-between', gap: 12, paddingTop: 15, marginTop: 8, borderTop: '1px solid var(--subtle-border, #303030)', fontSize: 15 },
+  chargeRow: { display: 'flex', justifyContent: 'space-between', gap: 12, paddingTop: 10, color: 'var(--secondary-text, #d4d4d8)', fontSize: 14 },
+  grandTotal: { marginTop: 13, color: 'var(--text-primary, #fff)', fontSize: 18, fontWeight: 800 },
+  finePrint: { color: 'var(--muted-text, #a1a1aa)', fontSize: 12, lineHeight: 1.5, margin: '9px 0 16px' },
   primaryButton: { width: '100%', border: 0, borderRadius: 11, padding: '14px 18px', color: '#fff', background: '#f97316', fontSize: 15, fontWeight: 800, cursor: 'pointer' },
   secondaryButton: { display: 'inline-block', marginTop: 18, color: '#fff', background: '#f97316', borderRadius: 10, padding: '12px 18px', textDecoration: 'none', fontWeight: 750 },
   textButton: { display: 'block', margin: '14px auto 0', color: '#fb923c', border: 0, background: 'transparent', cursor: 'pointer', fontSize: 14, fontWeight: 700 },
   error: { padding: 12, margin: '14px 0', borderRadius: 10, background: 'rgba(239,68,68,.12)', color: '#fca5a5', fontSize: 13 },
   spinner: { width: 32, height: 32, border: '3px solid rgba(249,115,22,.2)', borderTopColor: '#f97316', borderRadius: '50%', margin: '0 auto 18px', animation: 'spin .8s linear infinite' },
-  footer: { paddingTop: 28, color: '#71717a', textAlign: 'center', fontSize: 12 }
+  footer: { paddingTop: 28, color: 'var(--muted-text, #71717a)', textAlign: 'center', fontSize: 12 }
 }
